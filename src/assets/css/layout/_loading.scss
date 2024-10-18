@@ -1,0 +1,32 @@
+@use "../foundation/mixin" as m;
+@use "../foundation/functions" as f;
+
+/**
+ * l-loading
+ */
+.l-loading {
+  display: grid;
+  place-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100vh;
+  background: rgb(var(--black));
+  transition: opacity var(--duration), visibility var(--duration);
+  &.is-loaded {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.l-loading__txt {
+  color: white;
+  font-size: f.vw(20);
+}
+
+@include m.m {
+  .l-loading__txt {
+    font-size: f.vw(24);
+  }
+}

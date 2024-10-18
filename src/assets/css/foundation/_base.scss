@@ -1,0 +1,43 @@
+@use "./mixin" as m;
+@use "./variable" as v;
+@use "./functions" as f;
+
+html {
+  &:not([lang="ja"]) {
+    word-break: break-word;
+  }
+}
+
+body {
+  min-width: 320px;
+  padding-top: f.vw(60);
+  color: rgb(var(--black));
+  background-color: white;
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: f.vw(16);
+  font-feature-settings: "palt";
+  line-height: 1.8;
+  letter-spacing: 0.05em;
+  -webkit-text-size-adjust: 100%;
+  @include m.m {
+    min-width: auto;
+    padding-top: f.vw(120);
+    @media (hover: none) {
+      -webkit-text-size-adjust: none;
+    }
+  }
+}
+
+// dialogが開いているときに背景固定
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+// ダークモードに対応させるとき
+// @media (prefers-color-scheme: dark) {
+// 	body {
+// 		color: white;
+// 		background-color: rgb(var(--black));
+// 	}
+// }

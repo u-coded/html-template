@@ -1,0 +1,70 @@
+@use "../../foundation/mixin" as m;
+@use "../../foundation/functions" as f;
+@use "../../foundation/variable" as v;
+
+/**
+ * Layout
+ */
+.u-inner {
+  padding-right: f.vw(#{v.$sp-gutter});
+  padding-left: f.vw(#{v.$sp-gutter});
+  @include m.m {
+    width: 100%;
+    max-width: f.vw(#{v.$pc-maximum-width});
+    margin: auto;
+    padding-right: f.vw(#{v.$pc-gutter});
+    padding-left: f.vw(#{v.$pc-gutter});
+  }
+}
+
+.u-hidden {
+  clip: rect(0, 0, 0, 0);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  white-space: nowrap;
+}
+
+// SPのみ表示
+.u-view-sp {
+  @include m.m {
+    display: none !important;
+  }
+}
+
+// PC(タブレット以上)のみ表示
+.u-view-pc {
+  @include m.m(max-md) {
+    display: none !important;
+  }
+}
+
+.u-alpha {
+  transition: opacity var(--duration);
+  @include m.h() {
+    opacity: 0.7;
+  }
+}
+
+/**
+ * Typography
+ */
+.u-font-bold {
+  font-weight: 700;
+}
+
+.u-font-black {
+  font-weight: 900;
+}
+
+.u-text-black {
+  color: rgb(var(--black));
+}
+
+.u-text-gray {
+  color: rgb(var(--gray));
+}

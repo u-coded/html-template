@@ -1,0 +1,26 @@
+@use "../../foundation/mixin" as m;
+@use "../../foundation/functions" as f;
+
+/**
+ * c-btn1
+ * 通常ボタン
+ */
+.c-btn1 {
+  width: 100%;
+  max-width: f.vw(240);
+  margin: f.vw(30) auto 0;
+}
+.c-btn1__link {
+  display: grid;
+  place-items: center;
+  border-radius: 9999px;
+  border: 1px solid;
+  padding: f.vw(5);
+}
+
+@include m.m {
+  .c-btn1 {
+    margin: f.vw(50) auto 0;
+    max-width: f.vw(300);
+  }
+}

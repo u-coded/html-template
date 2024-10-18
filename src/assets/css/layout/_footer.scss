@@ -1,0 +1,31 @@
+@use "../foundation/mixin" as m;
+@use "../foundation/functions" as f;
+
+/**
+ * l-footer
+ */
+.l-footer {
+  position: relative;
+  background: rgb(var(--black));
+  color: #fff;
+}
+.l-footer__inner {
+  padding-top: f.vw(30);
+  padding-bottom: f.vw(30);
+  text-align: center;
+}
+.l-footer__copyright {
+  margin-top: f.vw(20);
+  font-size: f.vw(10);
+}
+
+@include m.m {
+  .l-footer__inner {
+    padding-top: f.vw(50);
+    padding-bottom: f.vw(50);
+    text-align: center;
+  }
+  .l-footer__copyright {
+    font-size: f.vw(12);
+  }
+}

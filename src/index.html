@@ -1,0 +1,65 @@
+{{> _header}}
+
+<main>
+
+  <div class="p-kv" data-page-top-hide>
+    <p class="js-anime" data-anime="fadeIn" data-anime-delay="0.3">トップページメインビジュアル</p>
+  </div>
+
+  <section id="intro" class="p-intro">
+    <div class="p-intro__inner u-inner">
+      <h2 class="c-head1">静的用HTMLテンプレ</h2>
+      <div class="c-btn1">
+        <a href="./about/" class="c-btn1__link u-alpha">詳細はこちら</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="inner" class="p-inner">
+    <div class="p-inner__inner u-inner">
+      <div class="p-inner__box">
+        <h2 class="c-head1">インナー幅の表示テスト</h2>
+        <p class="p-inner__txt1">インナー幅は、iPad未満(SP)はSPデザインをベースに可変、<br>iPad以上〜PCのコンテンツ幅まではPCデザインを基準に可変、<br>コンテンツ幅以上は最大幅を指定して固定</p>
+        <p class="p-inner__txt2 u-gray">フォントサイズ固定の場合テスト</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="svg" class="p-svg">
+    <div class="p-svg__inner u-inner">
+      <h2 class="c-head1">SVGスプライト</h2>
+      <p class="p-svg__txt">SVGアイコンの表示テスト<span class="c-ico p-svg__ico"><svg viewBox="0 0 200 21.259"><use href="./assets/images/common/sprite.svg#arrow01"></use></svg></span></p>
+    </div>
+  </section>
+
+  <section id="news" class="p-news">
+    <div class="p-news__inner u-inner">
+      <h2 class="c-head1">ニュース</h2>
+      <p class="p-news__txt">テンプレが決まっているものはオブジェクトををループできる</p>
+      <ul role="list">
+        {{#each newsList}}
+        <li>
+          <h3>{{title}}</h3>
+          <p><strong>{{posted}}</strong></p>
+          <p>{{content}}</p>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </section>
+
+  <section class="p-image">
+    <div class="p-image__inner u-inner">
+      <h2 class="c-head1">画像表示テスト</h2>
+      <div class="p-image__img">
+        <picture>
+          <source srcset="./assets/images/index/img_dummy1_pc.jpg" media="(min-width: 768px)" width="1920" height="1080">
+          <img src="./assets/images/index/img_dummy1_sp.jpg" alt="" loading="lazy" width="750" height="750">
+        </picture>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+{{> _footer}}

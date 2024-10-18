@@ -1,0 +1,21 @@
+@use "../../foundation/mixin" as m;
+@use "../../foundation/functions" as f;
+
+/**
+ * p-about-intro
+ */
+.p-about-intro {
+}
+.p-about-intro__inner {
+  padding-top: f.vw(50);
+  padding-bottom: f.vw(50);
+}
+.p-about-intro__txt {
+  text-align: center;
+}
+@include m.m {
+  .p-about-intro__inner {
+    padding-top: f.vw(100);
+    padding-bottom: f.vw(100);
+  }
+}

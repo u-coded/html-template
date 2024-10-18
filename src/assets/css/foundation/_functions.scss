@@ -1,0 +1,7 @@
+@use "./mixin" as m;
+@use "./variable" as v;
+
+// pxをvw可変に変更する関数
+@function vw($px) {
+	@return calc($px * var(--vw));
+}

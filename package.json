@@ -1,0 +1,26 @@
+{
+  "name": "HTML Template",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "handlebars": "^4.7.8",
+    "postcss": "^8.4.47",
+    "sass": "^1.80.2",
+    "vite": "^5.4.9",
+    "vite-plugin-handlebars": "^2.0.0",
+    "vite-plugin-imagemin": "^0.6.1"
+  },
+  "browserslist": [
+    "last 3 versions",
+    "> 5%",
+    "Firefox ESR",
+    "not dead"
+  ]
+}

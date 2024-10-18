@@ -1,0 +1,18 @@
+@use "../../foundation/mixin" as m;
+@use "../../foundation/functions" as f;
+
+/**
+ * p-about-child
+ */
+.p-about-child {
+}
+.p-about-child__inner {
+  padding-top: f.vw(50);
+  padding-bottom: f.vw(50);
+}
+@include m.m {
+  .p-about-child__inner {
+    padding-top: f.vw(100);
+    padding-bottom: f.vw(100);
+  }
+}

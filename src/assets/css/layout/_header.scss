@@ -1,0 +1,45 @@
+@use "../foundation/mixin" as m;
+@use "../foundation/functions" as f;
+
+/**
+ * l-header
+ */
+.l-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: f.vw(60);
+  background: white;
+}
+.l-header__logo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.l-header__logo-link {
+  display: block;
+  font-weight: 700;
+  font-size: f.vw(20);
+}
+
+@include m.m {
+  .l-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 f.vw(50);
+    align-items: center;
+    position: absolute;
+    height: f.vw(120);
+    padding: 0 f.vw(30);
+  }
+  .l-header__logo {
+    justify-content: flex-start;
+  }
+  .l-header__logo-link {
+    font-size: f.vw(30);
+  }
+}

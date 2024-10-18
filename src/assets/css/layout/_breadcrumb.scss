@@ -1,0 +1,36 @@
+@use "../foundation/mixin" as m;
+@use "../foundation/functions" as f;
+
+/**
+ * l-breadcrumb
+ */
+.l-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: f.vw(10) 0;
+}
+
+.l-breadcrumb__item {
+  font-size: f.vw(12);
+  & + .l-breadcrumb__item {
+    display: flex;
+    &::before {
+      content: "\FF1E";
+      display: inline-block;
+      padding: 0 f.vw(3) 0 f.vw(6);
+    }
+  }
+}
+
+a.l-breadcrumb__txt {
+  color: rgb(var(--black) / 0.5);
+}
+span.l-breadcrumb__txt {
+  color: rgb(var(--black));
+}
+
+@include m.m {
+  .l-breadcrumb__item {
+    font-size: f.vw(14);
+  }
+}

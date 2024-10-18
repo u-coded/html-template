@@ -1,0 +1,82 @@
+@use "../../foundation/mixin" as m;
+@use "../../foundation/functions" as f;
+
+/**
+ * アニメーションのためのスタイル
+ */
+
+// フェードイン
+[data-anime="fadeIn"] {
+  opacity: 0;
+  transition-duration: var(--duration);
+  transition-property: opacity;
+  &.is-found {
+    opacity: 1;
+  }
+}
+// 下から
+[data-anime="fadeInUp"] {
+  opacity: 0;
+  transition-duration: var(--duration);
+  transition-property: opacity, translate;
+  translate: 0 f.vw(30);
+  &.is-found {
+    opacity: 1;
+    translate: 0;
+  }
+}
+
+// 上から
+[data-anime="fadeInDown"] {
+  opacity: 0;
+  transition-duration: var(--duration);
+  transition-property: opacity, translate;
+  translate: 0 f.vw(-30);
+  &.is-found {
+    opacity: 1;
+    translate: 0;
+  }
+}
+
+// 左から
+[data-anime="fadeInLeft"] {
+  opacity: 0;
+  transition-duration: var(--duration);
+  transition-property: opacity, translate;
+  translate: f.vw(-30) 0;
+  &.is-found {
+    opacity: 1;
+    translate: 0;
+  }
+}
+
+// 右から
+[data-anime="fadeInRight"] {
+  opacity: 0;
+  transition-duration: var(--duration);
+  transition-property: opacity, translate;
+  translate: f.vw(-30) 0;
+  &.is-found {
+    opacity: 1;
+    translate: 0;
+  }
+}
+
+// 時間、ディレイ
+[data-anime] {
+  @for $i from 1 through 30 {
+    $j: $i * 0.1;
+    &[data-anime-duration="#{$j}"] {
+      transition-duration: $j + s;
+    }
+    &[data-anime-delay="#{$j}"] {
+      transition-delay: $j + s;
+    }
+  }
+}
+
+@include m.m(max-md) {
+  [data-anime] {
+    transition-delay: 0s;
+  }
+}

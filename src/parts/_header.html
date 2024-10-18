@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
+	<meta name="format-detection" content="telephone=no">
+
+	<meta name="description" content="{{ siteData.siteDesc }}">
+	<meta name="keywords" content="{{ siteData.siteKwd }}">
+	<link rel="canonical" href="{{ siteData.siteCanonical }}">
+
+	<!-- Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="{{ siteData.siteName }}">
+	<meta property="og:image" content="{{ siteData.siteCanonical }}assets/images/common/ogp.png">
+	<meta property="og:url" content="{{ siteData.siteCanonical }}">
+	<meta property="og:site_name" content="{{ siteData.siteName }}">
+	<meta property="og:description" content="{{ siteData.siteDesc }}">
+
+	<!-- Twitter -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="{{ siteData.siteName }}">
+	<meta name="twitter:image" content="{{ siteData.siteCanonical }}assets/images/common/ogp.png">
+	<meta name="twitter:url" content="{{ siteData.siteCanonical }}">
+	<meta name="twitter:description" content="{{ siteData.siteDesc }}">
+
+	<!-- Icons -->
+	<link rel="apple-touch-icon" sizes="180x180" href="{{ path }}assets/images/icon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="{{ path }}assets/images/icon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="{{ path }}assets/images/icon/favicon-16x16.png">
+	<link rel="manifest" href="{{ path }}assets/images/icon/site.webmanifest">
+	<meta name="msapplication-TileColor" content="#000">
+	<meta name="theme-color" content="#ffffff">
+
+	<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+
+	{{#if (eq pageSlug "index")}}
+	<title>{{ siteData.siteName }}</title>
+	{{else}}
+	<title>{{ pageTitle }} | {{ siteData.siteName }}</title>
+	{{/if}}
+	<link rel="stylesheet" href="{{ path }}assets/css/style.scss">
+	<script type="module" src="{{ path }}assets/js/main.js"></script>
+</head>
+
+<body id="{{ pageSlug }}" ontouchstart="">
+
+	{{#if (eq pageSlug "index")}}
+	<div class="l-loading" data-loading>
+		<p class="l-loading__txt">Loading...</p>
+	</div>
+	{{/if}}
+
+	<header id="header" class="l-header">
+		<{{#if (eq pageSlug "index" )}}h1{{else}}p{{/if}} class="l-header__logo">
+			<a href="{{ path }}" class="l-header__logo-link u-alpha">制作テンプレ</a>
+		</{{#if (eq pageSlug "index" )}}h1{{else}}p{{/if}}>
+
+		<button class="l-nav-hamburger u-view-sp" type="button" data-nav-trigger>
+			<span class="l-nav-hamburger__icon">
+				<span class="u-hidden">メニューを開閉する</span>
+			</span>
+		</button>
+		<nav class="l-nav" data-nav>
+			<ul role="list" class="l-nav__list">
+				<li class="l-nav__list-item">
+					<a href="{{ path }}" class="l-nav__list-link u-alpha">トップページ</a>
+				</li>
+				<li class="l-nav__list-item">
+					<a href="{{ path }}about/" class="l-nav__list-link u-alpha">このテンプレについて</a>
+				</li>
+				<li class="l-nav__list-item">
+					<a href="{{ path }}about/child/" class="l-nav__list-link u-alpha">このテンプレについての<br>子ページ</a>
+				</li>
+				<li class="l-nav__list-item">
+					<a href="{{ path }}#svg" class="l-nav__list-link u-alpha">SVGスプライトテスト</a>
+				</li>
+			</ul>
+		</nav>
+		<div class="l-nav-overlay u-view-sp" data-nav-overlay tabindex="0"></div>
+	</header>
+
+	<div class="l-container">

@@ -1,0 +1,21 @@
+@use "sass:map";
+@use "./variable" as v;
+
+// breakpoints
+@mixin m($breakpoint: md) {
+	@media all and #{map.get(v.$breakpoints, $breakpoint)} {
+		@content;
+	}
+}
+
+// hover
+@mixin h() {
+	&:focus {
+		@content;
+	}
+	@media (any-hover: hover) {
+		&:hover {
+			@content;
+		}
+	}
+}
