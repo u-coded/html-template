@@ -11,8 +11,8 @@ html {
 body {
   min-width: 320px;
   padding-top: f.vw(60);
-  color: rgb(var(--black));
   background-color: white;
+  color: rgb(var(--black));
   font-family: "Noto Sans JP", sans-serif;
   font-weight: 400;
   font-size: f.vw(16);
@@ -22,16 +22,11 @@ body {
   -webkit-text-size-adjust: 100%;
   @include m.m {
     min-width: auto;
-    padding-top: f.vw(120);
+    padding-top: f.vw(100);
     @media (hover: none) {
       -webkit-text-size-adjust: none;
     }
   }
-}
-
-// dialogが開いているときに背景固定
-body:has(dialog[open]) {
-  overflow: hidden;
 }
 
 // ダークモードに対応させるとき

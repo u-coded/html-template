@@ -8,19 +8,18 @@
 .c-btn1 {
   width: 100%;
   max-width: f.vw(240);
-  margin: f.vw(30) auto 0;
+  margin-inline: auto;
 }
 .c-btn1__link {
   display: grid;
   place-items: center;
-  border-radius: 9999px;
-  border: 1px solid;
   padding: f.vw(5);
+  border: 1px solid;
+  border-radius: calc(1px / 0);
 }
 
 @include m.m {
   .c-btn1 {
-    margin: f.vw(50) auto 0;
     max-width: f.vw(300);
   }
 }

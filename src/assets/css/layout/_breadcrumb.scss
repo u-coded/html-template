@@ -5,32 +5,33 @@
  * l-breadcrumb
  */
 .l-breadcrumb {
-  display: flex;
-  flex-wrap: wrap;
-  padding: f.vw(10) 0;
-}
-
-.l-breadcrumb__item {
-  font-size: f.vw(12);
-  & + .l-breadcrumb__item {
+  ul {
     display: flex;
-    &::before {
-      content: "\FF1E";
-      display: inline-block;
-      padding: 0 f.vw(3) 0 f.vw(6);
+    flex-wrap: wrap;
+    padding: f.vw(10) 0;
+  }
+  li {
+    font-size: f.vw(12);
+    & + li {
+      display: flex;
+      &::before {
+        content: "\FF1E";
+        display: inline-block;
+        padding: 0 f.vw(3) 0 f.vw(6);
+      }
+    }
+    > a {
+    }
+    > span {
+      color: rgb(var(--black) / 0.5);
     }
   }
 }
 
-a.l-breadcrumb__txt {
-  color: rgb(var(--black) / 0.5);
-}
-span.l-breadcrumb__txt {
-  color: rgb(var(--black));
-}
-
 @include m.m {
-  .l-breadcrumb__item {
-    font-size: f.vw(14);
+  .l-breadcrumb {
+    li {
+      font-size: f.vw(14);
+    }
   }
 }

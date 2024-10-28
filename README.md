@@ -14,8 +14,15 @@ npm install
 npm run dev
 ```
 
-## 使用法など
+## ビルド
 
+```
+npm run build
+```
+
+## 注意点など
+
+- テンプレートエンジンは handlebars を使用している
 - css でサイズの指定は、px を vw に変換する関数`f.vw(xx)`を用意しているのでこれを使うと良い
-- `src/images/` 以下の画像は自動圧縮される
-- 圧縮したくない場合は`public/`以下に入れる
+- `src/images/` 以下の jpg,png 画像は自動で webp になる（html のパスも書き変わる）
+- webp にしたくない場合は`src/public/`以下に入れる

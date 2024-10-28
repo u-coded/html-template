@@ -1,23 +1,23 @@
 {{> _header}}
 
-<div class="l-sub-kv" data-page-top-hide>
-	<h1 class="l-sub-kv__txt">{{pageTitle}}</h1>
-</div>
+{{> _sub-kv }}
+
 {{> _breadcrumb }}
 
 <main>
 
-	<section class="p-about-intro">
-		<div class="p-about-intro__inner u-inner">
-			<h2 class="c-head1">このテンプレについての説明</h2>
-			<p class="p-about-intro__txt">CSSはFLOCSSベースで記述する</p>
-			<p class="p-about-intro__txt">vwを基準に可変にしたいとき用のsass関数vw()を用意している（サイズ指定は基本これを使っている）</p>
-			<p class="p-about-intro__txt">よく使うJSのあるハンバーガーメニュー、トップへ戻る、スクロール時のアニメーションはあらかじめ用意している</p>
-			<p class="p-about-intro__txt">アイコン等のSVGはuseで埋め込む</p>
-			<p class="p-about-intro__txt">スタイルを当てるul,olにはrole="list"を書く</p>
-			<p class="p-about-intro__txt">※パンクズの構造化データはまだ実装していない</p>
-		</div>
-	</section>
+  <section class="p-about-intro">
+    <div class="p-about-intro__inner u-inner">
+      <h2 class="c-head1">このテンプレについてのメモ</h2>
+      <p class="p-about-intro__txt">CSSはFLOCSSベースで記述する</p>
+      <p class="p-about-intro__txt">テンプレートエンジンは handlebars を使用している</p>
+      <p class="p-about-intro__txt">vwを基準に可変にしたいとき用のsass関数vw()を用意している（サイズ指定は基本これを使っている）</p>
+      <p class="p-about-intro__txt">buildすると、jpg・pngは自動的にwebpに変換される</p>
+      <p class="p-about-intro__txt">よく使うJSのあるハンバーガーメニュー、トップへ戻る、スクロール時のアニメーションはあらかじめ用意している</p>
+      <p class="p-about-intro__txt">アイコン等のSVGはuseで埋め込む</p>
+      <p class="p-about-intro__txt">スタイルを当てるul,olにはrole="list"を書く</p>
+    </div>
+  </section>
 
 </main>
 

@@ -1,0 +1,30 @@
+@use "../../foundation/mixin" as m;
+@use "../../foundation/functions" as f;
+
+/**
+ * c-archive1
+ * ニュースリスト
+ */
+.c-archive1 {
+
+}
+.c-archive1__article {
+  padding-bottom: f.vw(10);
+  & + & {
+    border-top: 1px solid;
+  }
+}
+.c-archive1__date {
+  font-size: f.vw(12);
+}
+.c-archive1__title {
+
+}
+.c-archive1__content {
+
+}
+@include m.m {
+  .c-btn1 {
+    max-width: f.vw(300);
+  }
+}

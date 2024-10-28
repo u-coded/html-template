@@ -2,9 +2,9 @@
 @use "../../foundation/functions" as f;
 
 /**
- * p-kv
+ * p-index-kv
  */
-.p-kv {
+.p-index-kv {
   background: rgb(var(--gray) / 0.3);
   display: grid;
   place-items: center;
@@ -12,55 +12,55 @@
 }
 
 @include m.m {
-  .p-kv {
-    height: f.vw(800);
+  .p-index-kv {
+    height: f.vw(500);
   }
 }
 
 /**
- * p-intro
+ * p-index-components
  */
-.p-intro {
+.p-index-components {
 }
-.p-intro__inner {
+.p-index-components__inner {
   padding-top: f.vw(50);
   padding-bottom: f.vw(50);
   text-align: center;
 }
 
 @include m.m {
-  .p-intro {
+  .p-index-components {
   }
-  .p-intro__inner {
+  .p-index-components__inner {
     padding-top: f.vw(100);
     padding-bottom: f.vw(100);
   }
 }
 
 /**
- * p-inner
+ * p-index-test
  */
-.p-inner {
+.p-index-test {
   background: rgb(var(--gray) / 0.3);
 }
-.p-inner__inner {
+.p-index-test__inner {
   padding-top: f.vw(50);
   padding-bottom: f.vw(50);
   text-align: center;
   background: rgb(var(--gray) / 0.3);
 }
-.p-inner__box {
+.p-index-test__box {
   background: white;
 }
-.p-inner__txt1 {
+.p-index-test__txt1 {
   font-size: f.vw(20);
 }
-.p-inner__txt2 {
+.p-index-test__txt2 {
   font-size: 20px;
   margin-top: 20px;
 }
 @include m.m {
-  .p-inner__inner {
+  .p-index-test__inner {
     padding-top: f.vw(100);
     padding-bottom: f.vw(100);
   }
@@ -121,6 +121,9 @@
 .p-image__inner {
   padding-top: f.vw(50);
   padding-bottom: f.vw(50);
+}
+.p-image__txt {
+  text-align: center;
 }
 .p-image__img {
   max-width: f.vw(600);

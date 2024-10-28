@@ -45,8 +45,8 @@ $breakpoints: (
   "max-lg": "(max-width: #{$pc-maximum-width - 0.01}px)",
   "xl": "(min-width: 1280px)",
   "max-xl": "(max-width: 1279.99px)",
-  "2xl": "(min-width: 1536px)",
-  "max-2xl": "(max-width: 1535.99px)",
+  "xxl": "(min-width: 1536px)",
+  "max-xxl": "(max-width: 1535.99px)",
 
   "md-max-lg":
     "(min-width: 768px) and (max-width: #{$pc-maximum-width - 0.01}px)",

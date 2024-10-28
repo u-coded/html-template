@@ -1,0 +1,211 @@
+@use "../../foundation/mixin" as m;
+@use "../../foundation/functions" as f;
+
+/**
+ * c-form1
+ * フォームのスタイル
+ */
+.c-form1 {
+  // テキスト
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    display: block;
+    width: 100%;
+    padding: 0.8em;
+    border: 1px solid rgb(var(--black));
+    border-radius: 0;
+    font-size: 16px;
+    -webkit-appearance: none;
+    &::placeholder {
+      color: #ccc;
+    }
+  }
+  // テキストエリア
+  textarea {
+    min-height: 10em;
+  }
+  // セレクトボックス
+  div:has(> select),
+  span:has(> select) {
+    position: relative;
+    width: 100%;
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: calc(50% - 0.4em);
+      right: 1em;
+      z-index: 1;
+      transform: rotate(45deg);
+      width: 0.6em;
+      height: 0.6em;
+      border-right: 1px solid rgb(var(--black));
+      border-bottom: 1px solid rgb(var(--black));
+      pointer-events: none;
+    }
+  }
+  select {
+    width: 100%;
+    padding: 0.6em;
+    border-color: rgb(var(--black));
+    background: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    appearance: none;
+  }
+  // ラジオボタン
+  label:has(> input[type="radio"]) {
+    display: inline-block;
+    position: relative;
+    padding-right: 1em;
+    padding-left: 1.2em;
+    cursor: pointer;
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      translate: 0 -50%;
+      width: 1em;
+      height: 1em;
+      border: 1px solid rgb(var(--black));
+      border-radius: 50%;
+    }
+    &::after {
+      content: "";
+      display: block;
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      left: 0.2em;
+      translate: 0 -50%;
+      width: 0.6em;
+      height: 0.6em;
+      margin: auto;
+      border-radius: 50%;
+      background: rgb(var(--black));
+      transition: opacity 0.3s;
+    }
+  }
+  label:has(> input[type="radio"]:checked) {
+    &::after {
+      opacity: 1;
+    }
+  }
+  input[type="radio"] {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    white-space: nowrap;
+  }
+  // チェックボックス
+  label:has(> input[type="checkbox"]) {
+    display: inline-block;
+    position: relative;
+    padding-right: 1em;
+    padding-left: 1.2em;
+    cursor: pointer;
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      translate: 0 -50%;
+      width: 1em;
+      height: 1em;
+      border: 1px solid rgb(var(--black));
+    }
+    &::after {
+      content: "";
+      display: block;
+      opacity: 0;
+      position: absolute;
+      top: 0.3em;
+      left: 0.3em;
+      transform: rotate(45deg);
+      width: 0.4em;
+      height: 0.8em;
+      border-right: 2px solid rgb(var(--black));
+      border-bottom: 2px solid rgb(var(--black));
+      transition: opacity 0.3s;
+    }
+  }
+  label:has(> input[type="checkbox"]:checked) {
+    &::after {
+      opacity: 1;
+    }
+  }
+  input[type="checkbox"] {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    white-space: nowrap;
+  }
+
+  // 送信・戻るボタン
+  input[type="submit"],
+  input[type="button"] {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    max-width: f.vw(240);
+    padding: f.vw(5);
+    // border: none;
+    border: 1px solid;
+    // border-radius: 0;
+    border-radius: calc(1px / 0);
+    -webkit-appearance: none;
+  }
+}
+
+.c-form1__dl {
+}
+.c-form1__block {
+  & + & {
+    margin-top: f.vw(20);
+  }
+}
+.c-form1__dt {
+  font-weight: 700;
+}
+.c-form1__dd {
+}
+.c-form1__btns {
+  margin-top: f.vw(30);
+  input {
+    margin-inline: auto;
+  }
+  input + input {
+    margin-top: f.vw(10);
+  }
+}
+
+@include m.m {
+  .c-form1__btns {
+    display: flex;
+    gap: f.vw(30);
+    justify-content: center;
+    margin-top: f.vw(50);
+    input {
+      margin-inline: 0;
+    }
+    input + input {
+      margin-top: 0;
+    }
+  }
+}

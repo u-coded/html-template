@@ -7,7 +7,7 @@
 .l-page-top {
   opacity: 0;
   position: fixed;
-  right: f.vw(30);
+  right: f.vw(15);
   bottom: f.vw(30);
   color: rgb(var(--black));
   transition: opacity var(--duration);
@@ -18,7 +18,6 @@
     position: absolute;
   }
 }
-
 .l-page-top__link {
   display: block;
   width: f.vw(40);
@@ -40,6 +39,9 @@
 }
 
 @include m.m {
+  .l-page-top {
+    right: f.vw(30);
+  }
   .l-page-top__link {
     width: f.vw(50);
     height: f.vw(50);

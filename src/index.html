@@ -2,25 +2,25 @@
 
 <main>
 
-  <div class="p-kv" data-page-top-hide>
-    <p class="js-anime" data-anime="fadeIn" data-anime-delay="0.3">トップページメインビジュアル</p>
+  <div class="p-index-kv" data-page-top-hide>
+    <p>トップページメインビジュアル</p>
   </div>
 
-  <section id="intro" class="p-intro">
-    <div class="p-intro__inner u-inner">
-      <h2 class="c-head1">静的用HTMLテンプレ</h2>
+  <section id="components" class="p-index-components">
+    <div class="p-index-components__inner u-inner">
+      <h2 class="c-head1">コンポーネントのテスト（見出し）</h2>
       <div class="c-btn1">
-        <a href="./about/" class="c-btn1__link u-alpha">詳細はこちら</a>
+        <a href="" class="c-btn1__link u-alpha">ボタン</a>
       </div>
     </div>
   </section>
 
-  <section id="inner" class="p-inner">
-    <div class="p-inner__inner u-inner">
-      <div class="p-inner__box">
+  <section id="inner" class="p-index-test">
+    <div class="p-index-test__inner u-inner">
+      <div class="p-index-test__box">
         <h2 class="c-head1">インナー幅の表示テスト</h2>
-        <p class="p-inner__txt1">インナー幅は、iPad未満(SP)はSPデザインをベースに可変、<br>iPad以上〜PCのコンテンツ幅まではPCデザインを基準に可変、<br>コンテンツ幅以上は最大幅を指定して固定</p>
-        <p class="p-inner__txt2 u-gray">フォントサイズ固定の場合テスト</p>
+        <p class="p-index-test__txt1">インナー幅は、iPad未満(SP)はSPデザインをベースに可変、<br>iPad以上〜PCのコンテンツ幅まではPCデザインを基準に可変、<br>コンテンツ幅以上は最大幅を指定して固定</p>
+        <p class="p-index-test__txt2 u-gray">フォントサイズ固定の場合テスト</p>
       </div>
     </div>
   </section>
@@ -35,22 +35,25 @@
   <section id="news" class="p-news">
     <div class="p-news__inner u-inner">
       <h2 class="c-head1">ニュース</h2>
-      <p class="p-news__txt">テンプレが決まっているものはオブジェクトををループできる</p>
-      <ul role="list">
-        {{#each newsList}}
-        <li>
-          <h3>{{title}}</h3>
-          <p><strong>{{posted}}</strong></p>
-          <p>{{content}}</p>
-        </li>
+      <p class="p-news__txt">テンプレが決まっているものはオブジェクトをループできる</p>
+      <div class="c-archive1">
+        {{#each (limit newsList 3)}}
+        <article class="c-archive1__article">
+          <a href="" class="c-archive1__link">
+            <time class="c-archive1__date">{{posted}}</time>
+            <h3 class="c-archive1__title">{{title}}</h3>
+            <p class="c-archive1__content">{{content}}</p>
+          </a>
+        </article>
         {{/each}}
-      </ul>
+      </div>
     </div>
   </section>
 
   <section class="p-image">
     <div class="p-image__inner u-inner">
       <h2 class="c-head1">画像表示テスト</h2>
+      <p class="p-image__txt">buildすると、jpg・pngは自動的にwebpに変換される</p>
       <div class="p-image__img">
         <picture>
           <source srcset="./assets/images/index/img_dummy1_pc.jpg" media="(min-width: 768px)" width="1920" height="1080">

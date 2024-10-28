@@ -13,7 +13,9 @@
 
 // Component
 @use "object/components/_animation";
+@use "object/components/_archive";
 @use "object/components/_btn";
+@use "object/components/_form";
 @use "object/components/_head";
 @use "object/components/_ico";
 
@@ -24,3 +26,4 @@
 @use "object/project/_index";
 @use "object/project/_about";
 @use "object/project/_about-child";
+@use "object/project/_contact";

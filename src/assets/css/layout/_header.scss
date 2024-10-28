@@ -25,7 +25,6 @@
   font-weight: 700;
   font-size: f.vw(20);
 }
-
 @include m.m {
   .l-header {
     display: grid;
@@ -33,7 +32,7 @@
     gap: 0 f.vw(50);
     align-items: center;
     position: absolute;
-    height: f.vw(120);
+    height: f.vw(100);
     padding: 0 f.vw(30);
   }
   .l-header__logo {

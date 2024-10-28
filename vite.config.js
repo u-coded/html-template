@@ -2,23 +2,22 @@ import { defineConfig } from "vite";
 import { resolve } from "path";
 import viteHandlebars from "vite-plugin-handlebars";
 import handlebars from "handlebars";
-import viteImagemin from "vite-plugin-imagemin";
+import sharp from "sharp";
 import fs from "fs";
 import path from "path";
 
-import { newsList } from "./data/news-list";
+import { newsList } from "./data/news-list"; // newsListのインポート
 
-/**
- * カスタムヘルパー
- */
-handlebars.registerHelper("eq", function (val1, val2) {
-  return val1 === val2;
-});
-handlebars.registerHelper("or", function (val1, val2) {
-  return val1 || val2;
-});
-handlebars.registerHelper("and", function (val1, val2) {
-  return val1 && val2;
+// カスタムヘルパー
+handlebars.registerHelper("eq", (val1, val2) => val1 === val2);
+handlebars.registerHelper("notEq", (val1, val2) => val1 !== val2);
+handlebars.registerHelper("or", (val1, val2) => val1 || val2);
+handlebars.registerHelper("and", (val1, val2) => val1 && val2);
+handlebars.registerHelper("limit", function (arr, limit) {
+  if (!Array.isArray(arr)) {
+    return [];
+  }
+  return arr.slice(0, limit);
 });
 
 /**
@@ -36,24 +35,30 @@ const siteData = {
  */
 const pageData = {
   "/index.html": {
-    siteData: { ...siteData },
-    newsList: { ...newsList },
+    siteData,
+    newsList,
     path: "",
     pageSlug: "index",
     pageTitle: "トップページ",
   },
   "/about/index.html": {
-    siteData: { ...siteData },
+    siteData,
     path: "../",
     pageSlug: "about",
     pageTitle: "このテンプレについて",
   },
   "/about/child/index.html": {
-    siteData: { ...siteData },
+    siteData,
     path: "../../",
     pageSlug: "about-child",
     pageTitle: "このテンプレについての子ページ",
     parentPageTitle: "このテンプレについて",
+  },
+  "/contact/index.html": {
+    siteData,
+    path: "../",
+    pageSlug: "contact",
+    pageTitle: "お問い合わせ",
   },
 };
 
@@ -110,6 +115,95 @@ function createInputFiles(files) {
 readDirectory(path.resolve(__dirname, "src"));
 const inputFiles = createInputFiles(files);
 
+/**
+ * build時にwebPを自動生成する自作プラグイン
+ */
+function sharpWebpPlugin({ srcDir, outDir, quality = 80 }) {
+  return {
+    name: "sharp-webp-plugin",
+    apply: "build",
+    enforce: "post",
+    async closeBundle() {
+      const publicDir = path.resolve(srcDir, "public");
+      const supportedFormats = [".jpg", ".jpeg", ".png"];
+
+      // 画像の変換処理関数
+      async function processImages(dir) {
+        const files = await fs.promises.readdir(dir, { withFileTypes: true });
+
+        await Promise.all(
+          files.map(async (file) => {
+            const filePath = path.join(dir, file.name);
+
+            // publicディレクトリを除外
+            if (filePath.startsWith(publicDir)) return;
+
+            if (file.isDirectory()) {
+              // ディレクトリの場合は再帰処理
+              await processImages(filePath);
+            } else {
+              const ext = path.extname(file.name).toLowerCase();
+
+              // JPGまたはPNGファイルの場合のみ変換
+              if (supportedFormats.includes(ext)) {
+                const outputFilePath = filePath
+                  .replace(srcDir, outDir)
+                  .replace(ext, ".webp");
+                try {
+                  // outDir内にWebPを出力
+                  await sharp(filePath)
+                    .webp({ quality }) // 引数で指定された圧縮率を使用
+                    .toFile(outputFilePath);
+
+                  // outDir内の元の画像ファイルを削除
+                  const originalOutPath = filePath.replace(srcDir, outDir);
+                  if (fs.existsSync(originalOutPath)) {
+                    await fs.promises.unlink(originalOutPath);
+                  }
+                } catch (error) {
+                  console.error(`Error converting ${filePath}:`, error);
+                }
+              }
+            }
+          })
+        );
+      }
+
+      // HTMLファイルのWebPパス変換関数
+      async function updateHtmlToWebp(dir) {
+        const files = await fs.promises.readdir(dir, { withFileTypes: true });
+
+        await Promise.all(
+          files.map(async (file) => {
+            const filePath = path.join(dir, file.name);
+
+            if (file.isDirectory()) {
+              // ディレクトリの場合は再帰処理
+              await updateHtmlToWebp(filePath);
+            } else if (file.name.endsWith(".html")) {
+              let content = fs.readFileSync(filePath, "utf-8");
+
+              // src属性、srcset属性、url()内のパスをWebPに変換（元の拡張子を削除）
+              content = content.replace(
+                /((?:src|srcset|url\()=["']?)(?!\/?public\/)([^"')]+)\.(jpg|jpeg|png)/g,
+                "$1$2.webp"
+              );
+
+              fs.writeFileSync(filePath, content);
+            }
+          })
+        );
+      }
+
+      // srcディレクトリ内の画像を変換
+      await processImages(srcDir);
+
+      // outDirディレクトリ内のHTMLファイルのパスを更新
+      await updateHtmlToWebp(outDir);
+    },
+  };
+}
+
 export default defineConfig({
   base: "./",
   root: "./src", // 開発ディレクトリ設定
@@ -118,12 +212,20 @@ export default defineConfig({
     rollupOptions: {
       output: {
         assetFileNames: (assetInfo) => {
-          let extType = assetInfo.name.split(".")[1];
+          let extType =
+            assetInfo.names && assetInfo.names.length > 0
+              ? assetInfo.names[0].split(".").pop()
+              : "";
           if (/png|jpe?g|svg|gif|tiff|bmp|ico|webmanifest/i.test(extType)) {
             extType = "images";
           }
           if (extType === "images") {
-            let assetPath = assetInfo.originalFileName; // フルパスを取得
+            let assetPath =
+              assetInfo.originalFileNames &&
+              assetInfo.originalFileNames.length > 0
+                ? assetInfo.originalFileNames[0]
+                : "";
+            if (!assetPath) return ""; // assetPath が空の場合も空文字を返す
             let startIndex = assetPath.indexOf("images/");
             if (startIndex === -1) return ""; // images/が見つからない場合は空文字を返す
             let endIndex = assetPath.lastIndexOf("/");
@@ -136,7 +238,6 @@ export default defineConfig({
           return `assets/${extType}/[name][extname]`;
         },
         chunkFileNames: "assets/js/script.js",
-        // entryFileNames: 'assets/js/script.js', // 下層あるときはコメントアウトする？
       },
       input: inputFiles,
     },
@@ -151,23 +252,10 @@ export default defineConfig({
     },
   },
   plugins: [
-    viteImagemin({
-      pngquant: {
-        quality: [0.8, 0.9],
-        speed: 1, // 1～11
-      },
-      optipng: {
-        optimizationLevel: 3, // 0～7
-      },
-      mozjpeg: {
-        quality: 80, // 0～100
-      },
-      gifsicle: {
-        optimizationLevel: 3, // 1～3
-      },
-      svgo: {},
-      root: "src/assets/images",
-      verbose: true,
+    sharpWebpPlugin({
+      srcDir: path.resolve(__dirname, "./src"),
+      outDir: path.resolve(__dirname, "./dist"), // 出力ディレクトリ
+      quality: 80, // 圧縮率
     }),
     viteHandlebars({
       // コンポーネントの格納ディレクトリ

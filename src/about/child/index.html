@@ -1,23 +1,22 @@
 {{> _header}}
 
-<div class="l-sub-kv" data-page-top-hide>
-	<h1 class="l-sub-kv__txt">{{pageTitle}}</h1>
-</div>
+{{> _sub-kv }}
+
 {{> _breadcrumb }}
 
 <main>
 
-	<section class="p-about-child">
-		<div class="p-about-child__inner u-inner">
-			<h2 class="c-head1">画像の表示テスト</h2>
-			<div class="p-image__img">
-				<picture>
-					<source srcset="../../assets/images/about/child/img_dummy1_pc.jpg" media="(min-width: 768px)" width="1920" height="1080">
-					<img src="../../assets/images/about/child/img_dummy1_sp.jpg" alt="" loading="lazy" width="750" height="750">
-				</picture>
-			</div>
-		</div>
-	</section>
+  <section class="p-about-child">
+    <div class="p-about-child__inner u-inner">
+      <h2 class="c-head1">画像の表示テスト</h2>
+      <div class="p-about-child__img">
+        <picture>
+          <source srcset="../../assets/images/about/child/img_dummy1_pc.jpg" media="(min-width: 768px)" width="1920" height="1080">
+          <img src="../../assets/images/about/child/img_dummy1_sp.jpg" alt="" loading="lazy" width="750" height="750">
+        </picture>
+      </div>
+    </div>
+  </section>
 
 </main>
 
