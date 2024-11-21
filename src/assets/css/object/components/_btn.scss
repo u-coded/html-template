@@ -12,10 +12,10 @@
 }
 .c-btn1__link {
   display: grid;
-  place-items: center;
   padding: f.vw(5);
   border: 1px solid;
   border-radius: calc(1px / 0);
+  place-items: center;
 }
 
 @include m.m {

@@ -5,35 +5,35 @@
  * l-header
  */
 .l-header {
+  width: 100%;
+  height: f.vw(60);
   position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
-  width: 100%;
-  height: f.vw(60);
   background: white;
 }
 .l-header__logo {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   height: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 .l-header__logo-link {
   display: block;
-  font-weight: 700;
   font-size: f.vw(20);
+  font-weight: 700;
 }
 @include m.m {
   .l-header {
     display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0 f.vw(50);
-    align-items: center;
-    position: absolute;
     height: f.vw(100);
     padding: 0 f.vw(30);
+    position: absolute;
+    align-items: center;
+    grid-template-columns: auto 1fr;
+    gap: 0 f.vw(50);
   }
   .l-header__logo {
     justify-content: flex-start;

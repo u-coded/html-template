@@ -13,6 +13,10 @@ export default () => {
       trigger.classList.add(OPEN_CLASS);
       overlay.classList.add(OPEN_CLASS);
 
+      // スクロールを無効化
+      document.body.style.overflow = "hidden";
+      document.body.style.height = "100vh";
+
       // aria属性の更新
       trigger.setAttribute("aria-expanded", "true");
       nav.setAttribute("aria-hidden", "false");
@@ -26,6 +30,10 @@ export default () => {
       nav.classList.remove(OPEN_CLASS);
       trigger.classList.remove(OPEN_CLASS);
       overlay.classList.remove(OPEN_CLASS);
+
+      // スクロールを有効化
+      document.body.style.overflow = "";
+      document.body.style.height = "";
 
       // aria属性の更新
       trigger.setAttribute("aria-expanded", "false");

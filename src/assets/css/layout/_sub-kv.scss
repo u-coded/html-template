@@ -5,10 +5,10 @@
  * l-sub-kv
  */
 .l-sub-kv {
-  background: rgb(var(--gray) / 0.3);
   display: grid;
-  place-items: center;
   height: f.vw(200);
+  place-items: center;
+  background: rgb(var(--gray) / 0.3);
 }
 .l-sub-kv__txt {
   font-weight: 700;

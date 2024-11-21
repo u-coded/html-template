@@ -8,8 +8,8 @@
 // フェードイン
 [data-anime="fadeIn"] {
   opacity: 0;
-  transition-duration: var(--duration);
   transition-property: opacity;
+  transition-duration: var(--duration);
   &.is-found {
     opacity: 1;
   }
@@ -17,9 +17,9 @@
 // 下から
 [data-anime="fadeInUp"] {
   opacity: 0;
-  transition-duration: var(--duration);
-  transition-property: opacity, translate;
   translate: 0 f.vw(30);
+  transition-property: opacity, translate;
+  transition-duration: var(--duration);
   &.is-found {
     opacity: 1;
     translate: 0;
@@ -29,9 +29,9 @@
 // 上から
 [data-anime="fadeInDown"] {
   opacity: 0;
-  transition-duration: var(--duration);
-  transition-property: opacity, translate;
   translate: 0 f.vw(-30);
+  transition-property: opacity, translate;
+  transition-duration: var(--duration);
   &.is-found {
     opacity: 1;
     translate: 0;
@@ -41,9 +41,9 @@
 // 左から
 [data-anime="fadeInLeft"] {
   opacity: 0;
-  transition-duration: var(--duration);
-  transition-property: opacity, translate;
   translate: f.vw(-30) 0;
+  transition-property: opacity, translate;
+  transition-duration: var(--duration);
   &.is-found {
     opacity: 1;
     translate: 0;
@@ -53,9 +53,9 @@
 // 右から
 [data-anime="fadeInRight"] {
   opacity: 0;
-  transition-duration: var(--duration);
-  transition-property: opacity, translate;
   translate: f.vw(-30) 0;
+  transition-property: opacity, translate;
+  transition-duration: var(--duration);
   &.is-found {
     opacity: 1;
     translate: 0;

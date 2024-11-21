@@ -9,8 +9,8 @@
   position: fixed;
   right: f.vw(15);
   bottom: f.vw(30);
-  color: rgb(var(--black));
   transition: opacity var(--duration);
+  color: rgb(var(--black));
   &.is-show {
     opacity: 1;
   }
@@ -27,14 +27,14 @@
   background: white;
   &::before {
     content: "";
-    position: absolute;
-    top: calc(50% + f.vw(2));
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg);
     width: f.vw(10);
     height: f.vw(10);
     border-top: f.vw(2) solid;
     border-right: f.vw(2) solid;
+    position: absolute;
+    top: calc(50% + f.vw(2));
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
   }
 }
 

@@ -6,9 +6,9 @@
  * 見出し
  */
 .c-head1 {
-  text-align: center;
-  font-weight: 700;
   font-size: f.vw(20);
+  font-weight: 700;
+  text-align: center;
 }
 
 @include m.m {
