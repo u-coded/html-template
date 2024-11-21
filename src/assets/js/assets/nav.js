@@ -1,41 +1,63 @@
 export default () => {
-	const nav = document.querySelector("[data-nav]");
-	const trigger = document.querySelector("[data-nav-trigger]");
-	const overlay = document.querySelector("[data-nav-overlay]");
-	const navAnchors = nav.querySelectorAll("a");
+  const nav = document.querySelector("[data-nav]");
+  const trigger = document.querySelector("[data-nav-trigger]");
+  const overlay = document.querySelector("[data-nav-overlay]");
+  const navAnchors = nav.querySelectorAll("a");
 
-	const OPEN_CLASS = "is-open";
+  const OPEN_CLASS = "is-open";
 
-	// ナビを開閉する関数
-	const toggleNav = () => {
-		nav.classList.toggle(OPEN_CLASS);
-		trigger.classList.toggle(OPEN_CLASS);
-		overlay.classList.toggle(OPEN_CLASS);
-	};
+  // ナビを開く関数
+  const openNav = () => {
+    if (!nav.classList.contains(OPEN_CLASS)) {
+      nav.classList.add(OPEN_CLASS);
+      trigger.classList.add(OPEN_CLASS);
+      overlay.classList.add(OPEN_CLASS);
 
-	// ハンバーガーボタンをクリックしたとき
-	trigger.addEventListener("click", () => {
-		toggleNav();
-	});
+      // aria属性の更新
+      trigger.setAttribute("aria-expanded", "true");
+      nav.setAttribute("aria-hidden", "false");
+      overlay.setAttribute("aria-hidden", "false");
+    }
+  };
 
-	// オーバーレイをクリックしたとき
-	overlay.addEventListener("click", () => {
-		if (nav.classList.contains(OPEN_CLASS)) {
-			toggleNav();
-		}
-	});
+  // ナビを閉じる関数
+  const closeNav = () => {
+    if (nav.classList.contains(OPEN_CLASS)) {
+      nav.classList.remove(OPEN_CLASS);
+      trigger.classList.remove(OPEN_CLASS);
+      overlay.classList.remove(OPEN_CLASS);
 
-	// ページ内リンクのとき閉じる
-	navAnchors.forEach((anchor) => {
-		anchor.addEventListener("click", () => {
-			if (nav.classList.contains(OPEN_CLASS)) {
-				toggleNav();
-			}
-		});
-	});
+      // aria属性の更新
+      trigger.setAttribute("aria-expanded", "false");
+      nav.setAttribute("aria-hidden", "true");
+      overlay.setAttribute("aria-hidden", "true");
+    }
+  };
 
-	// オーバーレイにフォーカスが当たるとハンバーガーボタンににフォーカスを戻す
-	overlay.addEventListener("focus", () => {
-		trigger.focus();
-	});
+  // ハンバーガーボタンをクリックしたとき
+  trigger.addEventListener("click", () => {
+    const isExpanded = trigger.getAttribute("aria-expanded") === "true";
+    if (isExpanded) {
+      closeNav();
+    } else {
+      openNav();
+    }
+  });
+
+  // オーバーレイをクリックしたとき
+  overlay.addEventListener("click", () => {
+    closeNav();
+  });
+
+  // ページ内リンクをクリックしたときメニューを閉じる
+  navAnchors.forEach((anchor) => {
+    anchor.addEventListener("click", () => {
+      closeNav();
+    });
+  });
+
+  // オーバーレイにフォーカスが当たるとハンバーガーボタンにフォーカスを戻す
+  overlay.addEventListener("focus", () => {
+    trigger.focus();
+  });
 };
