@@ -23,7 +23,7 @@ $pc-content-width: 1000;
 $pc-maximum-width: $pc-content-width + $pc-gutter * 2;
 
 /* iPad以上〜PCデザインのコンテンツ幅以下は、PCの最大幅をベースに可変 */
-@media (min-width: 768px) {
+@media (min-width: 744px) {
   :root {
     --base-width: #{$pc-maximum-width};
   }
@@ -38,17 +38,17 @@ $pc-maximum-width: $pc-content-width + $pc-gutter * 2;
 
 $breakpoints: (
   "sm": "(min-width: 640px)",
-  "max-sm": "(max-width: 639.99px)",
-  "md": "(min-width: 768px)",
-  "max-md": "(max-width: 767.99px)",
+  "max-sm": "(max-width: 639.9px)",
+  "md": "(min-width: 744px)",
+  "max-md": "(max-width: 767.9px)",
   "lg": "(min-width: #{$pc-maximum-width}px)",
   "max-lg": "(max-width: #{$pc-maximum-width - 0.01}px)",
   "xl": "(min-width: 1280px)",
-  "max-xl": "(max-width: 1279.99px)",
+  "max-xl": "(max-width: 1279.9px)",
   "xxl": "(min-width: 1536px)",
-  "max-xxl": "(max-width: 1535.99px)",
+  "max-xxl": "(max-width: 1535.9px)",
 
   "md-max-lg":
-    "(min-width: 768px) and (max-width: #{$pc-maximum-width - 0.01}px)",
-  "md-max-xl": "(min-width: 768px) and (max-width: 1279.99px)",
+    "(min-width: 744px) and (max-width: #{$pc-maximum-width - 0.1}px)",
+  "md-max-xl": "(min-width: 744px) and (max-width: 1279.9px)",
 ) !default;

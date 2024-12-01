@@ -11,10 +11,10 @@
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "handlebars": "^4.7.8",
-    "postcss": "^8.4.47",
-    "sass": "^1.80.2",
+    "postcss": "^8.4.49",
+    "sass": "^1.81.0",
     "sharp": "^0.33.5",
-    "vite": "^5.4.9",
+    "vite": "^6.0.1",
     "vite-plugin-handlebars": "^2.0.0"
   },
   "browserslist": [
