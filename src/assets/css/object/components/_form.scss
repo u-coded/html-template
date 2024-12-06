@@ -180,17 +180,15 @@
   }
 }
 
-.c-form1__dl {
-}
-.c-form1__block {
+.c-form1__fieldset {
   & + & {
     margin-top: f.vw(20);
   }
 }
-.c-form1__dt {
+.c-form1__legend {
   font-weight: 700;
 }
-.c-form1__dd {
+.c-form1__inputs {
 }
 .c-form1__btns {
   margin-top: f.vw(30);

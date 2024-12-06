@@ -63,3 +63,13 @@
   font: inherit;
   color: inherit;
 }
+:where(fieldset) {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+:where(legend) {
+  margin: 0;
+  padding: 0;
+}
