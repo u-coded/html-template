@@ -1,46 +1,46 @@
-import { LoadingSet, LoadingHide } from './assets/loading.js';
-import Nav from './assets/nav.js';
-import SmoothScroll from './assets/smooth_scroll.js';
-import PageTop from './assets/page_top.js';
+import { loadingSet, loadingHide } from "./assets/loading.js";
+import nav from "./assets/nav.js";
+import smoothScroll from "./assets/smooth_scroll.js";
+import pageTop from "./assets/page_top.js";
 
-import Index from './scenes/index.js';
-import About from './scenes/about.js';
+import index from "./scenes/index.js";
+import about from "./scenes/about.js";
 
 // bodyのid
-const bodyId = document.body.getAttribute('id');
+const bodyId = document.body.getAttribute("id");
 
 // DOM読み込み後
-const DomLoad = () => {
-	LoadingSet();
+const domLoad = () => {
+  loadingSet();
 
-	// ページの読み込みが遅すぎるときの最大時間
-	setTimeout(() => {
-		LoadingHide();
-	}, 5000);
+  // ページの読み込みが遅すぎるときの最大時間
+  setTimeout(() => {
+    loadingHide();
+  }, 5000);
 };
 
 // ページ読み込み後
-const PageLoaded = () => {
-	LoadingHide();
-	Nav();
-	SmoothScroll();
-	PageTop();
+const pageLoaded = () => {
+  loadingHide();
+  nav();
+  smoothScroll();
+  pageTop();
 
-	// ページ別のJSを実行
-	switch (bodyId) {
-		case 'index':
-			Index();
-			break;
-		case 'about':
-			About();
-			break;
-	}
-}
+  // ページ別のJSを実行
+  switch (bodyId) {
+    case "index":
+      index();
+      break;
+    case "about":
+      about();
+      break;
+  }
+};
 
 // イベント宣言
-if (document.readyState !== 'loading') {
-	DomLoad();
+if (document.readyState !== "loading") {
+  domLoad();
 } else {
-	document.addEventListener('DOMContentLoaded', DomLoad, false);
+  document.addEventListener("DOMContentLoaded", domLoad, false);
 }
-window.addEventListener('load', PageLoaded, false);
+window.addEventListener("load", pageLoaded, false);

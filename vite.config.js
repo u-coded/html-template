@@ -238,6 +238,7 @@ export default defineConfig({
           return `assets/${extType}/[name][extname]`;
         },
         chunkFileNames: "assets/js/script.js",
+        // entryFileNames: "assets/js/script.js", // 下層あるときはコメントアウトする
       },
       input: inputFiles,
     },
