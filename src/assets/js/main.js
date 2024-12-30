@@ -1,7 +1,7 @@
 import { loadingSet, loadingHide } from "./assets/loading.js";
 import nav from "./assets/nav.js";
-import smoothScroll from "./assets/smooth_scroll.js";
-import pageTop from "./assets/page_top.js";
+import smoothScroll from "./assets/smoothScroll.js";
+import pageTop from "./assets/pageTop.js";
 
 import index from "./scenes/index.js";
 import about from "./scenes/about.js";

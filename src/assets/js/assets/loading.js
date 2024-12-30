@@ -1,4 +1,4 @@
-import scrollAnimation from "./scroll_animation.js";
+import scrollAnimation from "./scrollAnimation.js";
 
 const body = document.body;
 const loading = document.querySelector("[data-loading]");
