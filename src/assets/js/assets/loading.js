@@ -15,6 +15,7 @@ export const loadingSet = () => {
 
   // ローディング中は画面固定
   body.style.overflow = "hidden";
+  body.style.height = "100vh";
 };
 
 /**
@@ -30,7 +31,9 @@ export const loadingHide = () => {
 
   scrollAnimation();
 
-  body.style.overflow = null;
+  // スクロールを有効化
+  body.style.overflow = "";
+  body.style.height = "";
 
   setTimeout(() => {
     loading.remove();

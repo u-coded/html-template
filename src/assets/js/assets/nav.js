@@ -1,4 +1,5 @@
 export default () => {
+  const body = document.body;
   const nav = document.querySelector("[data-nav]");
   const trigger = document.querySelector("[data-nav-trigger]");
   const overlay = document.querySelector("[data-nav-overlay]");
@@ -14,8 +15,8 @@ export default () => {
       overlay.classList.add(OPEN_CLASS);
 
       // スクロールを無効化
-      document.body.style.overflow = "hidden";
-      document.body.style.height = "100vh";
+      body.style.overflow = "hidden";
+      body.style.height = "100vh";
 
       // aria属性の更新
       trigger.setAttribute("aria-expanded", "true");
@@ -32,8 +33,8 @@ export default () => {
       overlay.classList.remove(OPEN_CLASS);
 
       // スクロールを有効化
-      document.body.style.overflow = "";
-      document.body.style.height = "";
+      body.style.overflow = "";
+      body.style.height = "";
 
       // aria属性の更新
       trigger.setAttribute("aria-expanded", "false");

@@ -116,7 +116,7 @@ readDirectory(path.resolve(__dirname, "src"));
 const inputFiles = createInputFiles(files);
 
 /**
- * build時にwebPを自動生成する自作プラグイン
+ * build時にWebPを自動生成する自作プラグイン
  */
 function sharpWebpPlugin({ srcDir, outDir, quality = 80 }) {
   return {
