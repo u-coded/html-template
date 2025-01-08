@@ -6,7 +6,6 @@
  * ニュースリスト
  */
 .c-archive1 {
-
 }
 .c-archive1__article {
   padding-bottom: f.vw(10);
@@ -18,13 +17,8 @@
   font-size: f.vw(12);
 }
 .c-archive1__title {
-
 }
 .c-archive1__content {
-
 }
 @include m.m {
-  .c-archive1 {
-    max-width: f.vw(300);
-  }
 }
