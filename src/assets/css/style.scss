@@ -17,6 +17,8 @@
 @use "object/components/_btn";
 @use "object/components/_form";
 @use "object/components/_head";
+@use "object/components/_ico";
+@use "object/components/_pager";
 
 // Utility
 @use "object/utility/_utility";
@@ -24,5 +26,5 @@
 // Project
 @use "object/project/_index";
 @use "object/project/_about";
-@use "object/project/_about-child";
+@use "object/project/_news";
 @use "object/project/_contact";

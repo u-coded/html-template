@@ -6,13 +6,20 @@
  * 見出し
  */
 .c-head1 {
-  font-size: f.vw(20);
-  font-weight: 700;
   text-align: center;
+}
+.c-head1__ja {
+  font-size: f.vw(20);
+}
+.c-head1__en {
+  font-size: f.vw(16);
 }
 
 @include m.m {
-  .c-head1 {
+  .c-head1__ja {
     font-size: f.vw(24);
+  }
+  .c-head1__en {
+    font-size: f.vw(20);
   }
 }

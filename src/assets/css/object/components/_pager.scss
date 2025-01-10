@@ -1,0 +1,88 @@
+@use "../../foundation/mixin" as m;
+@use "../../foundation/functions" as f;
+
+/**
+ * c-pager1
+ * 一覧用ページャー
+ */
+.c-pager1 {
+  margin-top: f.vw(50);
+}
+.c-pager1__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: f.vw(10);
+  a,
+  span {
+    display: grid;
+    width: f.vw(40);
+    height: f.vw(40);
+    border: 1px solid;
+    border-radius: 50%;
+    place-items: center;
+    font-size: f.vw(14);
+    text-decoration: none;
+  }
+  .between,
+  .first,
+  .prev,
+  .next,
+  .last {
+    width: f.vw(20);
+    border: none;
+  }
+  .current {
+    background: rgb(var(--black));
+    color: white;
+  }
+}
+
+@include m.m {
+  .c-pager1 {
+    margin-top: f.vw(80);
+  }
+  .c-pager1__list {
+    gap: f.vw(20);
+  }
+}
+
+/**
+ * c-pager2
+ * 一覧用ページャー
+ */
+.c-pager2 {
+  display: grid;
+  margin-top: f.vw(50);
+  align-items: center;
+  grid-template-columns: 1fr auto 1fr;
+  gap: f.vw(10) f.vw(20);
+  a {
+    width: fit-content;
+    padding: f.vw(10);
+    font-size: f.vw(14);
+  }
+}
+.c-pager2__prev {
+  margin-inline: auto 0;
+  text-align: right;
+}
+.c-pager2__back {
+  a {
+    display: grid;
+    place-items: center;
+    background: rgb(var(--black));
+    color: white;
+  }
+}
+
+@include m.m {
+  .c-pager2 {
+    margin-top: f.vw(80);
+    gap: f.vw(30);
+    a {
+      padding: f.vw(10) f.vw(30);
+      font-size: f.vw(16);
+    }
+  }
+}

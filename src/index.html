@@ -6,52 +6,55 @@
     <p>トップページメインビジュアル</p>
   </div>
 
-  <section id="components" class="p-index-components">
-    <div class="p-index-components__inner u-inner">
-      <h2 class="c-head1">コンポーネントのテスト（見出し）</h2>
-      <div class="c-btn1">
-        <a href="" class="c-btn1__link u-alpha">ボタン</a>
+  <section id="about" class="p-index-about">
+    <div class="p-index-about__inner u-inner">
+      <hgroup class="c-head1">
+        <h2 class="c-head1__ja">このテンプレについて</h2>
+        <p class="c-head1__en">ABOUT</p>
+      </hgroup>
+      <div class="p-index-about__container" data-anime>
+        <div class="p-index-about__img" data-anime="fadeInUp">
+          <picture>
+            <source srcset="./assets/images/index/img_dummy1_pc.jpg" media="(min-width: 744px)" width="1920" height="1080">
+            <img src="./assets/images/index/img_dummy1_sp.jpg" alt="" loading="lazy" width="750" height="750">
+          </picture>
+        </div>
+        <div class="p-index-about__txts" data-anime="fadeInUp" data-anime-delay="0.3">
+          <p class="p-index-about__txt">インナー幅は、iPad未満(SP)はSPデザインをベースに可変、iPad以上〜指定した最大幅まではPCデザインを基準に可変、指定した最大幅以上は固定される。</p>
+          <p class="p-index-about__txt">ビルドすると、jpg・png形式の画像は自動的にwebpに変換される。</p>
+        </div>
+      </div>
+      <div class="c-btn1 p-index-about__btn">
+        <a href="./about/" class="c-btn1__link">
+          <span class="c-btn1__txt">テンプレについての詳細</span>
+          <span class="c-ico c-btn1__ico"><svg xmlns="http://www.w3.org/2000/svg" width="80" height="100" viewBox="0 0 80 100"><path d="M50,0l50,80H0Z" transform="translate(80) rotate(90)"/></svg></span>
+        </a>
       </div>
     </div>
   </section>
 
-  <section id="inner" class="p-index-test">
-    <div class="p-index-test__inner u-inner">
-      <div class="p-index-test__box">
-        <h2 class="c-head1">インナー幅の表示テスト</h2>
-        <p class="p-index-test__txt1">インナー幅は、iPad未満(SP)はSPデザインをベースに可変、<br>iPad以上〜PCのコンテンツ幅まではPCデザインを基準に可変、<br>コンテンツ幅以上は最大幅を指定して固定</p>
-        <p class="p-index-test__txt2 u-gray">フォントサイズ固定の場合テスト</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="news" class="p-news">
-    <div class="p-news__inner u-inner">
-      <h2 class="c-head1">ニュース</h2>
-      <p class="p-news__txt">テンプレが決まっているものはオブジェクトをループできる</p>
-      <div class="c-archive1">
-        {{#each (limit newsList 3)}}
+  <section id="news" class="p-index-news">
+    <div class="p-index-news__inner u-inner">
+      <hgroup class="c-head1">
+        <h2 class="c-head1__ja">お知らせ</h2>
+        <p class="c-head1__en">NEWS</p>
+      </hgroup>
+      <div class="c-archive1 p-index-news__article">
+        {{#times 3}}
         <article class="c-archive1__article">
-          <a href="" class="c-archive1__link">
-            <time class="c-archive1__date">{{posted}}</time>
-            <h3 class="c-archive1__title">{{title}}</h3>
-            <p class="c-archive1__content">{{content}}</p>
+          <a href="./news/article/" class="c-archive1__link u-alpha">
+            <time class="c-archive1__date" datetime="2099-12-31">2099.12.31</time>
+            <h3 class="c-archive1__title">タイトルテキストタイトルテキスト</h3>
+            <p class="c-archive1__content">記事内容テキスト記事内容テキスト記事内容テキスト記事内容テキスト記事内容テキスト</p>
           </a>
         </article>
-        {{/each}}
+        {{/times}}
       </div>
-    </div>
-  </section>
-
-  <section class="p-image">
-    <div class="p-image__inner u-inner">
-      <h2 class="c-head1">画像表示テスト</h2>
-      <p class="p-image__txt">buildすると、jpg・pngは自動的にwebpに変換される</p>
-      <div class="p-image__img">
-        <picture>
-          <source srcset="./assets/images/index/img_dummy1_pc.jpg" media="(min-width: 744px)" width="1920" height="1080">
-          <img src="./assets/images/index/img_dummy1_sp.jpg" alt="" loading="lazy" width="750" height="750">
-        </picture>
+      <div class="c-btn1 p-index-news__btn">
+        <a href="./news/" class="c-btn1__link">
+          <span class="c-btn1__txt">ニュース一覧へ</span>
+          <span class="c-ico c-btn1__ico"><svg xmlns="http://www.w3.org/2000/svg" width="80" height="100" viewBox="0 0 80 100"><path d="M50,0l50,80H0Z" transform="translate(80) rotate(90)"/></svg></span>
+        </a>
       </div>
     </div>
   </section>

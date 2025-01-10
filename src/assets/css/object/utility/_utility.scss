@@ -5,13 +5,19 @@
 /**
  * Layout
  */
+
+// インナー幅
 .u-inner {
   padding-right: f.vw(#{v.$sp-gutter});
   padding-left: f.vw(#{v.$sp-gutter});
   @include m.m {
+    padding-right: f.vw(#{v.$tb-gutter});
+    padding-left: f.vw(#{v.$tb-gutter});
+  }
+  @include m.m(lg) {
     width: 100%;
-    max-width: f.vw(#{v.$pc-maximum-width});
     margin-inline: auto;
+    max-width: f.vw(#{v.$pc-content-width + v.$pc-gutter * 2});
     padding-right: f.vw(#{v.$pc-gutter});
     padding-left: f.vw(#{v.$pc-gutter});
   }
@@ -43,6 +49,7 @@
   }
 }
 
+// ホバー時の透過
 .u-alpha {
   transition: opacity var(--duration);
   @include m.h() {

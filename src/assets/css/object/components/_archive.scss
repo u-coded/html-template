@@ -5,20 +5,19 @@
  * c-archive1
  * ニュースリスト
  */
-.c-archive1 {
-}
 .c-archive1__article {
-  padding-bottom: f.vw(10);
+  border-bottom: 1px solid;
+  padding-bottom: f.vw(20);
   & + & {
-    border-top: 1px solid;
+    padding-top: f.vw(20);
   }
 }
 .c-archive1__date {
-  font-size: f.vw(12);
+  font-size: f.vw(14);
 }
 .c-archive1__title {
+  margin-top: f.vw(5);
 }
 .c-archive1__content {
-}
-@include m.m {
+  margin-top: f.vw(5);
 }

@@ -57,7 +57,7 @@
 
   <header id="header" class="l-header">
     <{{#if (eq pageSlug "index" )}}h1{{else}}p{{/if}} class="l-header__logo">
-      <a href="{{ path }}" class="l-header__logo-link u-alpha">制作テンプレ</a>
+      <a href="{{ path }}" class="l-header__logo-link u-alpha">HTMLテンプレ</a>
     </{{#if (eq pageSlug "index" )}}h1{{else}}p{{/if}}>
 
     <button class="l-nav-hamburger u-view-sp" type="button" data-nav-trigger aria-expanded="false" aria-controls="main-nav">
@@ -66,10 +66,13 @@
     <nav id="main-nav" class="l-nav" data-nav aria-hidden="true">
       <ul role="list" class="l-nav__list">
         <li class="l-nav__list-item">
-          <a href="{{ path }}" class="l-nav__list-link u-alpha">トップページ</a>
+          <a href="{{ path }}" class="l-nav__list-link u-alpha">ホーム</a>
         </li>
         <li class="l-nav__list-item">
           <a href="{{ path }}about/" class="l-nav__list-link u-alpha">このテンプレについて</a>
+        </li>
+        <li class="l-nav__list-item">
+          <a href="{{ path }}news/" class="l-nav__list-link u-alpha">お知らせ</a>
         </li>
         <li class="l-nav__list-item">
           <a href="{{ path }}contact/" class="l-nav__list-link u-alpha">お問い合わせ</a>

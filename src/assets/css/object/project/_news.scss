@@ -1,0 +1,55 @@
+@use "../../foundation/mixin" as m;
+@use "../../foundation/functions" as f;
+
+/**
+ * p-news-archive
+ */
+.p-news-archive__inner {
+  padding-top: f.vw(50);
+  padding-bottom: f.vw(50);
+}
+.p-news-archive__article {
+  margin-top: f.vw(30);
+}
+@include m.m {
+  .p-news-archive__inner {
+    padding-top: f.vw(100);
+    padding-bottom: f.vw(100);
+  }
+  .p-news-archive__article {
+    margin-top: f.vw(50);
+  }
+}
+
+/**
+ * p-news-article
+ */
+.p-news-article__inner {
+  padding-top: f.vw(50);
+  padding-bottom: f.vw(50);
+}
+.p-news-article__date {
+  font-size: f.vw(16);
+}
+.p-news-article__title {
+  margin-top: f.vw(5);
+  font-size: f.vw(20);
+}
+.p-news-article__content {
+  margin-top: f.vw(30);
+}
+@include m.m {
+  .p-news-article__inner {
+    padding-top: f.vw(100);
+    padding-bottom: f.vw(100);
+  }
+  .p-news-article__date {
+    font-size: f.vw(20);
+  }
+  .p-news-article__title {
+    font-size: f.vw(24);
+  }
+  .p-news-article__content {
+    margin-top: f.vw(50);
+  }
+}

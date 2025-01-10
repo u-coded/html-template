@@ -4,14 +4,16 @@
 /**
  * p-about-intro
  */
-.p-about-intro {
-}
 .p-about-intro__inner {
   padding-top: f.vw(50);
   padding-bottom: f.vw(50);
+  text-align: center;
 }
 .p-about-intro__txt {
-  text-align: center;
+  margin-top: f.vw(30);
+  & + & {
+    margin-top: 1em;
+  }
 }
 @include m.m {
   .p-about-intro__inner {

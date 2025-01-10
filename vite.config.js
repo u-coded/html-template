@@ -6,18 +6,29 @@ import sharp from "sharp";
 import fs from "fs";
 import path from "path";
 
-import { newsList } from "./data/news-list"; // newsListのインポート
-
 // カスタムヘルパー
 handlebars.registerHelper("eq", (val1, val2) => val1 === val2);
 handlebars.registerHelper("notEq", (val1, val2) => val1 !== val2);
 handlebars.registerHelper("or", (val1, val2) => val1 || val2);
 handlebars.registerHelper("and", (val1, val2) => val1 && val2);
+
+// 配列を指定件数分回す
+// 例：articlesを3件ループ {{#each (limit articles 3)}} <p>{{date}}</p><p>{{title}}</p>  {{/each}}
 handlebars.registerHelper("limit", function (arr, limit) {
   if (!Array.isArray(arr)) {
     return [];
   }
   return arr.slice(0, limit);
+});
+
+// 指定回数分繰り返す
+// 例：3件繰り返し {{#times 3}} <p>テキスト</p> {{/times}}
+handlebars.registerHelper("times", function (n, block) {
+  let result = "";
+  for (let i = 0; i < n; i++) {
+    result += block.fn(i);
+  }
+  return result;
 });
 
 /**
@@ -36,7 +47,6 @@ const siteData = {
 const pageData = {
   "/index.html": {
     siteData,
-    newsList,
     path: "",
     pageSlug: "index",
     pageUrl: "",
@@ -49,14 +59,21 @@ const pageData = {
     pageUrl: "about",
     pageTitle: "このテンプレについて",
   },
-  "/about/child/index.html": {
+  "/news/index.html": {
+    siteData,
+    path: "../",
+    pageSlug: "news",
+    pageUrl: "news",
+    pageTitle: "お知らせ",
+  },
+  "/news/article/index.html": {
     siteData,
     path: "../../",
-    pageSlug: "about-child",
-    pageUrl: "about/child",
-    pageTitle: "このテンプレについての子ページ",
-    parentPageUrl: "about",
-    parentPageTitle: "このテンプレについて",
+    pageSlug: "news-article",
+    pageUrl: "news/article",
+    pageTitle: "記事タイトル",
+    parentPageUrl: "news",
+    parentPageTitle: "お知らせ",
   },
   "/contact/index.html": {
     siteData,
@@ -151,9 +168,7 @@ function sharpWebpPlugin({ srcDir, outDir, quality = 80 }) {
 
               // JPGまたはPNGファイルの場合のみ変換
               if (supportedFormats.includes(ext)) {
-                const outputFilePath = filePath
-                  .replace(srcDir, outDir)
-                  .replace(ext, ".webp");
+                const outputFilePath = filePath.replace(srcDir, outDir).replace(ext, ".webp");
                 try {
                   // outDir内にWebPを出力
                   await sharp(filePath)
@@ -189,10 +204,7 @@ function sharpWebpPlugin({ srcDir, outDir, quality = 80 }) {
               let content = fs.readFileSync(filePath, "utf-8");
 
               // src属性、srcset属性、url()内のパスをWebPに変換（元の拡張子を削除）
-              content = content.replace(
-                /((?:src|srcset|url\()=["']?)(?!\/?public\/)([^"')]+)\.(jpg|jpeg|png)/g,
-                "$1$2.webp"
-              );
+              content = content.replace(/((?:src|srcset|url\()=["']?)(?!\/?public\/)([^"')]+)\.(jpg|jpeg|png)/g, "$1$2.webp");
 
               fs.writeFileSync(filePath, content);
             }
@@ -217,19 +229,12 @@ export default defineConfig({
     rollupOptions: {
       output: {
         assetFileNames: (assetInfo) => {
-          let extType =
-            assetInfo.names && assetInfo.names.length > 0
-              ? assetInfo.names[0].split(".").pop()
-              : "";
+          let extType = assetInfo.names && assetInfo.names.length > 0 ? assetInfo.names[0].split(".").pop() : "";
           if (/png|jpe?g|svg|gif|tiff|bmp|ico|webmanifest/i.test(extType)) {
             extType = "images";
           }
           if (extType === "images") {
-            let assetPath =
-              assetInfo.originalFileNames &&
-              assetInfo.originalFileNames.length > 0
-                ? assetInfo.originalFileNames[0]
-                : "";
+            let assetPath = assetInfo.originalFileNames && assetInfo.originalFileNames.length > 0 ? assetInfo.originalFileNames[0] : "";
             if (!assetPath) return ""; // assetPath が空の場合も空文字を返す
             let startIndex = assetPath.indexOf("images/");
             if (startIndex === -1) return ""; // images/が見つからない場合は空文字を返す

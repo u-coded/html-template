@@ -1,3 +1,5 @@
+@use "sass:map";
+
 :root {
   --duration: 0.6s; // 基本的なアニメーション速度
   --base-width: 375; // SPデザインの幅
@@ -7,48 +9,59 @@
   --gray: 204 204 204; // #ccc
 }
 
-// SPの左右の余白
-$sp-gutter: 15;
-
-// PCデザインの幅
-$pc-design-width: 1366;
-
-// PCの左右の余白
-$pc-gutter: 30;
-
-// PCデザインのコンテンツの幅
-$pc-content-width: 1000;
-
-// コンテンツの幅と余白を含めたPCの最大幅
-$pc-maximum-width: $pc-content-width + $pc-gutter * 2;
-
-/* iPad以上〜PCデザインのコンテンツ幅以下は、PCの最大幅をベースに可変 */
-@media (min-width: 744px) {
-  :root {
-    --base-width: #{$pc-maximum-width};
-  }
-}
-
-/* PCのコンテンツ+余白幅以上はPCデザインをベースにpx固定 */
-@media (min-width: #{$pc-maximum-width}px) {
-  :root {
-    --vw: 1px;
-  }
-}
-
+/* ブレイクポイント設定 */
 $breakpoints: (
   "sm": "(min-width: 640px)",
   "max-sm": "(max-width: 639.9px)",
   "md": "(min-width: 744px)",
   "max-md": "(max-width: 743.9px)",
-  "lg": "(min-width: #{$pc-maximum-width}px)",
-  "max-lg": "(max-width: #{$pc-maximum-width - 0.1}px)",
+  "lg": "(min-width: 1024px)",
+  "max-lg": "(max-width: 1023.9px)",
   "xl": "(min-width: 1280px)",
   "max-xl": "(max-width: 1279.9px)",
   "xxl": "(min-width: 1536px)",
   "max-xxl": "(max-width: 1535.9px)",
 
-  "md-max-lg":
-    "(min-width: 744px) and (max-width: #{$pc-maximum-width - 0.1}px)",
+  "md-max-lg": "(min-width: 744px) and (max-width: 1023.9px)",
   "md-max-xl": "(min-width: 744px) and (max-width: 1279.9px)",
+  "md-max-xxl": "(min-width: 744px) and (max-width: 1535.9px)",
 ) !default;
+
+/* SPの左右の余白 */
+$sp-gutter: 20;
+
+/* TBの左右の余白 */
+$tb-gutter: 80;
+
+/* PCデザインの幅 */
+$pc-design-width: 1440;
+
+/* PCデザインのコンテンツの幅 */
+$pc-content-width: 1120;
+
+/* PCの左右の余白（通常はPCデザイン - コンテンツ幅の半分） */
+$pc-gutter: 160;
+
+/* 最大幅 */
+$pc-maximum-width: 1760;
+
+/* mdサイズ以上は、コンテンツ幅 + TBの余白をベースに可変 */
+@media #{map.get($breakpoints, "md")} {
+  :root {
+    --base-width: #{$pc-content-width + $tb-gutter * 2};
+  }
+}
+
+/* lgサイズ以上はPCデザインをベースに可変 */
+@media #{map.get($breakpoints, "lg")} {
+  :root {
+    --base-width: #{$pc-design-width};
+  }
+}
+
+/* 最大幅以上は、px固定 */
+@media (min-width: #{$pc-maximum-width}px) {
+  :root {
+    --vw: calc(1px * (#{$pc-maximum-width} / #{$pc-design-width}));
+  }
+}

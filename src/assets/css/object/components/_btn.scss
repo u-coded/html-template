@@ -6,20 +6,33 @@
  * 通常ボタン
  */
 .c-btn1 {
-  width: 100%;
-  max-width: f.vw(240);
+  // width: 100%;
+  // max-width: f.vw(240);
+  width: fit-content;
   margin-inline: auto;
 }
 .c-btn1__link {
   display: grid;
-  padding: f.vw(5);
+  padding: f.vw(10) f.vw(20) f.vw(10) f.vw(30);
   border: 1px solid;
   border-radius: calc(1px / 0);
-  place-items: center;
-}
-
-@include m.m {
-  .c-btn1 {
-    max-width: f.vw(300);
+  align-items: center;
+  grid-template-columns: 1fr auto;
+  gap: f.vw(20);
+  transition: background-color var(--duration), color var(--duration);
+  @include m.h {
+    background: rgb(var(--black));
+    color: white;
   }
 }
+.c-btn1__txt {
+}
+.c-btn1__ico {
+  width: f.vw(10);
+}
+
+// @include m.m {
+//   .c-btn1 {
+//     max-width: f.vw(300);
+//   }
+// }
