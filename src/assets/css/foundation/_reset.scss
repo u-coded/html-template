@@ -3,53 +3,79 @@
 *::after {
   box-sizing: border-box;
 }
+
 :where(html) {
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
   // color-scheme: dark light; // ダークモードに対応させるとき
 }
+
 :where(body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd) {
   margin: 0;
 }
+
+:where(h1, h2, h3, h4, h5, h6, p) {
+  margin-block: calc((1em - 1lh) / 2);
+  &[lang="en"] {
+    margin-block: calc((1cap - 1lh) / 2);
+  }
+}
+
 :where(body) {
   min-height: 100vh;
 }
+
 :where(ul[role="list"], ol[role="list"]) {
   margin: 0;
   padding: 0;
   list-style: none;
 }
+
 :where(a:not([class])) {
   color: currentColor;
   text-decoration-skip-ink: auto;
 }
+
 :where(a[class]) {
   display: block;
   text-decoration: none;
   color: inherit;
 }
+
 :where(img, picture) {
   display: block;
   width: 100%;
   max-width: 100%;
   height: auto;
 }
+
+:where(svg) {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  fill: currentColor;
+}
+
 :where(input, button, textarea, select) {
   font-family: inherit;
   font-size: inherit;
   appearance: none;
   -webkit-appearance: none;
 }
+
 :where(button) {
   padding: 0;
   border: none;
   background-color: transparent;
   cursor: pointer;
 }
+
 :where(address) {
   font-style: normal;
 }
+
 :where(dialog) {
   width: auto;
   max-width: none;
@@ -63,16 +89,19 @@
   font: inherit;
   color: inherit;
 }
+
 :where(fieldset) {
+  min-width: 0;
   margin: 0;
   padding: 0;
   border: 0;
-  min-width: 0;
 }
+
 :where(legend) {
   margin: 0;
   padding: 0;
 }
+
 :where(summary)::-webkit-details-marker {
   display: none;
 }
