@@ -6,6 +6,16 @@ export default () => {
   const navAnchors = nav.querySelectorAll("a");
 
   const OPEN_CLASS = "is-open";
+  const DESKTOP_BREAKPOINT = 744;
+
+  // デバウンス関数
+  const debounce = (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => func(...args), delay);
+    };
+  };
 
   // ナビを開く関数
   const openNav = () => {
@@ -69,4 +79,34 @@ export default () => {
   overlay.addEventListener("focus", () => {
     trigger.focus();
   });
+
+  // ウィンドウサイズに応じてナビゲーションの状態を更新
+  const updateNavState = () => {
+    if (window.innerWidth >= DESKTOP_BREAKPOINT) {
+      // デスクトップの場合: ナビゲーションを常に表示
+      nav.classList.remove(OPEN_CLASS);
+      trigger.classList.remove(OPEN_CLASS);
+      overlay.classList.remove(OPEN_CLASS);
+
+      body.style.overflow = "";
+      body.style.height = "";
+
+      nav.setAttribute("aria-hidden", "false");
+      trigger.setAttribute("aria-expanded", "false");
+      overlay.setAttribute("aria-hidden", "true");
+    } else {
+      // モバイルの場合: 現在の状態を維持しつつ属性を適切に更新
+      const isOpen = nav.classList.contains(OPEN_CLASS);
+      nav.setAttribute("aria-hidden", isOpen ? "false" : "true");
+    }
+  };
+
+  // デバウンスした関数を作成
+  const debouncedUpdateNavState = debounce(updateNavState, 100);
+
+  // リサイズイベントにリスナーを追加
+  window.addEventListener("resize", debouncedUpdateNavState);
+
+  // 初期状態を設定
+  updateNavState();
 };
