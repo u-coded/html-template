@@ -12,19 +12,19 @@
 /* ブレイクポイント設定 */
 $breakpoints: (
   "sm": "(min-width: 640px)",
-  "max-sm": "(max-width: 639.9px)",
+  "max-sm": "not (min-width: 640px)",
   "md": "(min-width: 744px)",
-  "max-md": "(max-width: 743.9px)",
+  "max-md": "not (min-width: 744px)",
   "lg": "(min-width: 1024px)",
-  "max-lg": "(max-width: 1023.9px)",
+  "max-lg": "not (min-width: 1024px)",
   "xl": "(min-width: 1280px)",
-  "max-xl": "(max-width: 1279.9px)",
+  "max-xl": "not (min-width: 1280px)",
   "xxl": "(min-width: 1536px)",
-  "max-xxl": "(max-width: 1535.9px)",
+  "max-xxl": "not (min-width: 1536px)",
 
-  "md-max-lg": "(min-width: 744px) and (max-width: 1023.9px)",
-  "md-max-xl": "(min-width: 744px) and (max-width: 1279.9px)",
-  "md-max-xxl": "(min-width: 744px) and (max-width: 1535.9px)",
+  "md-max-lg": "(min-width: 744px) and not (min-width: 1024px)",
+  "md-max-xl": "(min-width: 744px) and not (min-width: 1280px)",
+  "md-max-xxl": "(min-width: 744px) and not (min-width: 1536px)",
 ) !default;
 
 /* SPの左右の余白 */
