@@ -9,7 +9,7 @@
   --gray: 204 204 204; // #ccc
 }
 
-/* ブレイクポイント設定 */
+// ブレイクポイント設定
 $breakpoints: (
   "sm": "(min-width: 640px)",
   "max-sm": "not (min-width: 640px)",
@@ -27,39 +27,39 @@ $breakpoints: (
   "md-max-xxl": "(min-width: 744px) and not (min-width: 1536px)",
 ) !default;
 
-/* SPの左右の余白 */
+// SPの左右の余白
 $sp-gutter: 20;
 
-/* TBの左右の余白 */
+// TBの左右の余白
 $tb-gutter: 80;
 
-/* PCデザインの幅 */
+// PCデザインの幅
 $pc-design-width: 1440;
 
-/* PCデザインのコンテンツの幅 */
+// PCデザインのコンテンツの幅
 $pc-content-width: 1120;
 
-/* PCの左右の余白（通常はPCデザイン - コンテンツ幅の半分） */
+// PCの左右の余白（通常はPCデザイン - コンテンツ幅の半分）
 $pc-gutter: 160;
 
-/* 最大幅 */
+// 最大幅
 $pc-maximum-width: 1760;
 
-/* mdサイズ以上は、コンテンツ幅 + TBの余白をベースに可変 */
+// mdサイズ以上は、コンテンツ幅 + TBの余白をベースに可変
 @media #{map.get($breakpoints, "md")} {
   :root {
     --base-width: #{$pc-content-width + $tb-gutter * 2};
   }
 }
 
-/* lgサイズ以上はPCデザインをベースに可変 */
+// lgサイズ以上はPCデザインをベースに可変
 @media #{map.get($breakpoints, "lg")} {
   :root {
     --base-width: #{$pc-design-width};
   }
 }
 
-/* 最大幅以上は、px固定 */
+// 最大幅以上は、px固定
 @media (min-width: #{$pc-maximum-width}px) {
   :root {
     --vw: calc(1px * (#{$pc-maximum-width} / #{$pc-design-width}));
