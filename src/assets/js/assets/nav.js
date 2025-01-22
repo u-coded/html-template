@@ -1,3 +1,5 @@
+import { debounce } from "./debounce";
+
 export default () => {
   const body = document.body;
   const nav = document.querySelector("[data-nav]");
@@ -7,15 +9,6 @@ export default () => {
 
   const OPEN_CLASS = "is-open";
   const DESKTOP_BREAKPOINT = 744;
-
-  // デバウンス関数
-  const debounce = (func, delay) => {
-    let timeoutId;
-    return (...args) => {
-      if (timeoutId) clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => func(...args), delay);
-    };
-  };
 
   // ナビを開く関数
   const openNav = () => {
@@ -101,12 +94,6 @@ export default () => {
     }
   };
 
-  // デバウンスした関数を作成
-  const debouncedUpdateNavState = debounce(updateNavState, 100);
-
-  // リサイズイベントにリスナーを追加
-  window.addEventListener("resize", debouncedUpdateNavState);
-
-  // 初期状態を設定
-  updateNavState();
+  // デバウンス処理でリスナーを登録
+  debounce(updateNavState, 100);
 };
