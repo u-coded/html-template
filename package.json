@@ -22,5 +22,8 @@
     "> 5%",
     "Firefox ESR",
     "not dead"
-  ]
+  ],
+  "volta": {
+    "node": "22.11.0"
+  }
 }

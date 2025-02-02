@@ -22,9 +22,9 @@ $breakpoints: (
   "xxl": "(min-width: 1536px)",
   "max-xxl": "not (min-width: 1536px)",
 
-  "md-max-lg": "(min-width: 744px) and not (min-width: 1024px)",
-  "md-max-xl": "(min-width: 744px) and not (min-width: 1280px)",
-  "md-max-xxl": "(min-width: 744px) and not (min-width: 1536px)",
+  "md-max-lg": "(min-width: 744px) and ( not (min-width: 1024px) )",
+  "md-max-xl": "(min-width: 744px) and ( not (min-width: 1280px) )",
+  "md-max-xxl": "(min-width: 744px) and ( not (min-width: 1536px) )",
 ) !default;
 
 // SPの左右の余白
