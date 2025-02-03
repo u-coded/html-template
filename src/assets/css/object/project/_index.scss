@@ -35,6 +35,9 @@
   & + & {
     margin-top: 1em;
   }
+  &.-rem {
+    font-size: f.rem(20);
+  }
 }
 .p-index-about__btn {
   margin-top: f.vw(50);

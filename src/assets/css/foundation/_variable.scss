@@ -1,14 +1,5 @@
 @use "sass:map";
 
-:root {
-  --duration: 0.6s; // 基本的なアニメーション速度
-  --base-width: 375; // SPデザインの幅
-  --vw: calc(100vw / var(--base-width));
-
-  --black: 26 26 26; // #1a1a1a
-  --gray: 204 204 204; // #ccc
-}
-
 // ブレイクポイント設定
 $breakpoints: (
   "sm": "(min-width: 640px)",
@@ -45,6 +36,16 @@ $pc-gutter: 160;
 // 最大幅
 $pc-maximum-width: 1760;
 
+:root {
+  --duration: 0.6s; // 基本的なアニメーション速度
+  --base-width: 375; // SPデザインの幅
+  // --vw: calc(100vw / var(--base-width)); // フォールバック用
+  --vw: 100vw / var(--base-width);
+
+  --black: 26 26 26; // #1a1a1a
+  --gray: 204 204 204; // #ccc
+}
+
 // mdサイズ以上は、コンテンツ幅 + TBの余白をベースに可変
 @media #{map.get($breakpoints, "md")} {
   :root {
@@ -62,6 +63,7 @@ $pc-maximum-width: 1760;
 // 最大幅以上は、px固定
 @media (min-width: #{$pc-maximum-width}px) {
   :root {
-    --vw: calc(1px * (#{$pc-maximum-width} / #{$pc-design-width}));
+    // --vw: calc(1px * (#{$pc-maximum-width} / #{$pc-design-width})); // フォールバック用
+    --vw: 1px * (#{$pc-maximum-width} / #{$pc-design-width});
   }
 }

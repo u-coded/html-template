@@ -1,7 +1,13 @@
 @use "./mixin" as m;
 @use "./variable" as v;
+@use "sass:math";
 
-// pxをvw可変に変更する関数
+// CSS変数--vwを利用してpxをvwに変換する関数
 @function vw($px) {
-	@return calc($px * var(--vw));
+  @return calc($px * var(--vw));
+}
+
+// pxをremに変更する関数
+@function rem($px) {
+  @return math.div($px, 16) * 1rem;
 }
