@@ -91,3 +91,25 @@
     margin-top: f.vw(80);
   }
 }
+
+/**
+ * p-index-public
+ */
+.p-index-public__inner {
+  padding-top: f.vw(50);
+  padding-bottom: f.vw(50);
+}
+.p-index-public__img {
+  margin-top: f.vw(50);
+  width: f.vw(300);
+  margin-inline: auto;
+}
+@include m.m {
+  .p-index-public__inner {
+    padding-top: f.vw(100);
+    padding-bottom: f.vw(100);
+  }
+  .p-index-public__img {
+    width: f.vw(600);
+  }
+}
