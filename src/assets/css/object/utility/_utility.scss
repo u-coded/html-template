@@ -23,7 +23,7 @@
   }
 }
 
-.u-hidden {
+.u-sr-only {
   clip: rect(0, 0, 0, 0);
   width: 1px;
   height: 1px;
@@ -35,15 +35,15 @@
   white-space: nowrap;
 }
 
-// SPのみ表示
-.u-view-sp {
+// md以上で非表示
+.u-hidden-md {
   @include m.m {
     display: none !important;
   }
 }
 
-// PC(タブレット以上)のみ表示
-.u-view-pc {
+// md未満で非表示
+.u-hidden-max-md {
   @include m.m(max-md) {
     display: none !important;
   }

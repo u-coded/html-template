@@ -63,7 +63,7 @@ $pc-maximum-width: 1760;
 // 最大幅以上は、px固定
 @media (min-width: #{$pc-maximum-width}px) {
   :root {
-    // --vw: calc(1px * (#{$pc-maximum-width} / #{$pc-design-width})); // フォールバック用
-    --vw: 1px * (#{$pc-maximum-width} / #{$pc-design-width});
+    --vw: calc(0.0625rem * (#{$pc-maximum-width} / #{$pc-design-width})); // remで出力する場合
+    // --vw: 1px * (#{$pc-maximum-width} / #{$pc-design-width}); // pxで出力する場合
   }
 }
