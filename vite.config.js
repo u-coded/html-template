@@ -141,39 +141,55 @@ const inputFiles = createInputFiles(files);
  * build時にWebPを自動生成する自作プラグイン
  */
 function sharpWebpPlugin({ srcDir, outDir, quality = 80 }) {
-  let publicImages = new Set(); // public 内の画像リスト
-
   return {
     name: "sharp-webp-plugin",
     apply: "build",
     enforce: "post",
-
     async closeBundle() {
       const publicDir = path.resolve(srcDir, "public");
       const supportedFormats = [".jpg", ".jpeg", ".png"];
 
-      // public 内の画像リストを取得
-      async function collectPublicImages(dir) {
+      // 画像の変換処理関数
+      async function processImages(dir) {
         const files = await fs.promises.readdir(dir, { withFileTypes: true });
 
         await Promise.all(
           files.map(async (file) => {
             const filePath = path.join(dir, file.name);
 
+            // publicディレクトリを除外
+            if (filePath.startsWith(publicDir)) return;
+
             if (file.isDirectory()) {
-              await collectPublicImages(filePath);
+              // ディレクトリの場合は再帰処理
+              await processImages(filePath);
             } else {
               const ext = path.extname(file.name).toLowerCase();
+
+              // JPGまたはPNGファイルの場合のみ変換
               if (supportedFormats.includes(ext)) {
-                const relativePath = path.relative(publicDir, filePath).replace(/\\/g, "/");
-                publicImages.add(relativePath);
+                const outputFilePath = filePath.replace(srcDir, outDir).replace(ext, ".webp");
+                try {
+                  // outDir内にWebPを出力
+                  await sharp(filePath)
+                    .webp({ quality }) // 引数で指定された圧縮率を使用
+                    .toFile(outputFilePath);
+
+                  // outDir内の元の画像ファイルを削除
+                  const originalOutPath = filePath.replace(srcDir, outDir);
+                  if (fs.existsSync(originalOutPath)) {
+                    await fs.promises.unlink(originalOutPath);
+                  }
+                } catch (error) {
+                  console.error(`Error converting ${filePath}:`, error);
+                }
               }
             }
           })
         );
       }
 
-      // HTML 内の画像パスを WebP に変換（public 内の画像はそのまま）
+      // HTMLファイルのWebPパス変換関数
       async function updateHtmlToWebp(dir) {
         const files = await fs.promises.readdir(dir, { withFileTypes: true });
 
@@ -182,20 +198,13 @@ function sharpWebpPlugin({ srcDir, outDir, quality = 80 }) {
             const filePath = path.join(dir, file.name);
 
             if (file.isDirectory()) {
+              // ディレクトリの場合は再帰処理
               await updateHtmlToWebp(filePath);
             } else if (file.name.endsWith(".html")) {
               let content = fs.readFileSync(filePath, "utf-8");
 
-              content = content.replace(/((?:src|srcset|url\()=["']?)([^"')]+\.(jpg|jpeg|png))/g, (match, prefix, imgPath) => {
-                let normalizedPath = imgPath.replace(/^\.?\//, "").replace(/\\/g, "/");
-                let possiblePublicPath = normalizedPath.replace(/^public\//, "");
-
-                if (publicImages.has(possiblePublicPath)) {
-                  return match; // public 内の画像は変更しない
-                }
-
-                return `${prefix}${imgPath.replace(/\.(jpg|jpeg|png)$/, ".webp")}`;
-              });
+              // src属性、srcset属性、url()内のパスをWebPに変換（元の拡張子を削除）
+              content = content.replace(/((?:src|srcset|url\()=["']?)(?!\/?public\/)([^"')]+)\.(jpg|jpeg|png)/g, "$1$2.webp");
 
               fs.writeFileSync(filePath, content);
             }
@@ -203,10 +212,10 @@ function sharpWebpPlugin({ srcDir, outDir, quality = 80 }) {
         );
       }
 
-      // public 内の画像リストを収集
-      await collectPublicImages(publicDir);
+      // srcディレクトリ内の画像を変換
+      await processImages(srcDir);
 
-      // HTML のパスを変換（public 内の画像はそのまま）
+      // outDirディレクトリ内のHTMLファイルのパスを更新
       await updateHtmlToWebp(outDir);
     },
   };
