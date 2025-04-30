@@ -6,9 +6,9 @@
  */
 .l-sub-kv {
   display: grid;
-  height: f.vw(200);
+  height: f.r(200);
   place-items: center;
-  background: rgb(var(--gray) / 0.3);
+  background: var(--black-30);
 }
 .l-sub-kv__txt {
   font-weight: 700;
@@ -16,6 +16,6 @@
 
 @include m.m {
   .l-sub-kv {
-    height: f.vw(400);
+    height: f.r(400);
   }
 }

@@ -15,7 +15,7 @@
     display: block;
     width: 100%;
     padding: 0.8em;
-    border: 1px solid rgb(var(--black));
+    border: 1px solid var(--black);
     border-radius: 0;
     font-size: 16px;
     -webkit-appearance: none;
@@ -37,8 +37,8 @@
       display: block;
       width: 0.6em;
       height: 0.6em;
-      border-right: 1px solid rgb(var(--black));
-      border-bottom: 1px solid rgb(var(--black));
+      border-right: 1px solid var(--black);
+      border-bottom: 1px solid var(--black);
       position: absolute;
       top: calc(50% - 0.4em);
       right: 1em;
@@ -50,7 +50,7 @@
   select {
     width: 100%;
     padding: 0.6em;
-    border-color: rgb(var(--black));
+    border-color: var(--black);
     background: #fff;
     font-size: 16px;
     cursor: pointer;
@@ -68,7 +68,7 @@
       display: block;
       width: 1em;
       height: 1em;
-      border: 1px solid rgb(var(--black));
+      border: 1px solid var(--black);
       border-radius: 50%;
       position: absolute;
       top: 50%;
@@ -88,7 +88,7 @@
       left: 0.2em;
       translate: 0 -50%;
       transition: opacity 0.3s;
-      background: rgb(var(--black));
+      background: var(--black);
     }
   }
   label:has(> input[type="radio"]:checked) {
@@ -119,7 +119,7 @@
       display: block;
       width: 1em;
       height: 1em;
-      border: 1px solid rgb(var(--black));
+      border: 1px solid var(--black);
       position: absolute;
       top: 50%;
       left: 0;
@@ -131,8 +131,8 @@
       opacity: 0;
       width: 0.4em;
       height: 0.8em;
-      border-right: 0.2em solid rgb(var(--black));
-      border-bottom: 0.2em solid rgb(var(--black));
+      border-right: 0.2em solid var(--black);
+      border-bottom: 0.2em solid var(--black);
       position: absolute;
       top: 0.3em;
       left: 0.3em;
@@ -169,8 +169,8 @@
   input[type="button"] {
     display: grid;
     width: 100%;
-    max-width: f.vw(240);
-    padding: f.vw(5);
+    max-width: f.r(240);
+    padding: f.r(5);
     // border: none;
     border: 1px solid;
     // border-radius: 0;
@@ -182,7 +182,7 @@
 
 .c-form1__fieldset {
   & + & {
-    margin-top: f.vw(20);
+    margin-top: f.r(20);
   }
 }
 .c-form1__legend {
@@ -191,21 +191,21 @@
 .c-form1__inputs {
 }
 .c-form1__btns {
-  margin-top: f.vw(30);
+  margin-top: f.r(30);
   input {
     margin-inline: auto;
   }
   input + input {
-    margin-top: f.vw(10);
+    margin-top: f.r(10);
   }
 }
 
 @include m.m {
   .c-form1__btns {
     display: flex;
-    margin-top: f.vw(50);
+    margin-top: f.r(50);
     justify-content: center;
-    gap: f.vw(30);
+    gap: f.r(30);
     input {
       margin-inline: 0;
     }

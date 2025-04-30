@@ -7,32 +7,37 @@
  */
 .c-btn1 {
   // width: 100%;
-  // max-width: f.vw(240);
+  // max-width: f.r(240);
   width: fit-content;
   margin-inline: auto;
 }
 .c-btn1__link {
   display: grid;
-  padding: f.vw(10) f.vw(20) f.vw(10) f.vw(30);
+  padding: f.r(10) f.r(20) f.r(10) f.r(30);
   border: 1px solid;
   border-radius: calc(1px / 0);
   align-items: center;
   grid-template-columns: 1fr auto;
-  gap: f.vw(20);
+  gap: f.r(20);
   transition: background-color var(--duration), color var(--duration);
   @include m.h {
-    background: rgb(var(--black));
+    background: var(--black);
     color: white;
+    .c-btn1__ico {
+      color: red;
+    }
   }
 }
 .c-btn1__txt {
 }
 .c-btn1__ico {
-  width: f.vw(10);
+  width: f.r(8);
+  height: f.r(10);
+  color: blue;
 }
 
 // @include m.m {
 //   .c-btn1 {
-//     max-width: f.vw(300);
+//     max-width: f.r(300);
 //   }
 // }

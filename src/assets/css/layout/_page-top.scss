@@ -7,10 +7,10 @@
 .l-page-top {
   opacity: 0;
   position: fixed;
-  right: f.vw(15);
-  bottom: f.vw(30);
+  right: f.r(15);
+  bottom: f.r(30);
   transition: opacity var(--duration);
-  color: rgb(var(--black));
+  color: var(--black);
   &.is-show {
     opacity: 1;
   }
@@ -20,19 +20,19 @@
 }
 .l-page-top__link {
   display: block;
-  width: f.vw(40);
-  height: f.vw(40);
+  width: f.r(40);
+  height: f.r(40);
   border: 1px solid;
   border-radius: 50%;
   background: white;
   &::before {
     content: "";
-    width: f.vw(10);
-    height: f.vw(10);
-    border-top: f.vw(2) solid;
-    border-right: f.vw(2) solid;
+    width: f.r(10);
+    height: f.r(10);
+    border-top: f.r(2) solid;
+    border-right: f.r(2) solid;
     position: absolute;
-    top: calc(50% + f.vw(2));
+    top: calc(50% + f.r(2));
     left: 50%;
     transform: translate(-50%, -50%) rotate(-45deg);
   }
@@ -40,10 +40,10 @@
 
 @include m.m {
   .l-page-top {
-    right: f.vw(30);
+    right: f.r(30);
   }
   .l-page-top__link {
-    width: f.vw(50);
-    height: f.vw(50);
+    width: f.r(50);
+    height: f.r(50);
   }
 }

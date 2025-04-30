@@ -9,18 +9,18 @@
   text-align: center;
 }
 .c-head1__ja {
-  font-size: f.vw(20);
+  font-size: f.r(20);
 }
 .c-head1__en {
-  margin-top: f.vw(10);
-  font-size: f.vw(16);
+  margin-top: f.r(10);
+  font-size: f.r(16);
 }
 
 @include m.m {
   .c-head1__ja {
-    font-size: f.vw(24);
+    font-size: f.r(24);
   }
   .c-head1__en {
-    font-size: f.vw(20);
+    font-size: f.r(20);
   }
 }

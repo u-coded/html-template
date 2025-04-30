@@ -2,7 +2,6 @@ import { loadingSet, loadingHide } from "./assets/loading.js";
 import nav from "./assets/nav.js";
 import smoothScroll from "./assets/smoothScroll.js";
 import pageTop from "./assets/pageTop.js";
-import embedSvg from "./assets/embedSvg.js";
 
 import index from "./scenes/index.js";
 import about from "./scenes/about.js";
@@ -26,7 +25,6 @@ const pageLoaded = () => {
   nav();
   smoothScroll();
   pageTop();
-  embedSvg();
 
   // ページ別のJSを実行
   switch (bodyId) {

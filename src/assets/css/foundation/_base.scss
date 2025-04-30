@@ -10,18 +10,18 @@ html {
 
 body {
   min-width: 320px;
-  padding-top: f.vw(60);
+  padding-top: f.r(60);
   background-color: white;
   font-family: "Noto Sans JP", sans-serif;
-  font-size: f.rem(16);
+  font-size: f.r(16);
   font-weight: 400;
   line-height: 1.75;
-  color: rgb(var(--black));
+  color: var(--black);
   font-feature-settings: "palt";
   -webkit-text-size-adjust: 100%;
   @include m.m {
     min-width: auto;
-    padding-top: f.vw(100);
+    padding-top: f.r(100);
     @media (hover: none) {
       -webkit-text-size-adjust: none;
     }
@@ -36,6 +36,6 @@ body {
 // @media (prefers-color-scheme: dark) {
 // 	body {
 // 		color: white;
-// 		background-color: rgb(var(--black));
+// 		background-color: var(--black);
 // 	}
 // }

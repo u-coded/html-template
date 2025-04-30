@@ -21,7 +21,7 @@
     }
   }
   .l-nav__list {
-    padding: f.vw(100) f.vw(15);
+    padding: f.r(100) f.r(15);
     text-align: center;
   }
 }
@@ -32,7 +32,7 @@
   .l-nav__list {
     display: flex;
     justify-content: flex-end;
-    gap: f.vw(30);
+    gap: f.r(30);
   }
 }
 
@@ -40,12 +40,12 @@
  * l-nav-hamburger
  */
 .l-nav-hamburger {
-  width: f.vw(40);
-  height: f.vw(40);
-  border: 1px solid rgb(var(--black));
+  width: f.r(40);
+  height: f.r(40);
+  border: 1px solid var(--black);
   position: absolute;
-  top: f.vw(10);
-  right: f.vw(10);
+  top: f.r(10);
+  right: f.r(10);
   z-index: 2;
   background: white;
 
@@ -66,13 +66,13 @@
 }
 
 .l-nav-hamburger__icon {
-  width: f.vw(28);
+  width: f.r(28);
   height: 1px;
   position: absolute;
   top: 50%;
-  left: f.vw(5);
+  left: f.r(5);
   transition: all var(--duration);
-  background: rgb(var(--black));
+  background: var(--black);
   &::before,
   &::after {
     content: "";
@@ -81,13 +81,13 @@
     position: absolute;
     left: 0;
     transition: inherit;
-    background: rgb(var(--black));
+    background: var(--black);
   }
   &::before {
-    top: f.vw(-9);
+    top: f.r(-9);
   }
   &::after {
-    top: f.vw(9);
+    top: f.r(9);
   }
 }
 
@@ -103,7 +103,7 @@
   top: 0;
   left: 0;
   transition: opacity var(--duration), visibility var(--duration);
-  background: rgb(var(--gray) / 0.3);
+  background: var(--black-30);
   backdrop-filter: blur(3px);
   &.is-open {
     visibility: visible;

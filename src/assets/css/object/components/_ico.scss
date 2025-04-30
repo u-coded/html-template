@@ -1,0 +1,27 @@
+@use "../../foundation/mixin" as m;
+@use "../../foundation/functions" as f;
+
+/**
+ * c-ico
+ * SVGアイコン
+ */
+.c-ico {
+  &::before {
+    content: "";
+    display: block;
+    width: inherit;
+    height: inherit;
+    transition: var(--duration);
+    background-color: currentColor;
+    mask-position: center;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+  }
+
+  // 矢印
+  &.-arrow1 {
+    &::before {
+      mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 100"><path d="M50,0l50,80H0Z" transform="translate(80) rotate(90)"/></svg>');
+    }
+  }
+}

@@ -7,17 +7,17 @@
  */
 .c-archive1__article {
   border-bottom: 1px solid;
-  padding-bottom: f.vw(20);
+  padding-bottom: f.r(20);
   & + & {
-    padding-top: f.vw(20);
+    padding-top: f.r(20);
   }
 }
 .c-archive1__date {
-  font-size: f.vw(14);
+  font-size: f.r(14);
 }
 .c-archive1__title {
-  margin-top: f.vw(5);
+  margin-top: f.r(5);
 }
 .c-archive1__content {
-  margin-top: f.vw(5);
+  margin-top: f.r(5);
 }

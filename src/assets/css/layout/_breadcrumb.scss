@@ -7,23 +7,23 @@
 .l-breadcrumb {
   ul {
     display: flex;
-    padding: f.vw(10) 0;
+    padding: f.r(10) 0;
     flex-wrap: wrap;
   }
   li {
-    font-size: f.vw(12);
+    font-size: f.r(12);
     & + li {
       display: flex;
       &::before {
         content: "\FF1E";
         display: inline-block;
-        padding: 0 f.vw(3) 0 f.vw(6);
+        padding: 0 f.r(3) 0 f.r(6);
       }
     }
     > a {
     }
     > span {
-      color: rgb(var(--black) / 0.5);
+      color: var(--black-70);
     }
   }
 }
@@ -31,7 +31,7 @@
 @include m.m {
   .l-breadcrumb {
     li {
-      font-size: f.vw(14);
+      font-size: f.r(14);
     }
   }
 }
