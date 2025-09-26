@@ -7,10 +7,27 @@ import fs from "fs";
 import path from "path";
 
 // カスタムヘルパー
-handlebars.registerHelper("eq", (val1, val2) => val1 === val2);
-handlebars.registerHelper("notEq", (val1, val2) => val1 !== val2);
-handlebars.registerHelper("or", (val1, val2) => val1 || val2);
-handlebars.registerHelper("and", (val1, val2) => val1 && val2);
+handlebars.registerHelper("eq", function (...args) {
+  args.pop();
+  const [first, ...rest] = args;
+  return rest.every((val) => val === first);
+});
+
+handlebars.registerHelper("notEq", function (...args) {
+  args.pop();
+  const [first, ...rest] = args;
+  return rest.every((val) => val !== first);
+});
+
+handlebars.registerHelper("or", function (...args) {
+  args.pop();
+  return args.some(Boolean);
+});
+
+handlebars.registerHelper("and", function (...args) {
+  args.pop();
+  return args.every(Boolean);
+});
 
 // 配列を指定件数分回す
 // 例：articlesを3件ループ {{#each (limit articles 3)}} <p>{{date}}</p><p>{{title}}</p>  {{/each}}
