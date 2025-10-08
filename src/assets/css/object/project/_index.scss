@@ -101,7 +101,7 @@
 }
 .p-index-public__img {
   margin-top: f.r(50);
-  width: f.r(300);
+  width: f.v(200);
   margin-inline: auto;
 }
 @include m.m {
@@ -110,6 +110,6 @@
     padding-bottom: f.r(100);
   }
   .p-index-public__img {
-    width: f.r(600);
+    width: f.v(700);
   }
 }

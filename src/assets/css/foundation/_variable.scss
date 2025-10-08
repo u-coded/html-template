@@ -18,29 +18,23 @@ $breakpoints: (
   "md-max-xxl": "(min-width: 744px) and ( not (min-width: 1536px) )",
 ) !default;
 
-// SPの左右の余白
+$sp-design-width: 375; // SPカンプ幅
+$pc-design-width: 1920; // PCカンプ幅
+
+// 左右の余白
 $sp-gutter: 20;
-
-// TBの左右の余白
 $tb-gutter: 30;
-
-// PCデザインの幅
-$pc-design-width: 1920;
-
-// PCデザインのコンテンツの幅
-$pc-content-width: 1200;
-
-// PCの左右の余白
 $pc-gutter: 50;
 
-// 最大幅
+// PCカンプのコンテンツ幅
+$pc-content-width: 1200;
+
+// コンテナ最大幅（これ以上で固定化）
 $pc-maximum-width: 1344;
 
 :root {
   --duration: 0.3s; // 基本的なアニメーション速度
-  --base-width: 375; // SPデザインの幅
-  // --vw: calc(100vw / var(--base-width)); // フォールバック用
-  --vw: 100vw / var(--base-width);
+  --vw: 100vw / #{$sp-design-width};
 
   --black: #1a1a1a;
   --black-70: #1a1a1a70;
@@ -48,24 +42,16 @@ $pc-maximum-width: 1344;
   --gray: #ccc;
 }
 
-// mdサイズ以上は、コンテンツ幅 + TBの余白をベースに可変
+// mdサイズ以上は、PCカンプ基準
 @media #{map.get($breakpoints, "md")} {
   :root {
-    --base-width: #{$pc-content-width + $tb-gutter * 2};
+    --vw: calc(100vw / #{$pc-design-width});
   }
 }
 
 // lgサイズ以上はPCデザインをベースに可変
 @media #{map.get($breakpoints, "lg")} {
   :root {
-    --base-width: #{$pc-design-width};
-  }
-}
-
-// 最大幅以上は、px固定
-@media (min-width: #{$pc-maximum-width}px) {
-  :root {
-    // --vw: calc(0.0625rem * (#{$pc-maximum-width} / #{$pc-design-width})); // remで出力する場合
-    --vw: 1px * (#{$pc-maximum-width} / #{$pc-design-width}); // pxで出力する場合
+    --vw: calc(min(100vw, #{$pc-maximum-width}px) / #{$pc-maximum-width});
   }
 }
