@@ -1,0 +1,32 @@
+@use "../../foundation/mixin" as m;
+@use "../../foundation/functions" as f;
+@use "../../foundation/variable" as v;
+
+/**
+ * Visibility
+ */
+.u-sr-only {
+  clip: rect(0, 0, 0, 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+// md以上で非表示
+.u-hidden-md {
+  @include m.m {
+    display: none !important;
+  }
+}
+
+// md未満で非表示
+.u-hidden-max-md {
+  @include m.m(max-md) {
+    display: none !important;
+  }
+}

@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:math";
 
 // ブレイクポイント設定
 $breakpoints: (
@@ -18,19 +19,30 @@ $breakpoints: (
   "md-max-xxl": "(min-width: 744px) and ( not (min-width: 1536px) )",
 ) !default;
 
-$sp-design-width: 375; // SPカンプ幅
-$pc-design-width: 1920; // PCカンプ幅
+ // SPカンプ幅
+$sp-design-width: 375;
+
+// PCカンプ幅
+$pc-design-width: 1366;
 
 // 左右の余白
 $sp-gutter: 20;
-$tb-gutter: 30;
-$pc-gutter: 50;
+$pc-gutter: 30;
 
 // PCカンプのコンテンツ幅
-$pc-content-width: 1200;
+$pc-content-width: 1000;
 
-// コンテナ最大幅（これ以上で固定化）
-$pc-maximum-width: 1344;
+// 広げる最大のコンテンツ幅
+$pc-max-content-width: 1200;
+
+// デザイン時のコンテンツ幅の外寸
+$inner-min: $pc-content-width + $pc-gutter * 2;
+
+// 最大コンテンツ幅の外寸
+$inner-max: $pc-max-content-width + $pc-gutter * 2;
+
+// デザインのコンテンツ幅の比率
+$inner-ratio: math.div($inner-min, $pc-design-width);
 
 :root {
   --duration: 0.3s; // 基本的なアニメーション速度
@@ -45,13 +57,13 @@ $pc-maximum-width: 1344;
 // mdサイズ以上は、PCカンプ基準
 @media #{map.get($breakpoints, "md")} {
   :root {
-    --vw: calc(100vw / #{$pc-design-width});
+    --vw: calc(min(100vw, #{$inner-min}px) / #{$pc-design-width});
   }
 }
 
 // lgサイズ以上はPCデザインをベースに可変
 @media #{map.get($breakpoints, "lg")} {
   :root {
-    --vw: calc(min(100vw, #{$pc-maximum-width}px) / #{$pc-maximum-width});
+    --vw: calc(min(100vw, #{$inner-max}px) / #{$inner-max});
   }
 }

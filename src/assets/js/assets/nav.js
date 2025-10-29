@@ -1,7 +1,7 @@
 import { debounce } from "./debounce";
+import scrollLock from "./scrollLock";
 
 export default () => {
-  const body = document.body;
   const nav = document.querySelector("[data-nav]");
   const trigger = document.querySelector("[data-nav-trigger]");
   const overlay = document.querySelector("[data-nav-overlay]");
@@ -10,6 +10,8 @@ export default () => {
   const OPEN_CLASS = "is-open";
   const DESKTOP_BREAKPOINT = 744;
 
+  const locker = scrollLock();
+
   // ナビを開く関数
   const openNav = () => {
     if (!nav.classList.contains(OPEN_CLASS)) {
@@ -17,14 +19,13 @@ export default () => {
       trigger.classList.add(OPEN_CLASS);
       overlay.classList.add(OPEN_CLASS);
 
-      // スクロールを無効化
-      body.style.overflow = "hidden";
-      body.style.height = "100vh";
-
       // aria属性の更新
       trigger.setAttribute("aria-expanded", "true");
       nav.setAttribute("aria-hidden", "false");
       overlay.setAttribute("aria-hidden", "false");
+
+      // スクロールを無効化
+      locker.lock();
     }
   };
 
@@ -35,25 +36,20 @@ export default () => {
       trigger.classList.remove(OPEN_CLASS);
       overlay.classList.remove(OPEN_CLASS);
 
-      // スクロールを有効化
-      body.style.overflow = "";
-      body.style.height = "";
-
       // aria属性の更新
       trigger.setAttribute("aria-expanded", "false");
       nav.setAttribute("aria-hidden", "true");
       overlay.setAttribute("aria-hidden", "true");
+
+      // スクロールを有効化
+      locker.unlock();
     }
   };
 
   // ハンバーガーボタンをクリックしたとき
   trigger.addEventListener("click", () => {
     const isExpanded = trigger.getAttribute("aria-expanded") === "true";
-    if (isExpanded) {
-      closeNav();
-    } else {
-      openNav();
-    }
+    isExpanded ? closeNav() : openNav();
   });
 
   // オーバーレイをクリックしたとき
@@ -81,19 +77,19 @@ export default () => {
       trigger.classList.remove(OPEN_CLASS);
       overlay.classList.remove(OPEN_CLASS);
 
-      body.style.overflow = "";
-      body.style.height = "";
-
       nav.setAttribute("aria-hidden", "false");
       trigger.setAttribute("aria-expanded", "false");
       overlay.setAttribute("aria-hidden", "true");
+
+      locker.unlock();
     } else {
       // モバイルの場合: 現在の状態を維持しつつ属性を適切に更新
       const isOpen = nav.classList.contains(OPEN_CLASS);
       nav.setAttribute("aria-hidden", isOpen ? "false" : "true");
+      trigger.setAttribute("aria-expanded", String(isOpen));
+      overlay.setAttribute("aria-hidden", String(!isOpen));
     }
   };
 
-  // デバウンス処理でリスナーを登録
   debounce(updateNavState, 100);
 };

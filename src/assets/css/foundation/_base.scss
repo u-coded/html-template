@@ -6,6 +6,13 @@ html {
   &:not([lang="ja"]) {
     word-break: break-word;
   }
+  // スクロールロック時のスタイル
+  &.is-scroll-locked {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    overflow: hidden;
+  }
 }
 
 body {

@@ -3,82 +3,13 @@
 @use "../../foundation/variable" as v;
 
 /**
- * Layout
+ * Other
  */
-
-// インナー幅
-.u-inner {
-  padding-right: f.r(#{v.$sp-gutter});
-  padding-left: f.r(#{v.$sp-gutter});
-  @include m.m {
-    padding-right: f.r(#{v.$tb-gutter});
-    padding-left: f.r(#{v.$tb-gutter});
-  }
-  @include m.m(lg) {
-    width: 100%;
-    margin-inline: auto;
-    max-width: f.r(#{v.$pc-content-width + v.$pc-gutter * 2});
-    padding-right: f.r(#{v.$pc-gutter});
-    padding-left: f.r(#{v.$pc-gutter});
-  }
-}
-
-.u-sr-only {
-  clip: rect(0, 0, 0, 0);
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  border: 0;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-}
-
-// md以上で非表示
-.u-hidden-md {
-  @include m.m {
-    display: none !important;
-  }
-}
-
-// md未満で非表示
-.u-hidden-max-md {
-  @include m.m(max-md) {
-    display: none !important;
-  }
-}
 
 // ホバー時の透過
 .u-alpha {
   transition: opacity var(--duration);
   @include m.h() {
     opacity: 0.7;
-  }
-}
-
-/**
- * Typography
- */
-.u-font-bold {
-  font-weight: 700;
-}
-
-.u-font-black {
-  font-weight: 900;
-}
-
-.u-text-black {
-  color: var(--black);
-}
-
-.u-text-gray {
-  color: var(--gray);
-}
-
-.u-leading-trim {
-  margin-block: calc((1em - 1lh) / 2);
-  &[lang="en"] {
-    margin-block: calc((1cap - 1lh) / 2);
   }
 }

@@ -1,0 +1,18 @@
+@use "../../foundation/mixin" as m;
+@use "../../foundation/functions" as f;
+@use "../../foundation/variable" as v;
+
+/**
+ * Layout
+ */
+
+// インナー幅
+.u-inner {
+  padding-inline: f.r(#{v.$sp-gutter});
+  @include m.m {
+    width: 100%;
+    max-width: clamp(#{f.r(v.$inner-min)}, calc(#{v.$inner-ratio} * 100vw), #{f.r(v.$inner-max)});
+    margin-inline: auto;
+    padding-inline: f.r(#{v.$pc-gutter});
+  }
+}

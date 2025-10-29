@@ -21,3 +21,31 @@
     padding-bottom: f.r(100);
   }
 }
+
+/**
+ * p-about-flex
+ */
+.p-about-flex__inner {
+  padding-top: f.r(50);
+  padding-bottom: f.r(100);
+  text-align: center;
+}
+.p-about-flex__head {
+  font-size: f.v(28);
+}
+.p-about-flex__circle {
+  margin-top: f.r(30);
+  width: f.v(200);
+  background: var(--black);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  margin-inline: auto;
+}
+@include m.m {
+  .p-about-flex__inner {
+    padding-top: f.r(100);
+  }
+  .p-about-flex__circle {
+    width: f.v(300);
+  }
+}

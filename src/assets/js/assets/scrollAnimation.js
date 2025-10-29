@@ -2,63 +2,55 @@ export default () => {
   const TARGET_SEL = "[data-anime]";
   const FOUND_CLASS = "is-found";
 
-  const targets = document.querySelectorAll(`${TARGET_SEL}`);
+  const targets = document.querySelectorAll(TARGET_SEL);
+  if (!targets.length) return;
 
-  if (!targets.length) {
-    return;
-  }
+  const enterObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
 
-  const options = {
-    root: null, // nullでビューポート
-    rootMargin: "0px 0px -30% 0px", // 上右下左のrootからの距離 初期値は0px
-    threshold: 0, // どれくらい交差したか 0～1
-  };
-
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        // 監視対象とアニメーションするアイテムが同じ場合
         if (entry.target.dataset.anime.trim() !== "") {
           entry.target.classList.add(FOUND_CLASS);
+          return;
         }
+        const children = entry.target.querySelectorAll(TARGET_SEL);
+        children.forEach((el) => el.classList.add(FOUND_CLASS));
+      });
+    },
+    {
+      root: null,
+      rootMargin: "0px 0px -30% 0px", // どれくらいで表示するか
+      threshold: 0,
+    }
+  );
 
-        // 違う場合は、data-anime属性がある子要素をアニメーションさせる
-        // 監視対象にする親要素のdata-animeの値は設定しない
-        else {
-          const children = entry.target.querySelectorAll(`${TARGET_SEL}`);
-          Object.keys(children).forEach((key) => {
-            // 子要素の監視をやめる
-            observer.unobserve(children[key]);
+  // 表示を外れたとき
+  const exitObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) return;
 
-            // 子要素に同時にアニメーションさせる
-            children[key].classList.add(FOUND_CLASS);
-          });
-        }
-        // アニメーションを1度きりにする場合は以下のコメントアウト外す
-        // observer.unobserve(entry.target);
-      }
-
-      // 画面外のとき、アニメーションをリセット
-      // アニメーションを1度きりにする場合、以下のelse文はいらない
-      else {
-        if (entry.target.dataset.anime) {
+        if (entry.target.dataset.anime.trim() !== "") {
           entry.target.classList.remove(FOUND_CLASS);
-        } else {
-          const founds = document.querySelectorAll(
-            `${TARGET_SEL} .${FOUND_CLASS}`
-          );
-          founds.forEach((found) => {
-            found.classList.remove(FOUND_CLASS);
-          });
+          return;
         }
-      }
-    });
-  }, options);
 
-  targets.forEach((target) => {
-    observer.observe(target);
+        const founds = entry.target.querySelectorAll(`${TARGET_SEL}.${FOUND_CLASS}`);
+        founds.forEach((el) => el.classList.remove(FOUND_CLASS));
+      });
+    },
+    {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0,
+    }
+  );
+
+  targets.forEach((t) => {
+    enterObserver.observe(t);
+    exitObserver.observe(t);
   });
 
-  // 実行済みか判定するためにbodyにクラスつける
-  document.body.classList.add("is-found");
+  document.body.classList.add(FOUND_CLASS);
 };

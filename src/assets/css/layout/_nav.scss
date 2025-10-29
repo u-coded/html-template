@@ -104,7 +104,7 @@
   left: 0;
   transition: opacity var(--duration), visibility var(--duration);
   background: var(--black-30);
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(5px);
   &.is-open {
     visibility: visible;
     opacity: 1;

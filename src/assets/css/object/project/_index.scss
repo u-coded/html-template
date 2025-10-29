@@ -6,12 +6,11 @@
  */
 .p-index-kv {
   display: grid;
-  height: 50vh;
+  height: 100vh;
   place-items: center;
   background: var(--black-30);
   font-size: f.r(20);
 }
-
 @include m.m {
   .p-index-kv {
     font-size: f.r(24);
