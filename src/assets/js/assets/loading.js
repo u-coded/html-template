@@ -1,9 +1,10 @@
 import scrollAnimation from "./scrollAnimation.js";
+import scrollLock from "./scrollLock.js";
 
-const body = document.body;
 const loading = document.querySelector("[data-loading]");
 
 const LOADED_CLASS = "is-loaded";
+const lock = scrollLock();
 
 /**
  * ローディング画面を表示時に背景を固定する関数
@@ -14,8 +15,7 @@ export const loadingSet = () => {
   }
 
   // ローディング中は画面固定
-  body.style.overflow = "hidden";
-  body.style.height = "100vh";
+  lock.lock();
 };
 
 /**
@@ -32,8 +32,7 @@ export const loadingHide = () => {
   scrollAnimation();
 
   // スクロールを有効化
-  body.style.overflow = "";
-  body.style.height = "";
+  lock.unlock();
 
   setTimeout(() => {
     loading.remove();

@@ -2,6 +2,7 @@ import { loadingSet, loadingHide } from "./assets/loading.js";
 import nav from "./assets/nav.js";
 import smoothScroll from "./assets/smoothScroll.js";
 import pageTop from "./assets/pageTop.js";
+import modal from "./assets/modal.js";
 
 import index from "./scenes/index.js";
 import about from "./scenes/about.js";
@@ -25,6 +26,7 @@ const pageLoaded = () => {
   nav();
   smoothScroll();
   pageTop();
+  modal();
 
   // ページ別のJSを実行
   switch (bodyId) {
