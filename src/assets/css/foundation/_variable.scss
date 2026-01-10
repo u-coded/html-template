@@ -1,25 +1,67 @@
 @use "sass:map";
 @use "sass:math";
 
+// ブレイクポイントのpx値
+$bp-xs: 360 !default;
+$bp-sm: 640 !default;
+$bp-md: 744 !default;
+$bp-lg: 1024 !default;
+$bp-xl: 1280 !default;
+$bp-xxl: 1536 !default;
+$bp-xxxl: 1920 !default;
+
 // ブレイクポイント設定
 $breakpoints: (
-  "sm": "(min-width: 640px)",
-  "max-sm": "not (min-width: 640px)",
-  "md": "(min-width: 744px)",
-  "max-md": "not (min-width: 744px)",
-  "lg": "(min-width: 1024px)",
-  "max-lg": "not (min-width: 1024px)",
-  "xl": "(min-width: 1280px)",
-  "max-xl": "not (min-width: 1280px)",
-  "xxl": "(min-width: 1536px)",
-  "max-xxl": "not (min-width: 1536px)",
+  "xs": "(min-width: #{$bp-xs}px)",
+  "max-xs": "not (min-width: #{$bp-xs}px)",
+  "sm": "(min-width: #{$bp-sm}px)",
+  "max-sm": "not (min-width: #{$bp-sm}px)",
+  "md": "(min-width: #{$bp-md}px)",
+  "max-md": "not (min-width: #{$bp-md}px)",
+  "lg": "(min-width: #{$bp-lg}px)",
+  "max-lg": "not (min-width: #{$bp-lg}px)",
+  "xl": "(min-width: #{$bp-xl}px)",
+  "max-xl": "not (min-width: #{$bp-xl}px)",
+  "xxl": "(min-width: #{$bp-xxl}px)",
+  "max-xxl": "not (min-width: #{$bp-xxl}px)",
+  "xxxl": "(min-width: #{$bp-xxxl}px)",
+  "max-xxxl": "not (min-width: #{$bp-xxxl}px)",
 
-  "md-max-lg": "(min-width: 744px) and ( not (min-width: 1024px) )",
-  "md-max-xl": "(min-width: 744px) and ( not (min-width: 1280px) )",
-  "md-max-xxl": "(min-width: 744px) and ( not (min-width: 1536px) )",
+  // xsから各サイズまでの範囲
+  "xs-max-sm": "(min-width: #{$bp-xs}px) and ( not (min-width: #{$bp-sm}px) )",
+  "xs-max-md": "(min-width: #{$bp-xs}px) and ( not (min-width: #{$bp-md}px) )",
+  "xs-max-lg": "(min-width: #{$bp-xs}px) and ( not (min-width: #{$bp-lg}px) )",
+  "xs-max-xl": "(min-width: #{$bp-xs}px) and ( not (min-width: #{$bp-xl}px) )",
+  "xs-max-xxl": "(min-width: #{$bp-xs}px) and ( not (min-width: #{$bp-xxl}px) )",
+  "xs-max-xxxl": "(min-width: #{$bp-xs}px) and ( not (min-width: #{$bp-xxxl}px) )",
+
+  // smから各サイズまでの範囲
+  "sm-max-md": "(min-width: #{$bp-sm}px) and ( not (min-width: #{$bp-md}px) )",
+  "sm-max-lg": "(min-width: #{$bp-sm}px) and ( not (min-width: #{$bp-lg}px) )",
+  "sm-max-xl": "(min-width: #{$bp-sm}px) and ( not (min-width: #{$bp-xl}px) )",
+  "sm-max-xxl": "(min-width: #{$bp-sm}px) and ( not (min-width: #{$bp-xxl}px) )",
+  "sm-max-xxxl": "(min-width: #{$bp-sm}px) and ( not (min-width: #{$bp-xxxl}px) )",
+
+  // mdから各サイズまでの範囲
+  "md-max-lg": "(min-width: #{$bp-md}px) and ( not (min-width: #{$bp-lg}px) )",
+  "md-max-xl": "(min-width: #{$bp-md}px) and ( not (min-width: #{$bp-xl}px) )",
+  "md-max-xxl": "(min-width: #{$bp-md}px) and ( not (min-width: #{$bp-xxl}px) )",
+  "md-max-xxxl": "(min-width: #{$bp-md}px) and ( not (min-width: #{$bp-xxxl}px) )",
+
+  // lgから各サイズまでの範囲
+  "lg-max-xl": "(min-width: #{$bp-lg}px) and ( not (min-width: #{$bp-xl}px) )",
+  "lg-max-xxl": "(min-width: #{$bp-lg}px) and ( not (min-width: #{$bp-xxl}px) )",
+  "lg-max-xxxl": "(min-width: #{$bp-lg}px) and ( not (min-width: #{$bp-xxxl}px) )",
+
+  // xlから各サイズまでの範囲
+  "xl-max-xxl": "(min-width: #{$bp-xl}px) and ( not (min-width: #{$bp-xxl}px) )",
+  "xl-max-xxxl": "(min-width: #{$bp-xl}px) and ( not (min-width: #{$bp-xxxl}px) )",
+
+  // xxlから各サイズまでの範囲
+  "xxl-max-xxxl": "(min-width: #{$bp-xxl}px) and ( not (min-width: #{$bp-xxxl}px) )",
 ) !default;
 
- // SPカンプ幅
+// SPカンプ幅
 $sp-design-width: 375;
 
 // PCカンプ幅
@@ -64,6 +106,6 @@ $inner-ratio: math.div($inner-min, $pc-design-width);
 // lgサイズ以上はPCデザインをベースに可変
 @media #{map.get($breakpoints, "lg")} {
   :root {
-    --vw: calc(min(100vw, #{$inner-max}px) / #{$inner-max});
+    --vw: calc(min(100vw, #{$inner-max}px) / #{$pc-design-width});
   }
 }
