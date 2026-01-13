@@ -64,7 +64,7 @@ const siteData = {
 const pageData = {
   "/index.html": {
     siteData,
-    path: "",
+    path: "./",
     pageSlug: "index",
     pageUrl: "",
     pageTitle: "トップページ",
@@ -222,6 +222,9 @@ function sharpWebpPlugin({ srcDir, outDir, quality = 80 }) {
 
               // src属性、srcset属性、url()内のパスをWebPに変換（元の拡張子を削除）
               content = content.replace(/((?:src|srcset|url\()=["']?)(?!\/?public\/)([^"')]+)\.(jpg|jpeg|png)/g, "$1$2.webp");
+
+              // HTMLコメントを削除（条件付きコメントは除外）
+              content = content.replace(/<!--(?!\[if)[\s\S]*?-->/g, "");
 
               fs.writeFileSync(filePath, content);
             }
