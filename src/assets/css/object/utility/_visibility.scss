@@ -19,14 +19,14 @@
 
 // md以上で非表示
 .u-hidden-md {
-  @include m.m {
+  @include m.mq-up(md) {
     display: none !important;
   }
 }
 
 // md未満で非表示
 .u-hidden-max-md {
-  @include m.m(max-md) {
+  @include m.mq-down(md) {
     display: none !important;
   }
 }

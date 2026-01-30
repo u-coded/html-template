@@ -7,20 +7,20 @@
  */
 .c-btn1 {
   // width: 100%;
-  // max-width: f.r(240);
+  // max-width: f.rem(240);
   width: fit-content;
   margin-inline: auto;
 }
 .c-btn1__link {
   display: grid;
-  padding: f.r(10) f.r(20) f.r(10) f.r(30);
+  padding: f.rem(10) f.rem(20) f.rem(10) f.rem(30);
   border: 1px solid;
   border-radius: calc(1px / 0);
   align-items: center;
   grid-template-columns: 1fr auto;
-  gap: f.r(20);
+  gap: f.rem(20);
   transition: background-color var(--duration), color var(--duration);
-  @include m.h {
+  @include m.hover {
     background: var(--black);
     color: white;
     .c-btn1__ico {
@@ -31,13 +31,13 @@
 .c-btn1__txt {
 }
 .c-btn1__ico {
-  width: f.r(8);
-  height: f.r(10);
+  width: f.rem(8);
+  height: f.rem(10);
   color: blue;
 }
 
-// @include m.m {
+// @include m.mq-up(md) {
 //   .c-btn1 {
-//     max-width: f.r(300);
+//     max-width: f.rem(300);
 //   }
 // }

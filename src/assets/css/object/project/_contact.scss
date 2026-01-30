@@ -7,12 +7,12 @@
 .p-contact-main {
 }
 .p-contact-main__inner {
-  padding-top: f.r(50);
-  padding-bottom: f.r(50);
+  padding-top: f.rem(50);
+  padding-bottom: f.rem(50);
 }
-@include m.m {
+@include m.mq-up(md) {
   .p-contact-main__inner {
-    padding-top: f.r(100);
-    padding-bottom: f.r(100);
+    padding-top: f.rem(100);
+    padding-bottom: f.rem(100);
   }
 }

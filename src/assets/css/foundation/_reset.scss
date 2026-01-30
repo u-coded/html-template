@@ -3,7 +3,8 @@
 *::after {
   box-sizing: border-box;
 }
-:where(html) {
+:where(:root) {
+  scrollbar-gutter: stable;
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
@@ -15,10 +16,10 @@
 :where(body) {
   min-height: 100vh;
 }
-:where(ul[role="list"], ol[role="list"]) {
+:where(ul, ol) {
   margin: 0;
   padding: 0;
-  list-style: none;
+  list-style-type: "";
 }
 :where(a:not([class])) {
   color: currentColor;
@@ -54,6 +55,7 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+  touch-action: manipulation;
 }
 :where(address) {
   font-style: normal;

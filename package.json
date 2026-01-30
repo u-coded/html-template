@@ -1,7 +1,7 @@
 {
   "name": "HTML Template",
   "private": true,
-  "version": "1.0.0",
+  "version": "26.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,12 +9,12 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.21",
+    "autoprefixer": "^10.4.23",
     "handlebars": "^4.7.8",
     "postcss": "^8.5.6",
-    "sass": "^1.93.2",
-    "sharp": "^0.34.4",
-    "vite": "^7.1.9",
+    "sass": "^1.97.3",
+    "sharp": "^0.34.5",
+    "vite": "^7.3.1",
     "vite-plugin-handlebars": "^2.0.0"
   },
   "browserslist": [

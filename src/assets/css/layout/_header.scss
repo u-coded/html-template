@@ -6,7 +6,7 @@
  */
 .l-header {
   width: 100%;
-  height: f.r(60);
+  height: f.rem(60);
   position: fixed;
   top: 0;
   left: 0;
@@ -23,23 +23,23 @@
 }
 .l-header__logo-link {
   display: block;
-  font-size: f.r(20);
+  font-size: f.rem(20);
   font-weight: 700;
 }
-@include m.m {
+@include m.mq-up(md) {
   .l-header {
     display: grid;
-    height: f.r(100);
-    padding: 0 f.r(30);
+    height: f.rem(100);
+    padding: 0 f.rem(30);
     position: absolute;
     align-items: center;
     grid-template-columns: auto 1fr;
-    gap: 0 f.r(50);
+    gap: 0 f.rem(50);
   }
   .l-header__logo {
     justify-content: flex-start;
   }
   .l-header__logo-link {
-    font-size: f.r(30);
+    font-size: f.rem(30);
   }
 }

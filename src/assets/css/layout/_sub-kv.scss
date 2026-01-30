@@ -6,15 +6,15 @@
  */
 .l-sub-kv {
   display: grid;
-  height: f.r(200);
+  height: f.rem(200);
   place-items: center;
   background: var(--black-30);
 }
 .l-sub-kv__txt {
   font-weight: 700;
 }
-@include m.m {
+@include m.mq-up(md) {
   .l-sub-kv {
-    height: f.r(400);
+    height: f.rem(400);
   }
 }

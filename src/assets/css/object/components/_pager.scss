@@ -6,22 +6,22 @@
  * 一覧用ページャー
  */
 .c-pager1 {
-  margin-top: f.r(50);
+  margin-top: f.rem(50);
 }
 .c-pager1__list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: f.r(10);
+  gap: f.rem(10);
   a,
   span {
     display: grid;
-    width: f.r(40);
-    height: f.r(40);
+    width: f.rem(40);
+    height: f.rem(40);
     border: 1px solid;
     border-radius: 50%;
     place-items: center;
-    font-size: f.r(14);
+    font-size: f.rem(14);
     text-decoration: none;
   }
   .between,
@@ -29,7 +29,7 @@
   .prev,
   .next,
   .last {
-    width: f.r(20);
+    width: f.rem(20);
     border: none;
   }
   .current {
@@ -38,12 +38,12 @@
   }
 }
 
-@include m.m {
+@include m.mq-up(md) {
   .c-pager1 {
-    margin-top: f.r(80);
+    margin-top: f.rem(80);
   }
   .c-pager1__list {
-    gap: f.r(20);
+    gap: f.rem(20);
   }
 }
 
@@ -53,14 +53,14 @@
  */
 .c-pager2 {
   display: grid;
-  margin-top: f.r(50);
+  margin-top: f.rem(50);
   align-items: center;
   grid-template-columns: 1fr auto 1fr;
-  gap: f.r(10) f.r(20);
+  gap: f.rem(10) f.rem(20);
   a {
     width: fit-content;
-    padding: f.r(10);
-    font-size: f.r(14);
+    padding: f.rem(10);
+    font-size: f.rem(14);
   }
 }
 .c-pager2__prev {
@@ -76,13 +76,13 @@
   }
 }
 
-@include m.m {
+@include m.mq-up(md) {
   .c-pager2 {
-    margin-top: f.r(80);
-    gap: f.r(30);
+    margin-top: f.rem(80);
+    gap: f.rem(30);
     a {
-      padding: f.r(10) f.r(30);
-      font-size: f.r(16);
+      padding: f.rem(10) f.rem(30);
+      font-size: f.rem(16);
     }
   }
 }

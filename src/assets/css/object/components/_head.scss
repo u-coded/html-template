@@ -9,18 +9,18 @@
   text-align: center;
 }
 .c-head1__ja {
-  font-size: f.r(20);
+  font-size: f.rem(20);
 }
 .c-head1__en {
-  margin-top: f.r(10);
-  font-size: f.r(16);
+  margin-top: f.rem(10);
+  font-size: f.rem(16);
 }
 
-@include m.m {
+@include m.mq-up(md) {
   .c-head1__ja {
-    font-size: f.r(24);
+    font-size: f.rem(24);
   }
   .c-head1__en {
-    font-size: f.r(20);
+    font-size: f.rem(20);
   }
 }

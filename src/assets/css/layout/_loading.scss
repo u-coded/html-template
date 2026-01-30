@@ -13,7 +13,9 @@
   left: 0;
   z-index: 9999;
   place-items: center;
-  transition: opacity var(--duration), visibility var(--duration);
+  transition:
+    opacity var(--duration),
+    visibility var(--duration);
   background: var(--black);
   &.is-loaded {
     visibility: hidden;
@@ -21,11 +23,11 @@
   }
 }
 .l-loading__txt {
-  font-size: f.v(20);
+  font-size: f.vw(20);
   color: white;
 }
-@include m.m {
+@include m.mq-up(md) {
   .l-loading__txt {
-    font-size: f.v(24);
+    font-size: f.vw(24);
   }
 }

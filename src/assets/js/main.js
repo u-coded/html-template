@@ -36,6 +36,8 @@ const pageLoaded = () => {
     case "about":
       about();
       break;
+    default:
+      break;
   }
 };
 

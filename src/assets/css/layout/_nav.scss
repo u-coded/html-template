@@ -4,7 +4,7 @@
 /**
  * l-nav
  */
-@include m.m(max-md) {
+@include m.mq-down(md) {
   .l-nav {
     display: block;
     visibility: hidden;
@@ -21,18 +21,18 @@
     }
   }
   .l-nav__list {
-    padding: f.r(100) f.r(15);
+    padding: f.rem(100) f.rem(15);
     text-align: center;
   }
 }
 
-@include m.m {
+@include m.mq-up(md) {
   .l-nav {
   }
   .l-nav__list {
     display: flex;
     justify-content: flex-end;
-    gap: f.r(30);
+    gap: f.rem(30);
   }
 }
 
@@ -40,12 +40,12 @@
  * l-nav-hamburger
  */
 .l-nav-hamburger {
-  width: f.r(40);
-  height: f.r(40);
+  width: f.rem(40);
+  height: f.rem(40);
   border: 1px solid var(--black);
   position: absolute;
-  top: f.r(10);
-  right: f.r(10);
+  top: f.rem(10);
+  right: f.rem(10);
   z-index: 2;
   background: white;
 
@@ -66,11 +66,11 @@
 }
 
 .l-nav-hamburger__icon {
-  width: f.r(28);
+  width: f.rem(28);
   height: 1px;
   position: absolute;
   top: 50%;
-  left: f.r(5);
+  left: f.rem(5);
   transition: all var(--duration);
   background: var(--black);
   &::before,
@@ -84,10 +84,10 @@
     background: var(--black);
   }
   &::before {
-    top: f.r(-9);
+    top: f.rem(-9);
   }
   &::after {
-    top: f.r(9);
+    top: f.rem(9);
   }
 }
 

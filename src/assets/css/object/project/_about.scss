@@ -5,20 +5,20 @@
  * p-about-intro
  */
 .p-about-intro__inner {
-  padding-top: f.r(50);
-  padding-bottom: f.r(50);
+  padding-top: f.rem(50);
+  padding-bottom: f.rem(50);
   text-align: center;
 }
 .p-about-intro__txt {
-  margin-top: f.r(30);
+  margin-top: f.rem(30);
   & + & {
     margin-top: 1em;
   }
 }
-@include m.m {
+@include m.mq-up(md) {
   .p-about-intro__inner {
-    padding-top: f.r(100);
-    padding-bottom: f.r(100);
+    padding-top: f.rem(100);
+    padding-bottom: f.rem(100);
   }
 }
 
@@ -26,30 +26,30 @@
  * p-about-flex
  */
 .p-about-flex__inner {
-  padding-top: f.r(50);
-  padding-bottom: f.r(100);
+  padding-top: f.rem(50);
+  padding-bottom: f.rem(100);
 }
 .p-about-flex__head {
-  font-size: f.v(28);
+  font-size: f.vw(24, 32);
   text-align: center;
 }
 .p-about-flex__circle {
-  margin-top: f.r(30);
-  width: f.v(200);
+  margin-top: f.rem(30);
+  width: f.vw(200);
   background: var(--black);
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   margin-inline: auto;
 }
-@include m.m {
+@include m.mq-up(md) {
   .p-about-flex__inner {
-    padding-top: f.r(100);
+    padding-top: f.rem(100);
   }
   .p-about-flex__head {
-    font-size: f.v(36);
+    font-size: f.vw(36, 42);
   }
   .p-about-flex__circle {
-    width: f.v(300);
+    width: f.vw(300);
   }
 }
 
@@ -57,15 +57,15 @@
  * p-about-modal
  */
 .p-about-modal__inner {
-  padding-top: f.r(50);
-  padding-bottom: f.r(100);
+  padding-top: f.rem(50);
+  padding-bottom: f.rem(100);
 }
 .p-about-modal__head {
-  font-size: f.r(28);
+  font-size: f.rem(28);
   text-align: center;
 }
-@include m.m {
+@include m.mq-up(md) {
   .p-about-modal__inner {
-    padding-top: f.r(100);
+    padding-top: f.rem(100);
   }
 }

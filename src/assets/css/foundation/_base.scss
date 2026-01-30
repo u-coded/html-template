@@ -17,18 +17,18 @@ html {
 
 body {
   min-width: 320px;
-  padding-top: f.r(60);
+  padding-top: f.rem(60);
   background-color: white;
   font-family: "Noto Sans JP", sans-serif;
-  font-size: f.r(16);
+  font-size: f.rem(16);
   font-weight: 400;
   line-height: 1.75;
   color: var(--black);
   font-feature-settings: "palt";
   -webkit-text-size-adjust: 100%;
-  @include m.m {
+  @include m.mq-up(md) {
     min-width: auto;
-    padding-top: f.r(100);
+    padding-top: f.rem(100);
     @media (hover: none) {
       -webkit-text-size-adjust: none;
     }

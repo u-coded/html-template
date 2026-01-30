@@ -17,7 +17,7 @@
 // 下から
 [data-anime="fadeInUp"] {
   opacity: 0;
-  translate: 0 f.r(30);
+  translate: 0 f.rem(30);
   transition-property: opacity, translate;
   transition-duration: var(--duration);
   &.is-found {
@@ -29,7 +29,7 @@
 // 上から
 [data-anime="fadeInDown"] {
   opacity: 0;
-  translate: 0 f.r(-30);
+  translate: 0 f.rem(-30);
   transition-property: opacity, translate;
   transition-duration: var(--duration);
   &.is-found {
@@ -41,7 +41,7 @@
 // 左から
 [data-anime="fadeInLeft"] {
   opacity: 0;
-  translate: f.r(-30) 0;
+  translate: f.rem(-30) 0;
   transition-property: opacity, translate;
   transition-duration: var(--duration);
   &.is-found {
@@ -53,7 +53,7 @@
 // 右から
 [data-anime="fadeInRight"] {
   opacity: 0;
-  translate: f.r(-30) 0;
+  translate: f.rem(-30) 0;
   transition-property: opacity, translate;
   transition-duration: var(--duration);
   &.is-found {
@@ -75,7 +75,7 @@
   }
 }
 
-@include m.m(max-md) {
+@include m.mq-down(md) {
   [data-anime] {
     transition-delay: 0s;
   }

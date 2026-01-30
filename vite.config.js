@@ -30,7 +30,6 @@ handlebars.registerHelper("and", function (...args) {
 });
 
 // 配列を指定件数分回す
-// 例：articlesを3件ループ {{#each (limit articles 3)}} <p>{{date}}</p><p>{{title}}</p>  {{/each}}
 handlebars.registerHelper("limit", function (arr, limit) {
   if (!Array.isArray(arr)) {
     return [];
@@ -39,7 +38,6 @@ handlebars.registerHelper("limit", function (arr, limit) {
 });
 
 // 指定回数分繰り返す
-// 例：3件繰り返し {{#times 3}} <p>テキスト</p> {{/times}}
 handlebars.registerHelper("times", function (n, block) {
   let result = "";
   for (let i = 0; i < n; i++) {

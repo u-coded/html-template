@@ -171,8 +171,8 @@
   input[type="button"] {
     display: grid;
     width: 100%;
-    max-width: f.r(240);
-    padding: f.r(5);
+    max-width: f.rem(240);
+    padding: f.rem(5);
     // border: none;
     border: 1px solid;
     // border-radius: 0;
@@ -184,7 +184,7 @@
 
 .c-form1__fieldset {
   & + & {
-    margin-top: f.r(20);
+    margin-top: f.rem(20);
   }
 }
 .c-form1__legend {
@@ -193,21 +193,21 @@
 .c-form1__inputs {
 }
 .c-form1__btns {
-  margin-top: f.r(30);
+  margin-top: f.rem(30);
   input {
     margin-inline: auto;
   }
   input + input {
-    margin-top: f.r(10);
+    margin-top: f.rem(10);
   }
 }
 
-@include m.m {
+@include m.mq-up(md) {
   .c-form1__btns {
     display: flex;
-    margin-top: f.r(50);
+    margin-top: f.rem(50);
     justify-content: center;
-    gap: f.r(30);
+    gap: f.rem(30);
     input {
       margin-inline: 0;
     }

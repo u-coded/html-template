@@ -9,7 +9,7 @@
 // ホバー時の透過
 .u-alpha {
   transition: opacity var(--duration);
-  @include m.h() {
+  @include m.hover() {
     opacity: 0.7;
   }
 }

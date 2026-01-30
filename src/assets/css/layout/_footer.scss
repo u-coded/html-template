@@ -10,21 +10,21 @@
   color: white;
 }
 .l-footer__inner {
-  padding-top: f.r(30);
-  padding-bottom: f.r(30);
+  padding-top: f.rem(30);
+  padding-bottom: f.rem(30);
   text-align: center;
 }
 .l-footer__copyright {
-  margin-top: f.r(20);
-  font-size: f.r(10);
+  margin-top: f.rem(20);
+  font-size: f.rem(10);
 }
-@include m.m {
+@include m.mq-up(md) {
   .l-footer__inner {
-    padding-top: f.r(50);
-    padding-bottom: f.r(50);
+    padding-top: f.rem(50);
+    padding-bottom: f.rem(50);
     text-align: center;
   }
   .l-footer__copyright {
-    font-size: f.r(12);
+    font-size: f.rem(12);
   }
 }
