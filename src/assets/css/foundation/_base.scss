@@ -19,7 +19,7 @@ body {
   min-width: 320px;
   padding-top: f.rem(60);
   background-color: white;
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: var(--font-ja);
   font-size: f.rem(16);
   font-weight: 400;
   line-height: 1.75;

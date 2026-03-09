@@ -36,7 +36,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
 
   {{#if (eq pageSlug "index")}}
   <title>{{ siteData.siteName }}</title>
@@ -56,9 +56,9 @@
   {{/if}}
 
   <header id="header" class="l-header">
-    <{{#if (eq pageSlug "index")}}h1{{else}}p{{/if}} class="l-header__logo">
+    <{{#if (eq pageSlug "index" )}}h1{{else}}p{{/if}} class="l-header__logo">
       <a href="{{ path }}" class="l-header__logo-link u-alpha">HTMLテンプレ</a>
-    </{{#if (eq pageSlug "index")}}h1{{else}}p{{/if}}>
+    </{{#if (eq pageSlug "index" )}}h1{{else}}p{{/if}}>
 
     <button class="l-nav-hamburger u-hidden-md" type="button" data-nav-trigger aria-expanded="false" aria-controls="main-nav">
       <span class="l-nav-hamburger__icon"><span class="u-sr-only">メニューを開閉する</span></span>

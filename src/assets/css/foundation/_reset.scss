@@ -19,7 +19,7 @@
 :where(ul, ol) {
   margin: 0;
   padding: 0;
-  list-style-type: "";
+  list-style: none;
 }
 :where(a:not([class])) {
   color: currentColor;
