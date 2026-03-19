@@ -50,9 +50,9 @@ handlebars.registerHelper("times", function (n, block) {
  * サイトの共通情報
  */
 const siteData = {
-  siteName: "HTMLテンプレ",
-  siteDesc: "ディスクリプションを入力",
-  siteKwd: "キーワード1,キーワード2",
+  siteName: "サイト名",
+  siteDesc: "サンプル株式会社の公式サイトです。",
+  siteKwd: "サンプル,コーポレート",
   siteCanonical: "https://xxxxx/",
 };
 
@@ -72,7 +72,7 @@ const pageData = {
     path: "../",
     pageSlug: "about",
     pageUrl: "about",
-    pageTitle: "このテンプレについて",
+    pageTitle: "会社概要",
   },
   "/news/index.html": {
     siteData,

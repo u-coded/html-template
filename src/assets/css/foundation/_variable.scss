@@ -71,7 +71,6 @@ $inner-ratio: math.div($inner-min, $pc-design-width);
 
 :root {
   --duration: 0.3s;
-  --ratio-rem: calc(100vw / #{$sp-design-width}px * #{math.div(1, 16)} * 1rem);
 
   --font-ja: "Noto Sans JP", sans-serif;
   --font-en: "Lato", sans-serif;
@@ -80,17 +79,4 @@ $inner-ratio: math.div($inner-min, $pc-design-width);
   --black-70: #1a1a1a70;
   --black-30: #1a1a1a30;
   --gray: #ccc;
-}
-
-// mdサイズ以上は、PCカンプ基準
-@media #{map.get($breakpoint-up, "md")} {
-  :root {
-    --ratio-rem: calc(min(100vw, #{$inner-min}px) / #{$pc-design-width}px * #{math.div(1, 16)} * 1rem);
-  }
-}
-
-@media #{map.get($breakpoint-up, "lg")} {
-  :root {
-    --ratio-rem: calc(min(100vw, #{$pc-design-width}px) / #{$pc-design-width}px * #{math.div(1, 16)} * 1rem);
-  }
 }

@@ -2,54 +2,146 @@
 @use "../../foundation/functions" as f;
 
 /**
- * p-about-intro
+ * p-about-message
  */
-.p-about-intro__inner {
+.p-about-message__inner {
   padding-top: f.rem(50);
   padding-bottom: f.rem(50);
+}
+.p-about-message__head {
+  font-size: f.rem(24);
   text-align: center;
 }
-.p-about-intro__txt {
+.p-about-message__container {
   margin-top: f.rem(30);
+}
+.p-about-message__txts {
+  margin-top: f.rem(30);
+}
+.p-about-message__txt {
   & + & {
     margin-top: 1em;
   }
 }
+.p-about-message__name {
+  margin-top: f.rem(30);
+  font-weight: 700;
+  text-align: right;
+}
 @include m.mq-up(md) {
-  .p-about-intro__inner {
+  .p-about-message__inner {
     padding-top: f.rem(100);
     padding-bottom: f.rem(100);
+  }
+  .p-about-message__head {
+    font-size: f.rem(28);
+  }
+  .p-about-message__container {
+    display: grid;
+    margin-top: f.rem(50);
+    grid-template-columns: 1fr 1fr;
+    gap: f.rem(50);
+    align-items: start;
+  }
+  .p-about-message__txts {
+    margin-top: 0;
   }
 }
 
 /**
- * p-about-flex
+ * p-about-company
  */
-.p-about-flex__inner {
-  padding-top: f.rem(50);
-  padding-bottom: f.rem(100);
+.p-about-company {
+  background: var(--black-30);
 }
-.p-about-flex__head {
-  font-size: f.vw(24, 32);
+.p-about-company__inner {
+  padding-top: f.rem(50);
+  padding-bottom: f.rem(50);
+}
+.p-about-company__head {
+  font-size: f.rem(24);
   text-align: center;
 }
-.p-about-flex__circle {
+.p-about-company__table {
+  width: 100%;
   margin-top: f.rem(30);
-  width: f.vw(200);
-  background: var(--black);
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  margin-inline: auto;
+  border-collapse: collapse;
+
+  th,
+  td {
+    display: block;
+    padding: f.rem(15) 0;
+    text-align: left;
+  }
+  th {
+    font-weight: 700;
+    padding-bottom: 0;
+  }
+  tr + tr {
+    border-top: 1px solid var(--gray);
+  }
 }
 @include m.mq-up(md) {
-  .p-about-flex__inner {
+  .p-about-company__inner {
     padding-top: f.rem(100);
+    padding-bottom: f.rem(100);
   }
-  .p-about-flex__head {
-    font-size: f.vw(36, 42);
+  .p-about-company__head {
+    font-size: f.rem(28);
   }
-  .p-about-flex__circle {
-    width: f.vw(300);
+  .p-about-company__table {
+    max-width: f.rem(800);
+    margin-top: f.rem(50);
+    margin-inline: auto;
+
+    th,
+    td {
+      display: table-cell;
+      padding: f.rem(20) f.rem(30);
+      vertical-align: top;
+    }
+    th {
+      width: f.rem(200);
+      padding-bottom: f.rem(20);
+    }
+  }
+}
+
+/**
+ * p-about-access
+ */
+.p-about-access__inner {
+  padding-top: f.rem(50);
+  padding-bottom: f.rem(50);
+}
+.p-about-access__head {
+  font-size: f.rem(24);
+  text-align: center;
+}
+.p-about-access__address {
+  margin-top: f.rem(30);
+  text-align: center;
+}
+.p-about-access__map {
+  margin-top: f.rem(30);
+  aspect-ratio: 16 / 9;
+  background: var(--black-30);
+  display: grid;
+  place-items: center;
+}
+@include m.mq-up(md) {
+  .p-about-access__inner {
+    padding-top: f.rem(100);
+    padding-bottom: f.rem(100);
+  }
+  .p-about-access__head {
+    font-size: f.rem(28);
+  }
+  .p-about-access__address {
+    margin-top: f.rem(40);
+  }
+  .p-about-access__map {
+    margin-top: f.rem(40);
   }
 }
 
@@ -58,14 +150,31 @@
  */
 .p-about-modal__inner {
   padding-top: f.rem(50);
-  padding-bottom: f.rem(100);
+  padding-bottom: f.rem(50);
 }
 .p-about-modal__head {
-  font-size: f.rem(28);
+  font-size: f.rem(24);
   text-align: center;
+}
+.p-about-modal__btns {
+  display: flex;
+  flex-direction: column;
+  gap: f.rem(15);
+  margin-top: f.rem(30);
+  align-items: center;
 }
 @include m.mq-up(md) {
   .p-about-modal__inner {
     padding-top: f.rem(100);
+    padding-bottom: f.rem(100);
+  }
+  .p-about-modal__head {
+    font-size: f.rem(28);
+  }
+  .p-about-modal__btns {
+    flex-direction: row;
+    justify-content: center;
+    gap: f.rem(20);
+    margin-top: f.rem(50);
   }
 }

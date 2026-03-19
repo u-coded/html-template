@@ -36,8 +36,30 @@ dialog::backdrop {
 }
 .c-modal1__inner {
   max-height: calc(100dvh - 100px);
-  padding: 50px;
+  padding: f.rem(30) f.rem(20);
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-gutter: stable;
+
+  h3 {
+    font-size: f.rem(20);
+    font-weight: 700;
+  }
+  p {
+    margin-top: f.rem(15);
+  }
+}
+.c-modal1__close {
+  display: block;
+  margin-top: f.rem(30);
+  margin-inline: auto;
+}
+@include m.mq-up(md) {
+  .c-modal1__inner {
+    padding: f.rem(50);
+
+    h3 {
+      font-size: f.rem(24);
+    }
+  }
 }

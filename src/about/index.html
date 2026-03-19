@@ -6,107 +6,113 @@
 
 <main>
 
-  <section class="p-about-intro">
-    <div class="p-about-intro__inner u-inner">
-      <h2 class="p-about-intro__head">テンプレについての詳細</h2>
-      <p class="p-about-intro__txt">CSSはFLOCSSベースで記述する</p>
-      <p class="p-about-intro__txt">テンプレートエンジンはhandlebarsを使用している</p>
-      <p class="p-about-intro__txt">インナー幅は、iPad未満(SP)はSPデザインをベースに可変、<br>iPad以上〜指定した最大幅まではPCデザインを基準に可変、指定した最大幅以上は固定される。</p>
-      <p class="p-about-intro__txt">ビルドすると、jpg・png形式の画像は自動的にwebpに変換される。</p>
-      <p class="p-about-intro__txt">ハンバーガーメニュー、トップへ戻る、スクロール時のアニメーションのJSはあらかじめ用意している</p>
+  <section class="p-about-message">
+    <div class="p-about-message__inner u-inner">
+      <h2 class="p-about-message__head">代表挨拶</h2>
+      <div class="p-about-message__container">
+        <div class="p-about-message__img">
+          <picture>
+            <source srcset="../assets/images/index/img_dummy1_pc.jpg" media="(min-width: 744px)" width="1920" height="1080">
+            <img src="../assets/images/index/img_dummy1_sp.jpg" alt="" loading="lazy" width="750" height="750">
+          </picture>
+        </div>
+        <div class="p-about-message__txts">
+          <p class="p-about-message__txt">テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります</p>
+          <p class="p-about-message__txt">テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります</p>
+          <p class="p-about-message__txt">テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります</p>
+          <p class="p-about-message__name">代表取締役　名前が入ります</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="p-about-flex">
-    <div class="p-about-flex__inner u-inner">
-      <h2 class="p-about-flex__head">VW基準のテキストテスト</h2>
-      <div class="p-about-flex__circle"></div>
+  <section class="p-about-company">
+    <div class="p-about-company__inner u-inner">
+      <h2 class="p-about-company__head">会社概要</h2>
+      <table class="p-about-company__table">
+        <tbody>
+          <tr>
+            <th>会社名</th>
+            <td>サンプル株式会社</td>
+          </tr>
+          <tr>
+            <th>設立</th>
+            <td>2020年4月</td>
+          </tr>
+          <tr>
+            <th>代表者</th>
+            <td>名前が入ります</td>
+          </tr>
+          <tr>
+            <th>所在地</th>
+            <td>〒000-0000　東京都渋谷区〇〇 0-0-0</td>
+          </tr>
+          <tr>
+            <th>電話番号</th>
+            <td>00-0000-0000</td>
+          </tr>
+          <tr>
+            <th>事業内容</th>
+            <td>事業内容が入ります</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="p-about-access">
+    <div class="p-about-access__inner u-inner">
+      <h2 class="p-about-access__head">アクセス</h2>
+      <p class="p-about-access__address">〒000-0000　東京都渋谷区〇〇 0-0-0</p>
+      <div class="p-about-access__map">
+        <p>Google Map が入ります</p>
+      </div>
     </div>
   </section>
 
   <section class="p-about-modal">
     <div class="p-about-modal__inner u-inner">
-      <h2 class="p-about-modal__head">モーダル表示のテスト</h2>
-      <button type="button" data-modal-open="modal1">1つ目のモーダルを開く</button>
-      <button type="button" data-modal-open="modal2">2つ目のモーダルを開く</button>
-      <button type="button" data-modal-open="modal3">3つ目のモーダルを開く</button>
-      <button type="button" data-modal-open="modal4">4つ目のモーダルを開く</button>
-      <button type="button" data-modal-open="modal5">5つ目のモーダルを開く</button>
-      <button type="button" data-modal-open="modal6">6つ目のモーダルを開く</button>
-
-      <dialog id="modal1" class="c-modal1" data-modal aria-labelledby="modal1-title" aria-describedby="modal1-desc" aria-hidden="true" autofocus>
-        <div class="c-modal1__container" data-modal-container>
-          <div class="c-modal1__inner">
-            <h2 id="modal1-title">1つ目のモーダルのタイトル</h2>
-            <p id="modal1-desc">1つ目のモーダルの中身</p>
-            <button type="button" data-modal-prev="modal3">前のモーダルへ</button>
-            <button type="button" data-modal-next="modal2">次のモーダルへ</button>
-            <button type="button" data-modal-close>モーダルを閉じる</button>
-          </div>
-        </div>
-      </dialog>
-
-      <dialog id="modal2" class="c-modal1" data-modal aria-labelledby="modal2-title" aria-describedby="modal2-desc" aria-hidden="true" autofocus>
-        <div class="c-modal1__container" data-modal-container>
-          <div class="c-modal1__inner">
-            <h2 id="modal2-title">2つ目のモーダルのタイトル</h2>
-            <p id="modal2-desc">2つ目のモーダルの中身</p>
-            <button type="button" data-modal-prev="modal1">前のモーダルへ</button>
-            <button type="button" data-modal-next="modal3">次のモーダルへ</button>
-            <button type="button" data-modal-close>モーダルを閉じる</button>
-          </div>
-        </div>
-      </dialog>
-
-      <dialog id="modal3" class="c-modal1" data-modal aria-labelledby="modal3-title" aria-describedby="modal3-desc" aria-hidden="true" autofocus>
-        <div class="c-modal1__container" data-modal-container>
-          <div class="c-modal1__inner">
-            <h2 id="modal3-title">3つ目のモーダルのタイトル</h2>
-            <p id="modal3-desc">3つ目のモーダルの中身</p>
-            <button type="button" data-modal-prev="modal2">前のモーダルへ</button>
-            <button type="button" data-modal-next="modal1">次のモーダルへ</button>
-            <button type="button" data-modal-close>モーダルを閉じる</button>
-          </div>
-        </div>
-      </dialog>
-
-      <dialog id="modal4" class="c-modal1" data-modal aria-labelledby="modal4-title" aria-describedby="modal4-desc" aria-hidden="true" autofocus>
-        <div class="c-modal1__container" data-modal-container>
-          <div class="c-modal1__inner">
-            <h2 id="modal4-title">4つ目のモーダルのタイトル</h2>
-            <p id="modal4-desc">4つ目のモーダルの中身</p>
-            <button type="button" data-modal-prev="modal6">前のモーダルへ</button>
-            <button type="button" data-modal-next="modal5">次のモーダルへ</button>
-            <button type="button" data-modal-close>モーダルを閉じる</button>
-          </div>
-        </div>
-      </dialog>
-
-      <dialog id="modal5" class="c-modal1" data-modal aria-labelledby="modal5-title" aria-describedby="modal5-desc" aria-hidden="true" autofocus>
-        <div class="c-modal1__container" data-modal-container>
-          <div class="c-modal1__inner">
-            <h2 id="modal5-title">5つ目のモーダルのタイトル</h2>
-            <p id="modal5-desc">5つ目のモーダルの中身</p>
-            <button type="button" data-modal-prev="modal4">前のモーダルへ</button>
-            <button type="button" data-modal-next="modal6">次のモーダルへ</button>
-            <button type="button" data-modal-close>モーダルを閉じる</button>
-          </div>
-        </div>
-      </dialog>
-
-      <dialog id="modal6" class="c-modal1" data-modal aria-labelledby="modal6-title" aria-describedby="modal6-desc" aria-hidden="true" autofocus>
-        <div class="c-modal1__container" data-modal-container>
-          <div class="c-modal1__inner">
-            <h2 id="modal6-title">6つ目のモーダルのタイトル</h2>
-            <p id="modal6-desc">6つ目のモーダルの中身</p>
-            <button type="button" data-modal-prev="modal5">前のモーダルへ</button>
-            <button type="button" data-modal-next="modal4">次のモーダルへ</button>
-            <button type="button" data-modal-close>モーダルを閉じる</button>
-          </div>
-        </div>
-      </dialog>
+      <h2 class="p-about-modal__head">モーダルサンプル</h2>
+      <div class="p-about-modal__btns">
+        <button class="c-btn2" type="button" data-modal-open="modal-service">サービス詳細</button>
+        <button class="c-btn2" type="button" data-modal-open="modal-privacy">プライバシーポリシー</button>
+        <button class="c-btn2" type="button" data-modal-open="modal-terms">利用規約</button>
+      </div>
     </div>
   </section>
+
+  <dialog id="modal-service" class="c-modal1" data-modal aria-hidden="true">
+    <div class="c-modal1__container" data-modal-container>
+      <div class="c-modal1__inner">
+        <h3>サービス詳細</h3>
+        <p>サービスの詳細テキストが入ります。サービスの詳細テキストが入ります。サービスの詳細テキストが入ります。</p>
+        <p>サービスの詳細テキストが入ります。サービスの詳細テキストが入ります。</p>
+        <button class="c-btn2 c-modal1__close" type="button" data-modal-close>閉じる</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="modal-privacy" class="c-modal1" data-modal aria-hidden="true">
+    <div class="c-modal1__container" data-modal-container>
+      <div class="c-modal1__inner">
+        <h3>プライバシーポリシー</h3>
+        <p>当社は、お客様の個人情報の保護に努めます。テキストが入りますテキストが入りますテキストが入ります。</p>
+        <p>テキストが入りますテキストが入りますテキストが入りますテキストが入ります。</p>
+        <button class="c-btn2 c-modal1__close" type="button" data-modal-close>閉じる</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="modal-terms" class="c-modal1" data-modal aria-hidden="true">
+    <div class="c-modal1__container" data-modal-container>
+      <div class="c-modal1__inner">
+        <h3>利用規約</h3>
+        <p>本サービスをご利用いただくにあたり、以下の規約に同意いただく必要があります。テキストが入ります。</p>
+        <p>テキストが入りますテキストが入りますテキストが入りますテキストが入ります。</p>
+        <button class="c-btn2 c-modal1__close" type="button" data-modal-close>閉じる</button>
+      </div>
+    </div>
+  </dialog>
 
 </main>
 

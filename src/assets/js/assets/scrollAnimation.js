@@ -26,31 +26,29 @@ export default () => {
   );
 
   // 表示を外れたとき
-  // const exitObserver = new IntersectionObserver(
-  //   (entries) => {
-  //     entries.forEach((entry) => {
-  //       if (entry.isIntersecting) return;
+  const exitObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) return;
 
-  //       if (entry.target.dataset.anime.trim() !== "") {
-  //         entry.target.classList.remove(FOUND_CLASS);
-  //         return;
-  //       }
+        if (entry.target.dataset.anime.trim() !== "") {
+          entry.target.classList.remove(FOUND_CLASS);
+          return;
+        }
 
-  //       const founds = entry.target.querySelectorAll(`${TARGET_SEL}.${FOUND_CLASS}`);
-  //       founds.forEach((el) => el.classList.remove(FOUND_CLASS));
-  //     });
-  //   },
-  //   {
-  //     root: null,
-  //     rootMargin: "0px",
-  //     threshold: 0,
-  //   }
-  // );
+        const founds = entry.target.querySelectorAll(`${TARGET_SEL}.${FOUND_CLASS}`);
+        founds.forEach((el) => el.classList.remove(FOUND_CLASS));
+      });
+    },
+    {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0,
+    }
+  );
 
   targets.forEach((t) => {
     enterObserver.observe(t);
     exitObserver.observe(t);
   });
-
-  document.body.classList.add(FOUND_CLASS);
 };

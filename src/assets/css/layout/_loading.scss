@@ -1,4 +1,3 @@
-@use "../foundation/mixin" as m;
 @use "../foundation/functions" as f;
 
 /**
@@ -23,11 +22,6 @@
   }
 }
 .l-loading__txt {
-  font-size: f.vw(20);
+  font-size: f.rem(20);
   color: white;
-}
-@include m.mq-up(md) {
-  .l-loading__txt {
-    font-size: f.vw(24);
-  }
 }

@@ -2,26 +2,6 @@
 @use "../../foundation/functions" as f;
 
 /**
- * p-news-archive
- */
-.p-news-archive__inner {
-  padding-top: f.rem(50);
-  padding-bottom: f.rem(50);
-}
-.p-news-archive__article {
-  margin-top: f.rem(30);
-}
-@include m.mq-up(md) {
-  .p-news-archive__inner {
-    padding-top: f.rem(100);
-    padding-bottom: f.rem(100);
-  }
-  .p-news-archive__article {
-    margin-top: f.rem(50);
-  }
-}
-
-/**
  * p-news-article
  */
 .p-news-article__inner {

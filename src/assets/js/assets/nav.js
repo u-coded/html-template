@@ -91,5 +91,6 @@ export default () => {
     }
   };
 
+  updateNavState();
   debounce(updateNavState, 100);
 };

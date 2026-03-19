@@ -9,11 +9,22 @@
   height: 100vh;
   place-items: center;
   background: var(--black-30);
-  font-size: f.rem(20);
+  text-align: center;
+}
+.p-index-kv__catch {
+  font-size: f.vw(24, 375, 375, 600);
+  font-weight: 700;
+}
+.p-index-kv__sub {
+  margin-top: f.rem(15);
+  font-size: f.vw(18, 375, 375, 600);
 }
 @include m.mq-up(md) {
-  .p-index-kv {
-    font-size: f.rem(24);
+  .p-index-kv__catch {
+    font-size: f.vw(32, 1366, 1280, 1600);
+  }
+  .p-index-kv__sub {
+    font-size: f.vw(20, 1366, 1280, 1600);
   }
 }
 
@@ -33,9 +44,6 @@
 .p-index-about__txt {
   & + & {
     margin-top: 1em;
-  }
-  &.-rem {
-    font-size: f.rem(20);
   }
 }
 .p-index-about__btn {
@@ -61,11 +69,53 @@
 }
 
 /**
- * p-index-news
+ * p-index-service
  */
-.p-index-news {
+.p-index-service {
   background: var(--black-30);
 }
+.p-index-service__inner {
+  padding-top: f.rem(50);
+  padding-bottom: f.rem(50);
+}
+.p-index-service__list {
+  display: grid;
+  margin-top: f.rem(30);
+  gap: f.rem(30);
+}
+.p-index-service__item-img {
+  overflow: hidden;
+}
+.p-index-service__item-title {
+  margin-top: f.rem(15);
+  font-size: f.rem(18);
+  font-weight: 700;
+}
+.p-index-service__item-txt {
+  margin-top: f.rem(10);
+  font-size: f.rem(14);
+}
+@include m.mq-up(md) {
+  .p-index-service__inner {
+    padding-top: f.rem(100);
+    padding-bottom: f.rem(100);
+  }
+  .p-index-service__list {
+    margin-top: f.rem(50);
+    grid-template-columns: repeat(3, 1fr);
+    gap: f.rem(40);
+  }
+  .p-index-service__item-title {
+    font-size: f.rem(20);
+  }
+  .p-index-service__item-txt {
+    font-size: f.rem(16);
+  }
+}
+
+/**
+ * p-index-news
+ */
 .p-index-news__inner {
   padding-top: f.rem(50);
   padding-bottom: f.rem(50);
@@ -92,23 +142,31 @@
 }
 
 /**
- * p-index-public
+ * p-index-contact
  */
-.p-index-public__inner {
+.p-index-contact {
+  background: var(--black-30);
+  text-align: center;
+}
+.p-index-contact__inner {
   padding-top: f.rem(50);
   padding-bottom: f.rem(50);
 }
-.p-index-public__img {
-  margin-top: f.rem(50);
-  width: f.vw(200);
-  margin-inline: auto;
+.p-index-contact__txt {
+  margin-top: f.rem(30);
+}
+.p-index-contact__btn {
+  margin-top: f.rem(30);
 }
 @include m.mq-up(md) {
-  .p-index-public__inner {
+  .p-index-contact__inner {
     padding-top: f.rem(100);
     padding-bottom: f.rem(100);
   }
-  .p-index-public__img {
-    width: f.vw(700);
+  .p-index-contact__txt {
+    margin-top: f.rem(40);
+  }
+  .p-index-contact__btn {
+    margin-top: f.rem(40);
   }
 }

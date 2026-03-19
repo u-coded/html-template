@@ -3,13 +3,16 @@
 <main>
 
   <div class="p-index-kv" data-page-top-hide>
-    <p>トップページメインビジュアル</p>
+    <div class="p-index-kv__inner">
+      <p class="p-index-kv__catch">キャッチコピーが入ります</p>
+      <p class="p-index-kv__sub">サブテキストが入りますサブテキストが入ります</p>
+    </div>
   </div>
 
   <section id="about" class="p-index-about">
     <div class="p-index-about__inner u-inner">
       <hgroup class="c-head1">
-        <h2 class="c-head1__ja">このテンプレについて</h2>
+        <h2 class="c-head1__ja">会社概要</h2>
         <p class="c-head1__en" lang="en">ABOUT</p>
       </hgroup>
       <div class="p-index-about__container" data-anime>
@@ -20,16 +23,56 @@
           </picture>
         </div>
         <div class="p-index-about__txts" data-anime="fadeInUp" data-anime-delay="0.3">
-          <!-- <p class="p-index-about__txt">インナー幅は、iPad未満(SP)はSPデザインをベースに可変、iPad以上〜指定した最大幅まではPCデザインを基準に可変、指定した最大幅以上は固定される。</p> -->
-          <p class="p-index-about__txt -rem">フォントサイズをvwで指定すると、ブラウザの文字サイズ変更に対応できないため、本文などはremで記述するのが望ましい。pxをremに変換する関数を用意している。(この1文は20remで指定している)</p>
-          <p class="p-index-about__txt">ビルドすると、jpg・png形式の画像は自動的にwebpに変換される。</p>
+          <p class="p-index-about__txt">テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります</p>
+          <p class="p-index-about__txt">テキストが入りますテキストが入りますテキストが入りますテキストが入ります</p>
         </div>
       </div>
       <div class="c-btn1 p-index-about__btn">
         <a href="./about/" class="c-btn1__link">
-          <span class="c-btn1__txt">テンプレについての詳細</span>
+          <span class="c-btn1__txt">詳しく見る</span>
           <span class="c-ico -arrow1 c-btn1__ico"></span>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="service" class="p-index-service">
+    <div class="p-index-service__inner u-inner">
+      <hgroup class="c-head1">
+        <h2 class="c-head1__ja">事業内容</h2>
+        <p class="c-head1__en" lang="en">SERVICE</p>
+      </hgroup>
+      <div class="p-index-service__list" data-anime>
+        <div class="p-index-service__item" data-anime="fadeInUp">
+          <div class="p-index-service__item-img">
+            <picture>
+              <source srcset="./assets/images/index/img_dummy1_pc.jpg" media="(min-width: 744px)" width="1920" height="1080">
+              <img src="./assets/images/index/img_dummy1_sp.jpg" alt="" loading="lazy" width="750" height="750">
+            </picture>
+          </div>
+          <h3 class="p-index-service__item-title">サービス名が入ります</h3>
+          <p class="p-index-service__item-txt">テキストが入りますテキストが入りますテキストが入りますテキストが入ります</p>
+        </div>
+        <div class="p-index-service__item" data-anime="fadeInUp" data-anime-delay="0.15">
+          <div class="p-index-service__item-img">
+            <picture>
+              <source srcset="./assets/images/index/img_dummy1_pc.jpg" media="(min-width: 744px)" width="1920" height="1080">
+              <img src="./assets/images/index/img_dummy1_sp.jpg" alt="" loading="lazy" width="750" height="750">
+            </picture>
+          </div>
+          <h3 class="p-index-service__item-title">サービス名が入ります</h3>
+          <p class="p-index-service__item-txt">テキストが入りますテキストが入りますテキストが入りますテキストが入ります</p>
+        </div>
+        <div class="p-index-service__item" data-anime="fadeInUp" data-anime-delay="0.3">
+          <div class="p-index-service__item-img">
+            <picture>
+              <source srcset="./assets/images/index/img_dummy1_pc.jpg" media="(min-width: 744px)" width="1920" height="1080">
+              <img src="./assets/images/index/img_dummy1_sp.jpg" alt="" loading="lazy" width="750" height="750">
+            </picture>
+          </div>
+          <h3 class="p-index-service__item-title">サービス名が入ります</h3>
+          <p class="p-index-service__item-txt">テキストが入りますテキストが入りますテキストが入りますテキストが入ります</p>
+        </div>
       </div>
     </div>
   </section>
@@ -45,31 +88,33 @@
         <article class="c-archive1__article">
           <a href="./news/article/" class="c-archive1__link u-alpha">
             <time class="c-archive1__date" datetime="2099-12-31">2099.12.31</time>
-            <h3 class="c-archive1__title">タイトルテキストタイトルテキスト</h3>
-            <p class="c-archive1__content">記事内容テキスト記事内容テキスト記事内容テキスト記事内容テキスト記事内容テキスト</p>
+            <h3 class="c-archive1__title">記事タイトルが入ります記事タイトルが入ります</h3>
+            <p class="c-archive1__content">記事の概要テキストが入ります記事の概要テキストが入ります記事の概要テキストが入ります</p>
           </a>
         </article>
         {{/times}}
       </div>
       <div class="c-btn1 p-index-news__btn">
         <a href="./news/" class="c-btn1__link">
-          <span class="c-btn1__txt">ニュース一覧へ</span>
+          <span class="c-btn1__txt">一覧を見る</span>
           <span class="c-ico -arrow1 c-btn1__ico"></span>
         </a>
       </div>
     </div>
   </section>
 
-  <section id="public" class="p-index-public">
-    <div class="p-index-public__inner u-inner">
+  <section id="contact" class="p-index-contact">
+    <div class="p-index-contact__inner u-inner">
       <hgroup class="c-head1">
-        <h2 class="c-head1__ja">PUBLIC画像の未変換テスト</h2>
+        <h2 class="c-head1__ja">お問い合わせ</h2>
+        <p class="c-head1__en" lang="en">CONTACT</p>
       </hgroup>
-      <div class="p-index-public__img">
-        <picture>
-          <source srcset="./public/assets/images/index/img_dummy2_pc.jpg" media="(min-width: 744px)" width="1920" height="1080">
-          <img src="./public/assets/images/index/img_dummy2_sp.jpg" alt="" loading="lazy" width="750" height="750">
-        </picture>
+      <p class="p-index-contact__txt">お気軽にお問い合わせください。</p>
+      <div class="c-btn1 p-index-contact__btn">
+        <a href="./contact/" class="c-btn1__link">
+          <span class="c-btn1__txt">お問い合わせはこちら</span>
+          <span class="c-ico -arrow1 c-btn1__ico"></span>
+        </a>
       </div>
     </div>
   </section>

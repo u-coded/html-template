@@ -1,17 +1,26 @@
 @use "sass:math";
 @use "./variable" as v;
 
-// デザインpxをビューポート基準のremに変換。PC幅以下では最小値で打ち止め。$max 指定で最大値キャップ可能。
-@function vw($px, $max: null) {
-  $min-rem: #{math.div($px * v.$inner-min, v.$pc-design-width * 16)}rem;
-  $value: max($min-rem, calc($px * var(--ratio-rem)));
-  @if $max != null {
-    $max-rem: #{math.div($max, 16)}rem;
-    @return min($value, $max-rem);
-  }
-  @return $value;
+// デザインデータのpxを固定のremに変換する。
+// f.rem(20) → 1.25rem
+@function rem($px) {
+  @return #{math.div($px, 16)}rem;
 }
 
-@function rem($px) {
-  @return calc(#{math.div($px, 16)} * 1rem);
+// デザイン上のpxを基準に、ウィンドウ幅に比例してclampで可変出力する。
+// f.vw(30)                    → PCデザイン(1366px)で30px、375px〜1366pxで比例可変
+// f.vw(30, 1366, 744, 1600)   → 1366pxで30px、744px〜1600pxで比例可変
+@function vw($size, $design-vw: v.$pc-design-width, $min-vw: v.$sp-design-width, $max-vw: v.$pc-design-width) {
+  $min-px: $size * math.div($min-vw, $design-vw);
+  $max-px: $size * math.div($max-vw, $design-vw);
+  $min-rem: #{math.div($min-px, 16)}rem;
+  $max-rem: #{math.div($max-px, 16)}rem;
+  $slope: math.div($max-px - $min-px, $max-vw - $min-vw);
+  $a-vw: $slope * 100;
+  $b-rem: math.div($min-px - $slope * $min-vw, 16);
+  @if $b-rem >= 0 {
+    @return clamp($min-rem, #{$a-vw}vw + #{$b-rem}rem, $max-rem);
+  } @else {
+    @return clamp($min-rem, #{$a-vw}vw - #{$b-rem * -1}rem, $max-rem);
+  }
 }
