@@ -15,6 +15,8 @@ Vite+Handlebarsテンプレートを参照しながら、Astroでゼロから構
 npm create astro@latest .
 ```
 
+動作要件：**Node.js 22.12.0以上**
+
 対話式の質問への回答：
 
 | 質問 | 回答 |
@@ -283,6 +285,22 @@ import { siteData } from '@/data/site';
 <title>{pageTitle} | {siteData.siteName}</title>
 ```
 
+### ページ遷移アニメーションを付けたい場合（オプション）
+
+Astro標準の `<ClientRouter />` を使うとSPA風のページ遷移が実現できる。
+
+> **Astro 6の注意**: 旧バージョンの `<ViewTransitions />` は廃止。必ず `<ClientRouter />` を使うこと。
+
+```astro
+---
+import { ClientRouter } from 'astro:transitions';
+---
+<head>
+  ...
+  <ClientRouter />
+</head>
+```
+
 ---
 
 ## Phase 5: トップページを作る
@@ -522,20 +540,30 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
 Markdownファイルで記事を管理する仕組みを作る。
 
+> **Astro 6の注意点**
+> - 設定ファイルの場所が `src/content/config.ts` → **プロジェクトルート直下の `src/content.config.ts`** に変わった
+> - `loader` の指定が必須になった
+> - `post.slug` → `post.id`
+> - `post.render()` → `render(post)`（`astro:content` からimport）
+
 ### 1. スキーマ定義
 
+ファイルの場所に注意（`src/` 直下、`content/` の中ではない）：
+
 ```
-src/content/config.ts
+src/content.config.ts
 ```
 
 ```ts
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const news = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.md', base: './src/content/news' }),
   schema: z.object({
     title: z.string(),
-    pubDate: z.date(),
+    pubDate: z.coerce.date(),
     category: z.string().optional(),
   }),
 });
@@ -567,19 +595,19 @@ src/pages/news/[slug].astro
 
 ```astro
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('news');
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },  // slug → id に変更
     props: { post },
   }));
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);  // post.render() → render(post) に変更
 ---
 
 <BaseLayout pageTitle={post.data.title} pageSlug="news-article">
@@ -690,6 +718,10 @@ import heroImg from '@/assets/images/index/img_dummy1_pc.jpg';
 
 <Image src={heroImg} alt="ヒーロー画像" format="webp" width={1200} />
 ```
+
+> **Astro 6の注意点**
+> レスポンシブ画像のCSS属性が変わった。インラインの `--fit` / `--pos` スタイルは廃止され、`data-astro-fit` / `data-astro-pos` 属性を使う。
+> SCSSでこれらの属性をスタイリングしている場合はセレクタを更新すること。
 
 ---
 
