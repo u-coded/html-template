@@ -1,0 +1,20 @@
+@use '../foundation/mixin' as m;
+@use '../foundation/functions' as f;
+
+/**
+ * l-sub-kv
+ */
+.l-sub-kv {
+  display: grid;
+  height: f.rem(200);
+  place-items: center;
+  background: var(--black-30);
+}
+.l-sub-kv__txt {
+  font-weight: 700;
+}
+@include m.mq-up(md) {
+  .l-sub-kv {
+    height: f.rem(400);
+  }
+}

@@ -1,0 +1,35 @@
+@use 'sass:map';
+@use './variable' as v;
+
+// ～以下 (width < xxx px)
+@mixin mq-down($size: md) {
+  @media #{map.get(v.$breakpoint-down, $size)} {
+    @content;
+  }
+}
+
+// ～以上～未満 (min <= width < max)
+@mixin mq-range($sizeSmall, $sizeLarge) {
+  @media (#{map.get(v.$breakpoint-values, $sizeSmall)}px <= width < #{map.get(v.$breakpoint-values, $sizeLarge)}px) {
+    @content;
+  }
+}
+
+// ～以上 (width >= xxx px)
+@mixin mq-up($size: md) {
+  @media #{map.get(v.$breakpoint-up, $size)} {
+    @content;
+  }
+}
+
+// hover（タッチデバイスでは focus-visible のみ）
+@mixin hover() {
+  &:focus-visible {
+    @content;
+  }
+  @media (any-hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}

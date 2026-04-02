@@ -1,0 +1,37 @@
+@use '../foundation/mixin' as m;
+@use '../foundation/functions' as f;
+
+/**
+ * l-breadcrumb
+ */
+.l-breadcrumb {
+  ul {
+    display: flex;
+    padding: f.rem(10) 0;
+    flex-wrap: wrap;
+  }
+  li {
+    font-size: f.rem(12);
+    & + li {
+      display: flex;
+      &::before {
+        content: '\FF1E';
+        display: inline-block;
+        padding: 0 f.rem(3) 0 f.rem(6);
+      }
+    }
+    > a {
+    }
+    > span {
+      color: var(--black-70);
+    }
+  }
+}
+
+@include m.mq-up(md) {
+  .l-breadcrumb {
+    li {
+      font-size: f.rem(14);
+    }
+  }
+}

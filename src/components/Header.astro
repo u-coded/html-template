@@ -1,0 +1,48 @@
+---
+interface Props {
+  pageSlug: string;
+}
+const { pageSlug } = Astro.props;
+const LogoTag = pageSlug === 'index' ? 'h1' : 'p';
+---
+
+<header id="header" class="l-header">
+  <LogoTag class="l-header__logo">
+    <a href="/" class="l-header__logo-link u-alpha">LOGO</a>
+  </LogoTag>
+
+  <button
+    class="l-nav-hamburger u-hidden-md"
+    type="button"
+    data-nav-trigger
+    aria-expanded="false"
+    aria-controls="main-nav"
+  >
+    <span class="l-nav-hamburger__icon"
+      ><span class="u-sr-only">メニューを開閉する</span></span
+    >
+  </button>
+  <nav id="main-nav" class="l-nav" data-nav aria-hidden="true">
+    <ul class="l-nav__list">
+      <li class="l-nav__list-item">
+        <a href="/" class="l-nav__list-link u-alpha">ホーム</a>
+      </li>
+      <li class="l-nav__list-item">
+        <a href="/about/" class="l-nav__list-link u-alpha">会社概要</a>
+      </li>
+      <li class="l-nav__list-item">
+        <a href="/news/" class="l-nav__list-link u-alpha">お知らせ</a>
+      </li>
+      <li class="l-nav__list-item">
+        <a href="/contact/" class="l-nav__list-link u-alpha">お問い合わせ</a>
+      </li>
+    </ul>
+  </nav>
+  <div
+    class="l-nav-overlay u-hidden-md"
+    data-nav-overlay
+    tabindex="0"
+    aria-hidden="true"
+  >
+  </div>
+</header>

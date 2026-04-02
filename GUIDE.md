@@ -19,13 +19,13 @@ npm create astro@latest .
 
 対話式の質問への回答：
 
-| 質問 | 回答 |
-|------|------|
+| 質問                                          | 回答                                       |
+| --------------------------------------------- | ------------------------------------------ |
 | How would you like to start your new project? | **A basic, minimal starter (recommended)** |
-| Do you plan to write TypeScript? | **Yes** |
-| How strict should TypeScript be? | **Strict** |
-| Install dependencies? | **Yes** |
-| Initialize a new git repository? | **No**（すでにgitあるので） |
+| Do you plan to write TypeScript?              | **Yes**                                    |
+| How strict should TypeScript be?              | **Strict**                                 |
+| Install dependencies?                         | **Yes**                                    |
+| Initialize a new git repository?              | **No**（すでにgitあるので）                |
 
 ### 2. 不要ファイルを削除
 
@@ -47,11 +47,65 @@ npm run dev
 
 コードの品質・整形・補完を整える。
 
+---
+
+### ESLintとは
+
+**コードの「おかしな書き方」を検出するツール。**
+
+例えば以下のような問題を自動で見つけてくれる：
+
+- 使っていない変数がある
+- `.astro` ファイルの書き方がAstroのルールに違反している
+- TypeScriptの型が合っていない
+
+VSCodeの拡張機能（ESLint）と組み合わせると、ファイルを保存した瞬間に赤波線で警告が出るようになる。
+
+---
+
+### Prettierとは
+
+**コードの「見た目」を自動で整えるツール。**
+
+インデント・クォートの種類・行末のセミコロンなどを、設定に従って自動で統一してくれる。
+
+ESLintが「バグになりそうなコードを検出する」のに対して、Prettierは「見た目を綺麗にする」という役割分担。
+
+---
+
+### Huskyとは
+
+**gitのコミット・プッシュなどの操作に「フック（処理）」を挟むツール。**
+
+「コミットする前に自動でESLintとPrettierを実行する」という仕組みを作れる。
+これにより、チェックを忘れたままコミットしてしまうのを防げる。
+
+---
+
+### lint-stagedとは
+
+**Huskyと組み合わせて使うツール。「ステージングされたファイルだけ」にlintをかける。**
+
+`git add` したファイルだけが対象になるので、無関係なファイルを毎回チェックせずに済む。
+
+---
+
 ### 1. ESLint + Prettierをインストール
 
 ```bash
 npm install -D eslint prettier eslint-plugin-astro @typescript-eslint/parser @typescript-eslint/eslint-plugin prettier-plugin-astro
 ```
+
+各パッケージの役割：
+
+| パッケージ                         | 役割                                                       |
+| ---------------------------------- | ---------------------------------------------------------- |
+| `eslint`                           | ESLint本体                                                 |
+| `prettier`                         | Prettier本体                                               |
+| `eslint-plugin-astro`              | `.astro`ファイル用のESLintルール                           |
+| `@typescript-eslint/parser`        | ESLintがTypeScriptを読めるようにするパーサー               |
+| `@typescript-eslint/eslint-plugin` | TypeScript用のESLintルール                                 |
+| `prettier-plugin-astro`            | Prettierが`.astro`ファイルを整形できるようにするプラグイン |
 
 ### 2. ESLintの設定ファイルを作成
 
@@ -62,11 +116,11 @@ import astro from 'eslint-plugin-astro';
 import tsParser from '@typescript-eslint/parser';
 
 export default [
-  ...astro.configs.recommended,
+  ...astro.configs.recommended, // Astro推奨ルールを一括適用
   {
     files: ['**/*.ts'],
     languageOptions: {
-      parser: tsParser,
+      parser: tsParser, // .tsファイルはTypeScriptパーサーで読む
     },
   },
 ];
@@ -91,9 +145,25 @@ export default [
 }
 ```
 
+設定の意味：
+
+| 設定                                 | 意味                                      |
+| ------------------------------------ | ----------------------------------------- |
+| `singleQuote: true`                  | 文字列はシングルクォート `'` に統一       |
+| `plugins: ["prettier-plugin-astro"]` | `.astro`ファイルの整形を有効化            |
+| `overrides`                          | `.astro`ファイルはastroパーサーで処理する |
+
 ### 4. パスエイリアスを設定
 
-`../../components/...` のような深い相対パスを `@/components/...` と書けるようにする。
+**パスエイリアスとは**、ファイルのimportパスに短縮名をつける仕組み。
+
+```ts
+// 設定前：ファイルの深さによってパスが変わる
+import Header from '../../components/Header.astro';
+
+// 設定後：どこからでも同じパスで書ける
+import Header from '@/components/Header.astro';
+```
 
 `tsconfig.json` の `compilerOptions` に追記：
 
@@ -108,7 +178,7 @@ export default [
 }
 ```
 
-`astro.config.mts` にも追記：
+`astro.config.mts` にも追記（Viteにも同じ設定が必要）：
 
 ```ts
 import { defineConfig } from 'astro/config';
@@ -125,9 +195,16 @@ export default defineConfig({
 });
 ```
 
+tsconfig と astro.config の両方に書く理由：
+
+- `tsconfig.json` → TypeScriptの型チェック・エディタの補完用
+- `astro.config.mts` → 実際のビルド（Vite）用
+
 ### 5. 環境変数の管理ファイルを作成
 
-APIキー等を安全に管理するために2つのファイルを用意する。
+**環境変数とは**、APIキーやURLなどをコードに直接書かずに外部から渡す仕組み。
+
+`.env` ファイルに書いた値は `import.meta.env.変数名` でAstroのコード内から読み込める。
 
 `.env`（実際の値を書く・gitignoreに追加）：
 
@@ -143,18 +220,18 @@ RESEND_API_KEY=
 MICROCMS_API_KEY=
 ```
 
-`.gitignore` に `.env` を追加するのを忘れずに。
+`.gitignore` に `.env` が入っていることを確認（Astroが自動追加済みのはず）。
 
 ### 6. Husky + lint-stagedをインストール
-
-コミット前に自動でESLint・Prettierを走らせる仕組み。
 
 ```bash
 npm install -D husky lint-staged
 npx husky init
 ```
 
-`package.json` に追記：
+`npx husky init` を実行すると `.husky/` ディレクトリと `pre-commit` ファイルが自動生成される。
+
+`package.json` に追記（どのファイルに何を実行するか）：
 
 ```json
 {
@@ -171,6 +248,9 @@ npx husky init
 npx lint-staged
 ```
 
+これで `git commit` するたびに、ステージング済みファイルに対してESLint→Prettierが自動実行される。
+問題が見つかった場合はコミットが中断されるので、コードの品質を保てる。
+
 ### 7. `package.json` にスクリプトを追加
 
 ```json
@@ -180,6 +260,13 @@ npx lint-staged
     "format": "prettier --write ."
   }
 }
+```
+
+手動で実行したい時：
+
+```bash
+npm run lint     # ESLintでチェック（エラーの確認）
+npm run format   # Prettierで整形（全ファイルに適用）
 ```
 
 ---
@@ -210,11 +297,11 @@ src/
 `vite/src/assets/css/style.scss` のimportパスはそのまま使えるはず。
 `./foundation/...` のような相対パスになっていれば変更不要。
 
-（Astroへの読み込みはPhase 4のBaseLayout作成時に行う）
+（Astroへの読み込みはPhase 4のLayout作成時に行う）
 
 ---
 
-## Phase 4: BaseLayout.astro を作る
+## Phase 4: Layout.astro を作る
 
 ヘッダー・フッターを含む全ページ共通のHTML骨格を作る。
 参照元：`vite/src/parts/_header.html`、`vite/src/parts/_footer.html`
@@ -222,7 +309,7 @@ src/
 ### 1. ファイルを作成
 
 ```
-src/layouts/BaseLayout.astro
+src/layouts/Layout.astro
 ```
 
 ### 2. .astroファイルの基本構造
@@ -242,8 +329,7 @@ interface Props {
 const { pageTitle, pageSlug } = Astro.props;
 ---
 
-<!-- ここがHTMLテンプレート -->
-<!doctype html>
+<!-- ここがHTMLテンプレート --><!doctype html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
@@ -252,7 +338,8 @@ const { pageTitle, pageSlug } = Astro.props;
   <body>
     <header>ヘッダー</header>
 
-    <slot />  <!-- 各ページのコンテンツがここに入る -->
+    <slot />
+    <!-- 各ページのコンテンツがここに入る -->
 
     <footer>フッター</footer>
   </body>
@@ -276,13 +363,134 @@ export const siteData = {
 } as const;
 ```
 
-BaseLayout.astroでimportして使う：
+### 4. headタグの設定
+
+#### Fonts APIを設定
+
+Google Fontsをセルフホスティングして自動最適化する。`astro.config.mts` に追記：
+
+```ts
+import { defineConfig, fontProviders } from 'astro/config';
+
+export default defineConfig({
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: 'Lato',
+      cssVariable: '--font-en',
+      weights: [400],
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Noto Sans JP',
+      cssVariable: '--font-ja',
+      weights: [400, 700, 900],
+    },
+  ],
+});
+```
+
+SCSSのフォント指定はCSS変数で参照できる：
+
+```scss
+font-family: var(--font-ja), sans-serif;
+```
+
+#### Layout.astroのheadタグ
 
 ```astro
 ---
-import { siteData } from '@/data/site';
+const title =
+  pageSlug === 'index'
+    ? siteData.siteName
+    : `${pageTitle} | ${siteData.siteName}`;
 ---
-<title>{pageTitle} | {siteData.siteName}</title>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  />
+  <meta name="format-detection" content="telephone=no" />
+
+  <title>{title}</title>
+  <meta name="description" content={siteData.siteDesc} />
+  <link rel="canonical" href={siteData.siteCanonical} />
+
+  <!-- OGP -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={siteData.siteDesc} />
+  <meta
+    property="og:image"
+    content={`${siteData.siteCanonical}assets/images/common/ogp.png`}
+  />
+  <meta property="og:url" content={siteData.siteCanonical} />
+  <meta property="og:site_name" content={siteData.siteName} />
+
+  <!-- Twitter Card（og:*を自動参照するので最低限でOK） -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta
+    name="twitter:image"
+    content={`${siteData.siteCanonical}assets/images/common/ogp.png`}
+  />
+
+  <!-- Favicon -->
+  <link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href="/assets/images/icon/apple-touch-icon.png"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="/assets/images/icon/favicon-32x32.png"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/assets/images/icon/favicon-16x16.png"
+  />
+  <link rel="manifest" href="/assets/images/icon/site.webmanifest" />
+  <meta name="theme-color" content="#ffffff" />
+</head>
+```
+
+faviconファイルは `public/assets/images/icon/` に配置する（`vite/src/public/assets/images/icon/` からコピー）。
+
+省いたもの：
+
+- `keywords` → Googleは無視するため不要
+- `twitter:title` / `twitter:description` / `twitter:url` → `og:*` を自動参照するため省略可
+- `msapplication-TileColor` → Windows 8のピン留め用で現在はほぼ不要
+
+### 5. bodyタグとローディング画面
+
+`pageSlug` をbodyのidに設定する（JS側でページ判定に使う）。
+`ontouchstart=""` はiOSでhoverを有効にするためのおまじない。
+
+```astro
+<body id={pageSlug} ontouchstart="">
+  <!-- ローディング画面：トップページのみ表示 -->
+  {
+    pageSlug === 'index' && (
+      <div class="l-loading" data-loading>
+        <p class="l-loading__txt">Loading...</p>
+      </div>
+    )
+  }
+
+  <Header pageSlug={pageSlug} />
+
+  <div class="l-container">
+    <slot />
+  </div>
+
+  <Footer />
+</body>
 ```
 
 ### ページ遷移アニメーションを付けたい場合（オプション）
@@ -295,6 +503,7 @@ Astro標準の `<ClientRouter />` を使うとSPA風のページ遷移が実現�
 ---
 import { ClientRouter } from 'astro:transitions';
 ---
+
 <head>
   ...
   <ClientRouter />
@@ -311,18 +520,18 @@ import { ClientRouter } from 'astro:transitions';
 src/pages/index.astro
 ```
 
-### 2. BaseLayoutを使う
+### 2. Layoutを使う
 
 ```astro
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
+import Layout from '@/layouts/Layout.astro';
 ---
 
-<BaseLayout pageTitle="トップページ" pageSlug="index">
+<Layout pageTitle="トップページ" pageSlug="index">
   <main>
     <p>トップページのコンテンツ</p>
   </main>
-</BaseLayout>
+</Layout>
 ```
 
 ### 3. vite側のHTMLを参照しながらコンテンツを移植
@@ -339,12 +548,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 src/components/Header.astro
 ```
 
-### 2. BaseLayoutから分離する
+### 2. Layoutから分離する
 
-BaseLayout.astroのヘッダー部分を切り出して、Headerコンポーネントとして独立させる。
+Layout.astroのヘッダー部分を切り出して、Headerコンポーネントとして独立させる。
 
 ```astro
-<!-- src/components/Header.astro -->
 ---
 interface Props {
   pageSlug: string;
@@ -352,17 +560,17 @@ interface Props {
 const { pageSlug } = Astro.props;
 ---
 
-<header class="l-header">
-  ...
-</header>
+<!-- src/components/Header.astro -->
+<header class="l-header">...</header>
 ```
 
-BaseLayout.astroでimportして使う：
+Layout.astroでimportして使う：
 
 ```astro
 ---
 import Header from '@/components/Header.astro';
 ---
+
 <Header pageSlug={pageSlug} />
 ```
 
@@ -372,84 +580,15 @@ import Header from '@/components/Header.astro';
 
 同じ要領で以下を順番に作っていく。
 
-| コンポーネント | 参照元 | Props |
-|--------------|--------|-------|
-| `Footer.astro` | `vite/src/parts/_footer.html` | なし |
-| `SubKv.astro` | `vite/src/parts/_sub-kv.html` | `pageTitle` |
+| コンポーネント     | 参照元                            | Props                                                        |
+| ------------------ | --------------------------------- | ------------------------------------------------------------ |
+| `Footer.astro`     | `vite/src/parts/_footer.html`     | なし                                                         |
+| `SubKv.astro`      | `vite/src/parts/_sub-kv.html`     | `pageTitle`                                                  |
 | `Breadcrumb.astro` | `vite/src/parts/_breadcrumb.html` | `pageTitle`, `pageUrl`, `parentPageTitle?`, `parentPageUrl?` |
 
 ---
 
-## Phase 8: コンポーネントカタログページを作る
-
-Storybookのように、作ったコンポーネントを一覧で確認できるページをAstro内に作る。
-追加ライブラリ不要で、開発中だけ使うページとして管理する。
-
-### 1. ファイルを作成
-
-```
-src/pages/catalog/index.astro
-```
-
-### 2. カタログページの構成例
-
-```astro
----
-// 本番ビルドから除外する（開発時のみアクセス可）
-if (import.meta.env.PROD) {
-  return Astro.redirect('/');
-}
-
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Button from '@/components/ui/Button.astro';
-import Heading from '@/components/ui/Heading.astro';
----
-
-<BaseLayout pageTitle="コンポーネントカタログ" pageSlug="catalog">
-  <main style="padding: 40px;">
-
-    <section>
-      <h2>Button</h2>
-      <Button variant="primary">プライマリボタン</Button>
-      <Button variant="secondary">セカンダリボタン</Button>
-    </section>
-
-    <section>
-      <h2>Heading</h2>
-      <Heading level={2}>見出し2</Heading>
-      <Heading level={3}>見出し3</Heading>
-    </section>
-
-  </main>
-</BaseLayout>
-```
-
-### 3. アクセス方法
-
-開発サーバー起動中に `http://localhost:4321/catalog` で確認できる。
-
-`import.meta.env.PROD` で本番時はトップページにリダイレクトされるので、
-そのまま公開しても問題ない。
-
-### コンポーネントの置き場所
-
-汎用UIパーツは `ui/` サブフォルダで管理するとすっきりする：
-
-```
-src/components/
-├── Header.astro       ← レイアウト系
-├── Footer.astro
-├── Breadcrumb.astro
-├── SubKv.astro
-└── ui/                ← 汎用UIパーツ
-    ├── Button.astro
-    ├── Heading.astro
-    └── ...
-```
-
----
-
-## Phase 9: 下層ページを作る
+## Phase 8: 下層ページを作る
 
 ```
 src/pages/about/index.astro
@@ -461,23 +600,21 @@ SubKv・Breadcrumbを使う例（aboutページ）：
 
 ```astro
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
+import Layout from '@/layouts/Layout.astro';
 import SubKv from '@/components/SubKv.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
 ---
 
-<BaseLayout pageTitle="会社概要" pageSlug="about">
+<Layout pageTitle="会社概要" pageSlug="about">
   <SubKv pageTitle="会社概要" />
   <Breadcrumb pageTitle="会社概要" pageUrl="about" />
-  <main>
-    ...
-  </main>
-</BaseLayout>
+  <main>...</main>
+</Layout>
 ```
 
 ---
 
-## Phase 10: JavaScriptをTypeScript化して移行する
+## Phase 9: JavaScriptをTypeScript化して移行する
 
 `vite/src/assets/js/` を見ながら、自分で書き直していく。
 
@@ -497,7 +634,7 @@ src/scripts/
     └── smoothScroll.ts
 ```
 
-### BaseLayout.astroで読み込む
+### Layout.astroで読み込む
 
 ```astro
 <script>
@@ -513,7 +650,7 @@ src/scripts/
 
 ---
 
-## Phase 11: 404ページを作る
+## Phase 10: 404ページを作る
 
 ```
 src/pages/404.astro
@@ -523,24 +660,25 @@ src/pages/404.astro
 
 ```astro
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
+import Layout from '@/layouts/Layout.astro';
 ---
 
-<BaseLayout pageTitle="ページが見つかりません" pageSlug="404">
+<Layout pageTitle="ページが見つかりません" pageSlug="404">
   <main>
     <p>お探しのページは見つかりませんでした。</p>
     <a href="/">トップページへ戻る</a>
   </main>
-</BaseLayout>
+</Layout>
 ```
 
 ---
 
-## Phase 12: ニュースページ（Content Collections）
+## Phase 11: ニュースページ（Content Collections）
 
 Markdownファイルで記事を管理する仕組みを作る。
 
 > **Astro 6の注意点**
+>
 > - 設定ファイルの場所が `src/content/config.ts` → **プロジェクトルート直下の `src/content.config.ts`** に変わった
 > - `loader` の指定が必須になった
 > - `post.slug` → `post.id`
@@ -579,9 +717,9 @@ src/content/news/first-post.md
 
 ```markdown
 ---
-title: "最初のお知らせ"
+title: '最初のお知らせ'
 pubDate: 2026-04-01
-category: "お知らせ"
+category: 'お知らせ'
 ---
 
 記事の本文をここに書きます。
@@ -596,26 +734,26 @@ src/pages/news/[slug].astro
 ```astro
 ---
 import { getCollection, render } from 'astro:content';
-import BaseLayout from '@/layouts/BaseLayout.astro';
+import Layout from '@/layouts/Layout.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('news');
   return posts.map((post) => ({
-    params: { slug: post.id },  // slug → id に変更
+    params: { slug: post.id }, // slug → id に変更
     props: { post },
   }));
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);  // post.render() → render(post) に変更
+const { Content } = await render(post); // post.render() → render(post) に変更
 ---
 
-<BaseLayout pageTitle={post.data.title} pageSlug="news-article">
+<Layout pageTitle={post.data.title} pageSlug="news-article">
   <main>
     <h1>{post.data.title}</h1>
     <Content />
   </main>
-</BaseLayout>
+</Layout>
 ```
 
 ### microCMSに切り替えたくなったら
@@ -625,7 +763,7 @@ const { Content } = await render(post);  // post.render() → render(post) に�
 
 ---
 
-## Phase 13: フォームを動かす（Astro Actions）
+## Phase 12: フォームを動かす（Astro Actions）
 
 フォームのバリデーションとメール送信をサーバーサイドで処理する。
 
@@ -683,7 +821,7 @@ handler: async (input) => {
     text: input.message,
   });
   return { success: true };
-}
+};
 ```
 
 ### レンタルサーバー（静的ビルド）の場合
@@ -692,12 +830,12 @@ handler: async (input) => {
 フォームのsubmit先をFormspreeのエンドポイントに差し替える：
 
 ```html
-<form action="https://formspree.io/f/YOUR_ID" method="POST">
+<form action="https://formspree.io/f/YOUR_ID" method="POST"></form>
 ```
 
 ---
 
-## Phase 14: 画像最適化（astro:assets）
+## Phase 13: 画像最適化（astro:assets）
 
 `<img>` タグを Astroの `<Image />` コンポーネントに置き換えてWebP自動変換を有効にする。
 
@@ -725,7 +863,7 @@ import heroImg from '@/assets/images/index/img_dummy1_pc.jpg';
 
 ---
 
-## Phase 15: ホスティング設定
+## Phase 14: ホスティング設定
 
 ### Netlify / Cloudflare / Vercel
 
@@ -774,3 +912,70 @@ npm run build
 ```
 
 `dist/` の中身をそのままFTPでアップロードすればOK。
+
+---
+
+## Phase 15: コンポーネントカタログページを作る
+
+Storybookのように、作ったコンポーネントを一覧で確認できるページをAstro内に作る。
+追加ライブラリ不要で、開発中だけ使うページとして管理する。
+
+### 1. ファイルを作成
+
+```
+src/pages/catalog/index.astro
+```
+
+### 2. カタログページの構成例
+
+```astro
+---
+// 本番ビルドから除外する（開発時のみアクセス可）
+if (import.meta.env.PROD) {
+  return Astro.redirect('/');
+}
+
+import Layout from '@/layouts/Layout.astro';
+import Button from '@/components/ui/Button.astro';
+import Heading from '@/components/ui/Heading.astro';
+---
+
+<Layout pageTitle="コンポーネントカタログ" pageSlug="catalog">
+  <main style="padding: 40px;">
+    <section>
+      <h2>Button</h2>
+      <Button variant="primary">プライマリボタン</Button>
+      <Button variant="secondary">セカンダリボタン</Button>
+    </section>
+
+    <section>
+      <h2>Heading</h2>
+      <Heading level={2}>見出し2</Heading>
+      <Heading level={3}>見出し3</Heading>
+    </section>
+  </main>
+</Layout>
+```
+
+### 3. アクセス方法
+
+開発サーバー起動中に `http://localhost:4321/catalog` で確認できる。
+
+`import.meta.env.PROD` で本番時はトップページにリダイレクトされるので、
+そのまま公開しても問題ない。
+
+### コンポーネントの置き場所
+
+汎用UIパーツは `ui/` サブフォルダで管理するとすっきりする：
+
+```
+src/components/
+├── Header.astro       ← レイアウト系
+├── Footer.astro
+├── Breadcrumb.astro
+├── SubKv.astro
+└── ui/                ← 汎用UIパーツ
+    ├── Button.astro
+    ├── Heading.astro
+    └── ...
+```

@@ -1,0 +1,82 @@
+@use 'sass:map';
+@use 'sass:math';
+
+// ブレイクポイントのpx値
+$bp-xs: 360 !default;
+$bp-sm: 640 !default;
+$bp-md: 744 !default;
+$bp-lg: 1024 !default;
+$bp-xl: 1280 !default;
+$bp-xxl: 1536 !default;
+$bp-xxxl: 1920 !default;
+
+// (width < xxx px) ～以下
+$breakpoint-down: (
+  'xs': '(width < #{$bp-xs}px)',
+  'sm': '(width < #{$bp-sm}px)',
+  'md': '(width < #{$bp-md}px)',
+  'lg': '(width < #{$bp-lg}px)',
+  'xl': '(width < #{$bp-xl}px)',
+  'xxl': '(width < #{$bp-xxl}px)',
+  'xxxl': '(width < #{$bp-xxxl}px)',
+) !default;
+
+// (width >= xxx px) ～以上
+$breakpoint-up: (
+  'xs': '(width >= #{$bp-xs}px)',
+  'sm': '(width >= #{$bp-sm}px)',
+  'md': '(width >= #{$bp-md}px)',
+  'lg': '(width >= #{$bp-lg}px)',
+  'xl': '(width >= #{$bp-xl}px)',
+  'xxl': '(width >= #{$bp-xxl}px)',
+  'xxxl': '(width >= #{$bp-xxxl}px)',
+) !default;
+
+// mq-range 用のpx値マップ
+$breakpoint-values: (
+  'min': 0,
+  'xs': $bp-xs,
+  'sm': $bp-sm,
+  'md': $bp-md,
+  'lg': $bp-lg,
+  'xl': $bp-xl,
+  'xxl': $bp-xxl,
+  'xxxl': $bp-xxxl,
+) !default;
+
+// SPカンプ幅
+$sp-design-width: 375;
+
+// PCカンプ幅
+$pc-design-width: 1366;
+
+// 左右の余白
+$sp-gutter: 20;
+$pc-gutter: 30;
+
+// PCカンプのコンテンツ幅
+$pc-content-width: 1000;
+
+// 広げる最大のコンテンツ幅
+$pc-max-content-width: 1200;
+
+// デザイン時のコンテンツ幅の外寸
+$inner-min: $pc-content-width + $pc-gutter * 2;
+
+// 最大コンテンツ幅の外寸
+$inner-max: $pc-max-content-width + $pc-gutter * 2;
+
+// デザインのコンテンツ幅の比率
+$inner-ratio: math.div($inner-min, $pc-design-width);
+
+:root {
+  --duration: 0.3s;
+
+  --font-ja: 'Noto Sans JP', sans-serif;
+  --font-en: 'Lato', sans-serif;
+
+  --black: #1a1a1a;
+  --black-70: #1a1a1a70;
+  --black-30: #1a1a1a30;
+  --gray: #ccc;
+}

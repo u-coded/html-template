@@ -1,0 +1,89 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import { siteData } from '@/data/site';
+import '../styles/style.scss';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+
+interface Props {
+  pageTitle: string;
+  pageSlug: string;
+}
+
+const { pageTitle, pageSlug } = Astro.props;
+const title =
+  pageSlug === 'index'
+    ? siteData.siteName
+    : `${pageTitle} | ${siteData.siteName}`;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <title>{title}</title>
+    <meta name="description" content={siteData.siteDesc} />
+    <link rel="canonical" href={siteData.siteCanonical} />
+
+    <!-- OGP -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={siteData.siteDesc} />
+    <meta
+      property="og:image"
+      content={`${siteData.siteCanonical}assets/images/common/ogp.png`}
+    />
+    <meta property="og:url" content={siteData.siteCanonical} />
+    <meta property="og:site_name" content={siteData.siteName} />
+
+    <!-- Twitter Card（og:*を自動参照するので最低限でOK） -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:image"
+      content={`${siteData.siteCanonical}assets/images/common/ogp.png`}
+    />
+
+    <!-- Favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/images/icon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/images/icon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/images/icon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/assets/images/icon/site.webmanifest" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <ClientRouter />
+  </head>
+  <body id={pageSlug} ontouchstart="">
+    {
+      pageSlug === 'index' && (
+        <div class="l-loading" data-loading>
+          <p class="l-loading__txt">Loading...</p>
+        </div>
+      )
+    }
+    <Header pageSlug={pageSlug} />
+
+    <div class="l-container">
+      <slot />
+    </div>
+
+    <Footer />
+  </body>
+</html>

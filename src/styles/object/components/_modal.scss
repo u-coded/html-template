@@ -1,0 +1,65 @@
+@use '../../foundation/mixin' as m;
+@use '../../foundation/functions' as f;
+
+/**
+ * c-modal1
+ * モーダル
+ */
+dialog::backdrop {
+  background: rgb(0 0 0 / 0.5);
+}
+.c-modal1 {
+  border: none;
+  position: relative;
+  transition: opacity var(--duration);
+  background: transparent;
+  outline: none;
+  &::backdrop {
+    transition: opacity var(--duration, 0.3s); // ::backdrop疑似要素は一部のブラウザでCSS変数を継承しない可能性があるため、フォールバックを設定
+  }
+  &.is-open,
+  &.is-close {
+    opacity: 0;
+  }
+  &.is-open::backdrop,
+  &.is-close::backdrop {
+    opacity: 0;
+  }
+}
+.c-modal1__container {
+  width: min(calc(100% - 100px), 800px);
+  height: fit-content;
+  inset: 0;
+  margin: auto;
+  position: fixed;
+  background: white;
+}
+.c-modal1__inner {
+  max-height: calc(100dvh - 100px);
+  padding: f.rem(30) f.rem(20);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+
+  h3 {
+    font-size: f.rem(20);
+    font-weight: 700;
+  }
+  p {
+    margin-top: f.rem(15);
+  }
+}
+.c-modal1__close {
+  display: block;
+  margin-top: f.rem(30);
+  margin-inline: auto;
+}
+@include m.mq-up(md) {
+  .c-modal1__inner {
+    padding: f.rem(50);
+
+    h3 {
+      font-size: f.rem(24);
+    }
+  }
+}

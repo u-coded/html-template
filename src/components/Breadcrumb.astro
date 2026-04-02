@@ -1,0 +1,65 @@
+---
+import { siteData } from '@/data/site';
+
+interface Props {
+  pageTitle: string;
+  pageUrl: string;
+  parentPageTitle?: string;
+  parentPageUrl?: string;
+}
+
+const { pageTitle, pageUrl, parentPageTitle, parentPageUrl } = Astro.props;
+
+const position = parentPageTitle ? 3 : 2;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'ホーム',
+      item: siteData.siteCanonical,
+    },
+    ...(parentPageTitle && parentPageUrl
+      ? [
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: parentPageTitle,
+            item: `${siteData.siteCanonical}${parentPageUrl}/`,
+          },
+        ]
+      : []),
+    {
+      '@type': 'ListItem',
+      position,
+      name: pageTitle,
+      item: `${siteData.siteCanonical}${pageUrl}/`,
+    },
+  ],
+};
+---
+
+<nav id="breadcrumb" class="l-breadcrumb u-inner" aria-label="Breadcrumb">
+  <ul role="list">
+    <li role="listitem">
+      <a href="/" class="u-alpha"><span>ホーム</span></a>
+    </li>
+    {
+      parentPageTitle && (
+        <li role="listitem">
+          <a href="../" class="u-alpha">
+            <span>{parentPageTitle}</span>
+          </a>
+        </li>
+      )
+    }
+    <li role="listitem">
+      <span aria-current="page">{pageTitle}</span>
+    </li>
+  </ul>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
