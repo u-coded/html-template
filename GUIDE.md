@@ -617,12 +617,13 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 ## Phase 9: JavaScriptをTypeScript化して移行する
 
 `vite/src/assets/js/` を見ながら、自分で書き直していく。
+Vite時代の `scenes/`（ページ別JS）は廃止し、すべて `assets/` にUIパーツ単位で管理する。
 
 ### 移行先の構造
 
 ```
 src/scripts/
-├── main.ts
+├── main.ts            ← 共通処理のエントリーポイント
 └── assets/
     ├── debounce.ts
     ├── loading.ts
@@ -634,12 +635,57 @@ src/scripts/
     └── smoothScroll.ts
 ```
 
-### Layout.astroで読み込む
+Vite時代の `scenes/index.js`・`scenes/about.js` は廃止。
+ページ固有のスクリプトが必要になった場合は `assets/` にUIパーツ単位で作成し、
+使うページの `.astro` でだけimportする：
+
+```astro
+<!-- 例: トップページでしか使わないスライダー -->
+<script>
+  import '@/scripts/assets/kvSlider.ts';
+</script>
+```
+
+### 共通処理の読み込み
+
+`main.ts` は Layout.astro で読み込む（全ページで実行される）：
 
 ```astro
 <script>
   import '@/scripts/main.ts';
 </script>
+```
+
+### main.tsの構成
+
+Vite時代の body id による switch 分岐は不要。共通処理だけ書く：
+
+```ts
+import { loadingSet, loadingHide } from './assets/loading.ts';
+import nav from './assets/nav.ts';
+import smoothScroll from './assets/smoothScroll.ts';
+import pageTop from './assets/pageTop.ts';
+import modal from './assets/modal.ts';
+
+const domLoad = () => {
+  loadingSet();
+  setTimeout(() => loadingHide(), 5000);
+};
+
+const pageLoaded = () => {
+  loadingHide();
+  nav();
+  smoothScroll();
+  pageTop();
+  modal();
+};
+
+if (document.readyState !== 'loading') {
+  domLoad();
+} else {
+  document.addEventListener('DOMContentLoaded', domLoad, false);
+}
+window.addEventListener('load', pageLoaded, false);
 ```
 
 ### TypeScript化のポイント
