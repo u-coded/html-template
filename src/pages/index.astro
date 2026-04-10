@@ -1,8 +1,11 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+
+const pageTitle = 'トップページ';
+const pageSlug = 'index';
 ---
 
-<Layout pageTitle="トップページ" pageSlug="index">
+<Layout pageTitle={pageTitle} pageSlug={pageSlug}>
   <main>
     <div class="p-index-kv" data-page-top-hide>
       <div class="p-index-kv__inner">

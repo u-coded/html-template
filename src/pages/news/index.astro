@@ -1,0 +1,18 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import SubKv from '@/components/SubKv.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+
+const pageTitle = 'お知らせ';
+const pageSlug = 'news';
+---
+
+<Layout pageTitle={pageTitle} pageSlug={pageSlug}>
+  <SubKv pageTitle={pageTitle} />
+  <Breadcrumb pageTitle={pageTitle} pageUrl={pageSlug} />
+  <main>
+    <section>
+      <div class="u-inner">お知らせのコンテンツ</div>
+    </section>
+  </main>
+</Layout>
