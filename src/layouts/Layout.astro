@@ -85,5 +85,23 @@ const title =
     </div>
 
     <Footer />
+
+    <script>
+      import { loadingSet, loadingHide } from '@/scripts/loading.ts';
+      import nav from '@/scripts/nav.ts';
+      import smoothScroll from '@/scripts/smoothScroll.ts';
+      import pageTop from '@/scripts/pageTop.ts';
+
+      loadingSet();
+      setTimeout(() => loadingHide(), 5000);
+
+      window.addEventListener('load', () => {
+        loadingHide();
+      });
+
+      nav();
+      smoothScroll();
+      pageTop();
+    </script>
   </body>
 </html>

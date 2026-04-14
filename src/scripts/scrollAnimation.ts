@@ -10,11 +10,12 @@ export default () => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
 
-        if (entry.target.dataset.anime.trim() !== '') {
-          entry.target.classList.add(FOUND_CLASS);
+        const target = entry.target as HTMLElement;
+        if (target.dataset.anime?.trim() !== '') {
+          target.classList.add(FOUND_CLASS);
           return;
         }
-        const children = entry.target.querySelectorAll(TARGET_SEL);
+        const children = target.querySelectorAll(TARGET_SEL);
         children.forEach((el) => el.classList.add(FOUND_CLASS));
       });
     },
@@ -31,14 +32,13 @@ export default () => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) return;
 
-        if (entry.target.dataset.anime.trim() !== '') {
-          entry.target.classList.remove(FOUND_CLASS);
+        const target = entry.target as HTMLElement;
+        if (target.dataset.anime?.trim() !== '') {
+          target.classList.remove(FOUND_CLASS);
           return;
         }
 
-        const founds = entry.target.querySelectorAll(
-          `${TARGET_SEL}.${FOUND_CLASS}`,
-        );
+        const founds = target.querySelectorAll(`${TARGET_SEL}.${FOUND_CLASS}`);
         founds.forEach((el) => el.classList.remove(FOUND_CLASS));
       });
     },

@@ -617,76 +617,77 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 ## Phase 9: JavaScriptをTypeScript化して移行する
 
 `vite/src/assets/js/` を見ながら、自分で書き直していく。
-Vite時代の `scenes/`（ページ別JS）は廃止し、すべて `assets/` にUIパーツ単位で管理する。
+Vite時代の `main.js` や `scenes/`（ページ別JS）は廃止し、Astroの `<script>` で直接読み込む。
 
 ### 移行先の構造
 
 ```
 src/scripts/
-├── main.ts            ← 共通処理のエントリーポイント
-└── assets/
-    ├── debounce.ts
-    ├── loading.ts
-    ├── modal.ts
-    ├── nav.ts
-    ├── pageTop.ts
-    ├── scrollAnimation.ts
+├── loading.ts
+├── nav.ts
+├── scrollAnimation.ts
+├── smoothScroll.ts
+├── pageTop.ts
+├── modal.ts
+└── utils/               ← ページで直接読み込まないヘルパー
     ├── scrollLock.ts
-    └── smoothScroll.ts
+    └── debounce.ts
 ```
 
-Vite時代の `scenes/index.js`・`scenes/about.js` は廃止。
-ページ固有のスクリプトが必要になった場合は `assets/` にUIパーツ単位で作成し、
-使うページの `.astro` でだけimportする：
-
-```astro
-<!-- 例: トップページでしか使わないスライダー -->
-<script>
-  import '@/scripts/assets/kvSlider.ts';
-</script>
-```
+- `scripts/` 直下 → UIモジュール（ページから直接importされる）
+- `utils/` → 他のモジュールから呼ばれるヘルパー関数（ページから直接importしない）
 
 ### 共通処理の読み込み
 
-`main.ts` は Layout.astro で読み込む（全ページで実行される）：
+`main.ts` / `global.ts` のようなエントリーポイントは作らない。
+Layout.astro の `<script>` に直接書く（全ページで実行される）：
 
 ```astro
+<!-- Layout.astro -->
 <script>
-  import '@/scripts/main.ts';
-</script>
-```
+  import { loadingSet, loadingHide } from '@/scripts/loading.ts';
+  import nav from '@/scripts/nav.ts';
+  import smoothScroll from '@/scripts/smoothScroll.ts';
+  import pageTop from '@/scripts/pageTop.ts';
 
-### main.tsの構成
-
-Vite時代の body id による switch 分岐は不要。共通処理だけ書く：
-
-```ts
-import { loadingSet, loadingHide } from './assets/loading.ts';
-import nav from './assets/nav.ts';
-import smoothScroll from './assets/smoothScroll.ts';
-import pageTop from './assets/pageTop.ts';
-import modal from './assets/modal.ts';
-
-const domLoad = () => {
+  // DOM構築済み（Astroの<script>はDOMContentLoaded後に実行される）
   loadingSet();
   setTimeout(() => loadingHide(), 5000);
-};
 
-const pageLoaded = () => {
-  loadingHide();
+  // 全リソース読み込み完了後（ローディング画面を消すため）
+  window.addEventListener('load', () => {
+    loadingHide();
+  });
+
+  // これらはDOMがあれば動くのでloadイベントを待つ必要なし
   nav();
   smoothScroll();
   pageTop();
-  modal();
-};
-
-if (document.readyState !== 'loading') {
-  domLoad();
-} else {
-  document.addEventListener('DOMContentLoaded', domLoad, false);
-}
-window.addEventListener('load', pageLoaded, false);
+</script>
 ```
+
+> **ポイント:** Astroの `<script>` はビルド時にバンドル・最適化される。
+> `.astro` に直接書いても `.ts` にまとめても出力結果は同じ。
+> `load` イベントで待つ必要があるのは `loadingHide()` だけ（全リソース読み込み完了の検知）。
+> nav, smoothScroll 等のUI処理はDOMがあれば動くのでそのまま実行してよい。
+
+### ページ固有スクリプトの読み込み
+
+Vite時代の `scenes/index.js`・`scenes/about.js` や body id による switch 分岐は廃止。
+使うページの `.astro` でだけimportする：
+
+```astro
+<!-- 例: aboutページでしか使わないモーダル --><!-- src/pages/about/index.astro -->
+<Layout pageTitle="会社概要" pageSlug="about">
+  <!-- HTML -->
+</Layout>
+
+<script>
+  import '@/scripts/modal.ts';
+</script>
+```
+
+`load` イベントで囲む必要はない。Astroの `<script>` はDOMContentLoaded後に実行されるので、そのままimportすれば動く。
 
 ### TypeScript化のポイント
 

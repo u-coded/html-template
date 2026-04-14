@@ -1,4 +1,4 @@
-export default () => {
+export default (): { lock: () => void; unlock: () => void } => {
   let savedY = 0;
 
   const docEl = document.documentElement;
@@ -6,7 +6,7 @@ export default () => {
 
   const lock = () => {
     if (document.documentElement.classList.contains(LOCKED_CLASS)) return;
-    savedY = window.scrollY || window.pageYOffset || 0;
+    savedY = window.scrollY;
     docEl.style.top = `-${savedY}px`;
     docEl.classList.add(LOCKED_CLASS);
   };

@@ -1,10 +1,12 @@
-import scrollAnimation from './scrollAnimation.js';
-import scrollLock from './scrollLock.js';
+import scrollAnimation from './scrollAnimation';
+import scrollLock from './utils/scrollLock';
 
-const loading = document.querySelector('[data-loading]');
+const LOADING_SEL = '[data-loading]';
+
+const loading = document.querySelector(LOADING_SEL);
 
 const LOADED_CLASS = 'is-loaded';
-const lock = scrollLock();
+const locker = scrollLock();
 
 /**
  * ローディング画面を表示時に背景を固定する関数
@@ -15,7 +17,7 @@ export const loadingSet = () => {
   }
 
   // ローディング中は画面固定
-  lock.lock();
+  locker.lock();
 };
 
 /**
@@ -32,7 +34,7 @@ export const loadingHide = () => {
   scrollAnimation();
 
   // スクロールを有効化
-  lock.unlock();
+  locker.unlock();
 
   setTimeout(() => {
     loading.remove();
