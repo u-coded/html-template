@@ -1,14 +1,19 @@
 ---
+// 全ページ共通ヘッダー：ロゴ／グローバルナビ／ハンバーガー
+
+import { siteData } from '@/data/site';
+
 interface Props {
   pageSlug: string;
 }
 const { pageSlug } = Astro.props;
+// TOPページのみロゴを h1（SEO）、それ以外は p
 const LogoTag = pageSlug === 'index' ? 'h1' : 'p';
 ---
 
 <header class="l-header" data-header>
   <LogoTag class="l-header__logo">
-    <a href="/" class="l-header__logo-link u-alpha">LOGO</a>
+    <a href="/" class="l-header__logo-link u-alpha">{siteData.siteName}</a>
   </LogoTag>
 
   <button

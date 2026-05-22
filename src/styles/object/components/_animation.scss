@@ -1,3 +1,4 @@
+@use 'sass:math';
 @use '../../foundation/mixin' as m;
 @use '../../foundation/functions' as f;
 
@@ -62,10 +63,10 @@
   }
 }
 
-// 時間、ディレイ
+// 時間、ディレイ（0.05秒刻みで0.05〜3.0sまで対応）
 [data-anime] {
-  @for $i from 1 through 30 {
-    $j: $i * 0.1;
+  @for $i from 1 through 60 {
+    $j: math.div($i, 20);
     &[data-anime-duration='#{$j}'] {
       transition-duration: $j + s;
     }

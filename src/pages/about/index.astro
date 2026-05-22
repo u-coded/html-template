@@ -1,18 +1,152 @@
 ---
+// 会社概要ページ：代表挨拶／会社情報テーブル／沿革
+
+import { Image, getImage } from 'astro:assets';
 import Layout from '@/layouts/Layout.astro';
 import SubKv from '@/components/SubKv.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
+import messagePc from '@/assets/images/index/img_dummy2_pc.jpg';
+import messageSp from '@/assets/images/index/img_dummy2_sp.jpg';
 
 const pageTitle = '会社概要';
 const pageSlug = 'about';
+
+const messagePcWebp = await getImage({ src: messagePc, format: 'webp' });
+
+// 沿革
+const history = [
+  { year: '1956年', event: '藤島鉄工所として北海道札幌市にて創業' },
+  { year: '1962年', event: '株式会社藤島製作所として法人化' },
+  { year: '1975年', event: '第二工場を増設、量産体制を確立' },
+  { year: '1988年', event: '自動車部品分野へ本格参入' },
+  { year: '1995年', event: 'ISO 9001 認証取得' },
+  { year: '2005年', event: '本社工場を全面リニューアル' },
+  { year: '2018年', event: 'スマートファクトリー化を推進' },
+  { year: '2024年', event: '創業68周年' },
+];
 ---
 
 <Layout pageTitle={pageTitle} pageSlug={pageSlug}>
   <SubKv pageTitle={pageTitle} />
   <Breadcrumb pageTitle={pageTitle} pageUrl={pageSlug} />
   <main>
-    <section>
-      <div class="u-inner">会社概要のコンテンツ</div>
+    <section class="p-about-message">
+      <div class="p-about-message__inner u-inner">
+        <hgroup class="c-head1">
+          <h2 class="c-head1__ja">代表ご挨拶</h2>
+          <p class="c-head1__en" lang="en">MESSAGE</p>
+        </hgroup>
+        <div class="p-about-message__container">
+          <div class="p-about-message__txts">
+            <p class="p-about-message__txt">
+              1956年の創業以来、私たち藤島製作所は「お客様の課題を技術で解決する」ことを企業使命とし、精密機械加工と金型製造の分野で歩み続けてまいりました。
+            </p>
+            <p class="p-about-message__txt">
+              ものづくりを取り巻く環境は刻々と変化していますが、品質にこだわり、確かな技術を磨き続けるという姿勢は創業時から変わりません。これからも変化に対応しながら、次世代に技術を継承し、社会に貢献できる企業を目指してまいります。
+            </p>
+            <p class="p-about-message__name">代表取締役 藤島 太郎</p>
+          </div>
+          <div class="p-about-message__img">
+            <picture>
+              <source
+                srcset={messagePcWebp.src}
+                media="(min-width: 744px)"
+                width="1920"
+                height="1080"
+              />
+              <Image
+                src={messageSp}
+                alt="代表者"
+                loading="lazy"
+                format="webp"
+                width={750}
+                height={750}
+              />
+            </picture>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-about-company">
+      <div class="p-about-company__inner u-inner">
+        <hgroup class="c-head1">
+          <h2 class="c-head1__ja">会社情報</h2>
+          <p class="c-head1__en" lang="en">PROFILE</p>
+        </hgroup>
+        <table class="p-about-company__table">
+          <tbody>
+            <tr>
+              <th>商号</th>
+              <td>株式会社藤島製作所（FUJISHIMA Manufacturing Co., Ltd.）</td>
+            </tr>
+            <tr>
+              <th>創業</th>
+              <td>1956年4月</td>
+            </tr>
+            <tr>
+              <th>設立</th>
+              <td>1962年6月</td>
+            </tr>
+            <tr>
+              <th>資本金</th>
+              <td>5,000万円</td>
+            </tr>
+            <tr>
+              <th>代表者</th>
+              <td>代表取締役 藤島 太郎</td>
+            </tr>
+            <tr>
+              <th>従業員数</th>
+              <td>120名（2026年4月現在）</td>
+            </tr>
+            <tr>
+              <th>所在地</th>
+              <td>〒065-0000 北海道札幌市東区XX町1丁目2-3</td>
+            </tr>
+            <tr>
+              <th>連絡先</th>
+              <td>
+                TEL: 011-000-0000<br />
+                FAX: 011-000-0001
+              </td>
+            </tr>
+            <tr>
+              <th>営業時間</th>
+              <td>平日 9:00〜17:30（土日祝休）</td>
+            </tr>
+            <tr>
+              <th>事業内容</th>
+              <td>
+                <ul>
+                  <li>精密機械加工（自動車・産業用機械向け）</li>
+                  <li>プレス金型・樹脂金型の設計および製造</li>
+                  <li>試作品開発および量産化支援</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="p-about-history">
+      <div class="p-about-history__inner u-inner">
+        <hgroup class="c-head1">
+          <h2 class="c-head1__ja">沿革</h2>
+          <p class="c-head1__en" lang="en">HISTORY</p>
+        </hgroup>
+        <dl class="p-about-history__list">
+          {
+            history.map((item) => (
+              <div class="p-about-history__item">
+                <dt class="p-about-history__year">{item.year}</dt>
+                <dd class="p-about-history__event">{item.event}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
     </section>
   </main>
 </Layout>

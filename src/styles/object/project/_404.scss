@@ -1,0 +1,47 @@
+@use '../../foundation/mixin' as m;
+@use '../../foundation/functions' as f;
+
+/**
+ * p-404
+ */
+.p-404__inner {
+  padding-top: f.rem(80);
+  padding-bottom: f.rem(80);
+  text-align: center;
+}
+.p-404__code {
+  font-size: f.rem(64);
+  font-weight: 700;
+  line-height: 1;
+}
+.p-404__title {
+  margin-top: f.rem(20);
+  font-size: f.rem(20);
+}
+.p-404__txt {
+  margin-top: f.rem(20);
+  line-height: 1.8;
+}
+.p-404__btn {
+  margin-top: f.rem(40);
+  display: inline-flex;
+}
+@include m.mq-up(md) {
+  .p-404__inner {
+    padding-top: f.rem(140);
+    padding-bottom: f.rem(140);
+  }
+  .p-404__code {
+    font-size: f.rem(96);
+  }
+  .p-404__title {
+    font-size: f.rem(28);
+    margin-top: f.rem(30);
+  }
+  .p-404__txt {
+    margin-top: f.rem(30);
+  }
+  .p-404__btn {
+    margin-top: f.rem(60);
+  }
+}

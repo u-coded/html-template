@@ -1,3 +1,5 @@
+// ページトップボタン：スクロール位置に応じて表示／非表示、フッター位置で吸い付き
+
 export default () => {
   const PAGE_TOP_SEL = '[data-page-top]';
   const HIDE_SEL = '[data-page-top-hide]';

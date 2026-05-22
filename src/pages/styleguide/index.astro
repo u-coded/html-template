@@ -1,0 +1,309 @@
+---
+// 開発用スタイルガイド：全コンポーネントの表示見本
+// 本番ビルド時はTOPへリダイレクト（開発時のみアクセス可）
+
+import Layout from '@/layouts/Layout.astro';
+
+if (import.meta.env.PROD) {
+  return Astro.redirect('/');
+}
+
+const pageTitle = 'Styleguide';
+const pageSlug = 'styleguide';
+
+const sections = [
+  { id: 'head', label: 'Headings' },
+  { id: 'btn', label: 'Buttons' },
+  { id: 'ico', label: 'Icons' },
+  { id: 'form', label: 'Form' },
+  { id: 'archive', label: 'Archive' },
+  { id: 'pager', label: 'Pagers' },
+  { id: 'animation', label: 'Animation' },
+];
+---
+
+<Layout pageTitle={pageTitle} pageSlug={pageSlug}>
+  <main class="p-styleguide">
+    <div class="p-styleguide__inner u-inner">
+      <header class="p-styleguide__header">
+        <h1 class="p-styleguide__title">Styleguide</h1>
+        <p class="p-styleguide__lead">
+          開発用のコンポーネント一覧ページ。本番ビルド時は表示されません。
+        </p>
+        <nav class="p-styleguide__nav">
+          <ul>
+            {
+              sections.map((s) => (
+                <li>
+                  <a href={`#${s.id}`}>{s.label}</a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </header>
+
+      <!-- Headings -->
+      <section id="head" class="p-styleguide__section">
+        <h2 class="p-styleguide__section-title">Headings</h2>
+
+        <div class="p-styleguide__block">
+          <p class="p-styleguide__caption">c-head1（中央寄せ・hgroup）</p>
+          <div class="p-styleguide__demo">
+            <hgroup class="c-head1">
+              <h3 class="c-head1__ja">見出しテキスト</h3>
+              <p class="c-head1__en" lang="en">HEADING</p>
+            </hgroup>
+          </div>
+        </div>
+
+        <div class="p-styleguide__block">
+          <p class="p-styleguide__caption">
+            c-head2（左寄せ・縦罫線アクセント）
+          </p>
+          <div class="p-styleguide__demo">
+            <h3 class="c-head2">
+              見出しテキスト
+              <span class="c-head2__en" lang="en">HEADING</span>
+            </h3>
+          </div>
+        </div>
+      </section>
+
+      <!-- Buttons -->
+      <section id="btn" class="p-styleguide__section">
+        <h2 class="p-styleguide__section-title">Buttons</h2>
+
+        <div class="p-styleguide__block">
+          <p class="p-styleguide__caption">
+            c-btn1（リンクボタン・矢印アイコン付き）
+          </p>
+          <div class="p-styleguide__demo">
+            <div class="c-btn1">
+              <a href="#" class="c-btn1__link">
+                <span class="c-btn1__txt">詳しく見る</span>
+                <span class="c-ico -arrow1 c-btn1__ico"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-styleguide__block">
+          <p class="p-styleguide__caption">c-btn2（シンプルボタン）</p>
+          <div class="p-styleguide__demo p-styleguide__demo--row">
+            <button type="button" class="c-btn2">通常</button>
+            <button type="button" class="c-btn2 c-btn2--primary">primary</button
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- Icons -->
+      <section id="ico" class="p-styleguide__section">
+        <h2 class="p-styleguide__section-title">Icons</h2>
+
+        <div class="p-styleguide__block">
+          <p class="p-styleguide__caption">c-ico -arrow1</p>
+          <div class="p-styleguide__demo p-styleguide__demo--row">
+            <span class="c-ico -arrow1" style="width: 16px; height: 20px;"
+            ></span>
+            <span
+              class="c-ico -arrow1"
+              style="width: 24px; height: 30px; color: red;"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Form -->
+      <section id="form" class="p-styleguide__section">
+        <h2 class="p-styleguide__section-title">Form</h2>
+
+        <div class="p-styleguide__block">
+          <p class="p-styleguide__caption">c-form1（フォーム要素一式）</p>
+          <div class="p-styleguide__demo">
+            <form onsubmit="event.preventDefault()" class="c-form1">
+              <fieldset class="c-form1__fieldset">
+                <legend class="c-form1__legend">テキスト</legend>
+                <div class="c-form1__inputs">
+                  <input type="text" placeholder="入力してください" />
+                </div>
+              </fieldset>
+              <fieldset class="c-form1__fieldset">
+                <legend class="c-form1__legend">メールアドレス</legend>
+                <div class="c-form1__inputs">
+                  <input type="email" />
+                  <p class="c-form1__error">エラーメッセージサンプル</p>
+                </div>
+              </fieldset>
+              <fieldset class="c-form1__fieldset">
+                <legend class="c-form1__legend">テキストエリア</legend>
+                <div class="c-form1__inputs">
+                  <textarea></textarea>
+                </div>
+              </fieldset>
+              <fieldset class="c-form1__fieldset">
+                <legend class="c-form1__legend">ラジオボタン</legend>
+                <div class="c-form1__inputs">
+                  <label><input type="radio" name="sg-radio" />選択肢1</label>
+                  <label><input type="radio" name="sg-radio" />選択肢2</label>
+                  <label><input type="radio" name="sg-radio" />選択肢3</label>
+                </div>
+              </fieldset>
+              <fieldset class="c-form1__fieldset">
+                <legend class="c-form1__legend">チェックボックス</legend>
+                <div class="c-form1__inputs">
+                  <label><input type="checkbox" />選択肢1</label>
+                  <label><input type="checkbox" />選択肢2</label>
+                </div>
+              </fieldset>
+              <fieldset class="c-form1__fieldset">
+                <legend class="c-form1__legend">セレクトボックス</legend>
+                <div class="c-form1__inputs">
+                  <div>
+                    <select>
+                      <option>選択してください</option>
+                      <option>選択肢1</option>
+                      <option>選択肢2</option>
+                    </select>
+                  </div>
+                </div>
+              </fieldset>
+              <div class="c-form1__btns">
+                <button type="button" class="c-btn2">戻る</button>
+                <button type="submit" class="c-btn2 c-btn2--primary"
+                  >送信</button
+                >
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- Archive -->
+      <section id="archive" class="p-styleguide__section">
+        <h2 class="p-styleguide__section-title">Archive</h2>
+
+        <div class="p-styleguide__block">
+          <p class="p-styleguide__caption">
+            c-archive1（ニュースリスト・サムネなし）
+          </p>
+          <div class="p-styleguide__demo">
+            <div class="c-archive1">
+              <article class="c-archive1__article">
+                <a href="#" class="c-archive1__link u-alpha">
+                  <div class="c-archive1__body">
+                    <time class="c-archive1__date">2026.05.01</time>
+                    <h3 class="c-archive1__title">記事タイトルが入ります</h3>
+                    <p class="c-archive1__content">
+                      記事の概要テキストが入ります。記事の概要テキストが入ります。
+                    </p>
+                  </div>
+                </a>
+              </article>
+              <article class="c-archive1__article">
+                <a href="#" class="c-archive1__link u-alpha">
+                  <div class="c-archive1__body">
+                    <time class="c-archive1__date">2026.04.15</time>
+                    <h3 class="c-archive1__title">記事タイトルが入ります</h3>
+                  </div>
+                </a>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pagers -->
+      <section id="pager" class="p-styleguide__section">
+        <h2 class="p-styleguide__section-title">Pagers</h2>
+
+        <div class="p-styleguide__block">
+          <p class="p-styleguide__caption">c-pager1（一覧ページャー）</p>
+          <div class="p-styleguide__demo">
+            <nav class="c-pager1" aria-label="Pagination">
+              <ul class="c-pager1__list u-font-bold" role="list">
+                <li><a href="#" class="first">&lt;&lt;</a></li>
+                <li><a href="#" class="prev">&lt;</a></li>
+                <li><a href="#">1</a></li>
+                <li><span class="between">…</span></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><span class="current" aria-current="page">5</span></li>
+                <li><a href="#">6</a></li>
+                <li><a href="#">7</a></li>
+                <li><span class="between">…</span></li>
+                <li><a href="#">10</a></li>
+                <li><a href="#" class="next">&gt;</a></li>
+                <li><a href="#" class="last">&gt;&gt;</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div class="p-styleguide__block">
+          <p class="p-styleguide__caption">c-pager2（記事詳細の前後ナビ）</p>
+          <div class="p-styleguide__demo">
+            <nav class="c-pager2 u-font-bold" aria-label="Post Navigation">
+              <div class="c-pager2__prev">
+                <a href="#" class="u-alpha"><span>＜ 前の記事</span></a>
+              </div>
+              <div class="c-pager2__back">
+                <a href="#" class="c-btn2">一覧へ戻る</a>
+              </div>
+              <div class="c-pager2__next">
+                <a href="#" class="u-alpha"><span>次の記事 ＞</span></a>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </section>
+
+      <!-- Animation -->
+      <section id="animation" class="p-styleguide__section">
+        <h2 class="p-styleguide__section-title">Animation</h2>
+        <p class="p-styleguide__caption">
+          スクロール時に表示されるアニメーション（data-anime属性）<br />
+          画面に入ると <code>.is-found</code> クラスが付与されてフェードイン
+        </p>
+        <div class="p-styleguide__block" data-anime>
+          <div class="p-styleguide__demo p-styleguide__demo--anime">
+            <div class="p-styleguide__anime-box" data-anime="fadeInUp">
+              fadeInUp
+            </div>
+            <div class="p-styleguide__anime-box" data-anime="fadeInDown">
+              fadeInDown
+            </div>
+            <div class="p-styleguide__anime-box" data-anime="fadeInLeft">
+              fadeInLeft
+            </div>
+            <div class="p-styleguide__anime-box" data-anime="fadeIn">
+              fadeIn
+            </div>
+          </div>
+        </div>
+        <div class="p-styleguide__block" data-anime>
+          <p class="p-styleguide__caption">delay：data-anime-delay="0.15"</p>
+          <div class="p-styleguide__demo p-styleguide__demo--anime">
+            <div class="p-styleguide__anime-box" data-anime="fadeInUp">
+              delay 0
+            </div>
+            <div
+              class="p-styleguide__anime-box"
+              data-anime="fadeInUp"
+              data-anime-delay="0.15"
+            >
+              delay 0.15
+            </div>
+            <div
+              class="p-styleguide__anime-box"
+              data-anime="fadeInUp"
+              data-anime-delay="0.3"
+            >
+              delay 0.3
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</Layout>

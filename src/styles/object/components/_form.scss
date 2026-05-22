@@ -174,8 +174,14 @@
 }
 .c-form1__legend {
   font-weight: 700;
+  margin-bottom: f.rem(8);
 }
 .c-form1__inputs {
+}
+.c-form1__error {
+  margin-top: f.rem(8);
+  color: #c33;
+  font-size: f.rem(14);
 }
 .c-form1__btns {
   display: flex;

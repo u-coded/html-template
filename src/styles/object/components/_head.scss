@@ -3,7 +3,7 @@
 
 /**
  * c-head1
- * 見出し
+ * 中央寄せ見出し（hgroup：日本語＋英語）
  */
 .c-head1 {
   text-align: center;
@@ -22,5 +22,48 @@
   }
   .c-head1__en {
     font-size: f.rem(20);
+  }
+}
+
+/**
+ * c-head2
+ * 左寄せ見出し（縦罫線アクセント付き）
+ */
+.c-head2 {
+  position: relative;
+  padding-left: f.rem(16);
+  font-size: f.rem(18);
+  font-weight: 700;
+  line-height: 1.4;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0.15em;
+    bottom: 0.15em;
+    left: 0;
+    width: f.rem(4);
+    background: var(--black);
+  }
+}
+.c-head2__en {
+  display: block;
+  margin-top: f.rem(4);
+  font-size: f.rem(12);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--black-70);
+}
+
+@include m.mq-up(md) {
+  .c-head2 {
+    padding-left: f.rem(20);
+    font-size: f.rem(22);
+    &::before {
+      width: f.rem(5);
+    }
+  }
+  .c-head2__en {
+    margin-top: f.rem(6);
+    font-size: f.rem(14);
   }
 }

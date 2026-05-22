@@ -23,6 +23,17 @@
     place-items: center;
     font-size: f.rem(14);
     text-decoration: none;
+    color: var(--black);
+    transition:
+      background-color var(--duration),
+      color var(--duration);
+  }
+  // 数字リンクのホバー：背景反転
+  a:not(.first):not(.prev):not(.next):not(.last) {
+    @include m.hover {
+      background: var(--black);
+      color: white;
+    }
   }
   .between,
   .first,
@@ -31,6 +42,25 @@
   .last {
     width: f.rem(20);
     border: none;
+  }
+  // 矢印リンクのホバー：左右にスライド
+  .first,
+  .prev {
+    @include m.hover {
+      translate: f.rem(-3) 0;
+    }
+  }
+  .next,
+  .last {
+    @include m.hover {
+      translate: f.rem(3) 0;
+    }
+  }
+  a.first,
+  a.prev,
+  a.next,
+  a.last {
+    transition: translate var(--duration);
   }
   .current {
     background: var(--black);
@@ -49,7 +79,7 @@
 
 /**
  * c-pager2
- * 一覧用ページャー
+ * 記事詳細の前後ナビ
  */
 .c-pager2 {
   display: grid;
@@ -61,11 +91,30 @@
     width: fit-content;
     padding: f.rem(10);
     font-size: f.rem(14);
+    text-decoration: none;
+    color: var(--black);
+    transition:
+      translate var(--duration),
+      opacity var(--duration);
   }
 }
 .c-pager2__prev {
   margin-inline: auto 0;
   text-align: right;
+  a {
+    @include m.hover {
+      translate: f.rem(-4) 0;
+      opacity: 0.7;
+    }
+  }
+}
+.c-pager2__next {
+  a {
+    @include m.hover {
+      translate: f.rem(4) 0;
+      opacity: 0.7;
+    }
+  }
 }
 .c-pager2__back {
   a {
@@ -73,6 +122,15 @@
     place-items: center;
     background: var(--black);
     color: white;
+    transition:
+      background-color var(--duration),
+      color var(--duration);
+    @include m.hover {
+      background: transparent;
+      color: var(--black);
+      border: 1px solid var(--black);
+      padding: calc(f.rem(10) - 1px);
+    }
   }
 }
 

@@ -1,3 +1,5 @@
+// アンカーリンク（#xxx）のスムーズスクロール（固定ヘッダー高分のオフセット込み）
+
 export default () => {
   const TRIGGER_SEL = 'a[href^="#"]';
   const HEADER_SEL = '[data-header]';

@@ -1,8 +1,17 @@
+// Astro設定：パスエイリアス／フォント／Vercelアダプター／sitemap
+// site URLは sitemap 生成・正規URLとして使われる
+
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
 import path from 'path';
+import vercel from '@astrojs/vercel';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
+  site: 'https://fujishima-mfg.example.com',
+  output: 'static',
+  adapter: vercel(),
+  integrations: [sitemap()],
   vite: {
     resolve: {
       alias: {

@@ -4,15 +4,44 @@
 /**
  * p-contact-main
  */
-.p-contact-main {
-}
 .p-contact-main__inner {
   padding-top: f.rem(50);
   padding-bottom: f.rem(50);
+}
+.p-contact-main__lead {
+  max-width: f.rem(720);
+  margin-inline: auto;
+  line-height: 1.8;
+}
+.p-contact-main__form {
+  max-width: f.rem(720);
+  margin-top: f.rem(40);
+  margin-inline: auto;
+}
+.p-contact-main__thanks {
+  max-width: f.rem(720);
+  margin-inline: auto;
+  text-align: center;
+}
+.p-contact-main__thanks-title {
+  font-size: f.rem(24);
+}
+.p-contact-main__thanks-txt {
+  margin-top: f.rem(20);
+  line-height: 1.8;
 }
 @include m.mq-up(md) {
   .p-contact-main__inner {
     padding-top: f.rem(100);
     padding-bottom: f.rem(100);
+  }
+  .p-contact-main__form {
+    margin-top: f.rem(60);
+  }
+  .p-contact-main__thanks-title {
+    font-size: f.rem(28);
+  }
+  .p-contact-main__thanks-txt {
+    margin-top: f.rem(30);
   }
 }

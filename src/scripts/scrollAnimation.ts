@@ -1,11 +1,21 @@
+// スクロールアニメーション：data-anime 要素を IntersectionObserver で監視し、画面内に入ったらクラス付与
+// SPA遷移で再呼び出しされても累積しないよう、前回のobserverをdisconnectしてから再生成する
+
+let enterObserver: IntersectionObserver | null = null;
+let exitObserver: IntersectionObserver | null = null;
+
 export default () => {
+  // 前回のobserverを切断（SPA遷移時の累積防止）
+  enterObserver?.disconnect();
+  exitObserver?.disconnect();
+
   const TARGET_SEL = '[data-anime]';
   const FOUND_CLASS = 'is-found';
 
   const targets = document.querySelectorAll(TARGET_SEL);
   if (!targets.length) return;
 
-  const enterObserver = new IntersectionObserver(
+  enterObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
@@ -27,7 +37,7 @@ export default () => {
   );
 
   // 表示を外れたとき
-  const exitObserver = new IntersectionObserver(
+  exitObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) return;
@@ -50,7 +60,7 @@ export default () => {
   );
 
   targets.forEach((t) => {
-    enterObserver.observe(t);
-    exitObserver.observe(t);
+    enterObserver?.observe(t);
+    exitObserver?.observe(t);
   });
 };

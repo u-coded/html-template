@@ -1,0 +1,187 @@
+---
+// ニュース一覧ページ（ページネーション付き）
+// URL: /news/, /news/2/, /news/3/, ...
+
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '@/layouts/Layout.astro';
+import SubKv from '@/components/SubKv.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = (await getCollection('news')).sort(
+    (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+  );
+  return paginate(posts, { pageSize: 3 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+
+const pageTitle = 'お知らせ';
+const pageSlug = 'news';
+
+const formatDate = (d: Date) =>
+  `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+
+const pageHref = (n: number) => (n === 1 ? '/news/' : `/news/${n}/`);
+
+// 表示するページ番号の配列を生成（…で省略）
+const getPageNumbers = (
+  current: number,
+  last: number,
+): Array<number | 'ellipsis'> => {
+  if (last <= 7) {
+    return Array.from({ length: last }, (_, i) => i + 1);
+  }
+
+  const result: Array<number | 'ellipsis'> = [1];
+  if (current > 3) result.push('ellipsis');
+
+  const start = Math.max(2, current - 1);
+  const end = Math.min(last - 1, current + 1);
+  for (let i = start; i <= end; i++) result.push(i);
+
+  if (current < last - 2) result.push('ellipsis');
+  result.push(last);
+
+  return result;
+};
+
+const pageNumbers = getPageNumbers(page.currentPage, page.lastPage);
+const isFirst = page.currentPage === 1;
+const isLast = page.currentPage === page.lastPage;
+---
+
+<Layout pageTitle={pageTitle} pageSlug={pageSlug}>
+  <SubKv pageTitle={pageTitle} />
+  <Breadcrumb pageTitle={pageTitle} pageUrl={pageSlug} />
+  <main>
+    <section class="p-news-article">
+      <div class="p-news-article__inner u-inner">
+        <hgroup class="c-head1">
+          <h2 class="c-head1__ja">お知らせ</h2>
+          <p class="c-head1__en" lang="en">NEWS</p>
+        </hgroup>
+        <div class="c-archive1 p-news-article__article">
+          {
+            page.data.map((post) => (
+              <article class="c-archive1__article">
+                <a
+                  href={`/news/article/${post.id}/`}
+                  class="c-archive1__link u-alpha"
+                >
+                  {post.data.thumbnail && (
+                    <div class="c-archive1__thumb">
+                      <Image
+                        src={post.data.thumbnail}
+                        alt=""
+                        loading="lazy"
+                        format="webp"
+                        width={400}
+                      />
+                    </div>
+                  )}
+                  <div class="c-archive1__body">
+                    <time
+                      class="c-archive1__date"
+                      datetime={post.data.pubDate.toISOString().slice(0, 10)}
+                    >
+                      {formatDate(post.data.pubDate)}
+                    </time>
+                    <h3 class="c-archive1__title">{post.data.title}</h3>
+                    {post.data.description && (
+                      <p class="c-archive1__content">{post.data.description}</p>
+                    )}
+                  </div>
+                </a>
+              </article>
+            ))
+          }
+        </div>
+
+        {
+          page.lastPage > 1 && (
+            <nav class="c-pager1" aria-label="Pagination">
+              <ul class="c-pager1__list u-font-bold" role="list">
+                <li>
+                  {isFirst ? (
+                    <span class="first" aria-hidden="true">
+                      &lt;&lt;
+                    </span>
+                  ) : (
+                    <a href={pageHref(1)} class="first" aria-label="First Page">
+                      &lt;&lt;
+                    </a>
+                  )}
+                </li>
+                <li>
+                  {page.url.prev ? (
+                    <a
+                      href={page.url.prev}
+                      class="prev"
+                      aria-label="Previous Page"
+                    >
+                      &lt;
+                    </a>
+                  ) : (
+                    <span class="prev" aria-hidden="true">
+                      &lt;
+                    </span>
+                  )}
+                </li>
+                {pageNumbers.map((n) =>
+                  n === 'ellipsis' ? (
+                    <li>
+                      <span class="between" aria-hidden="true">
+                        …
+                      </span>
+                    </li>
+                  ) : n === page.currentPage ? (
+                    <li>
+                      <span class="current" aria-current="page">
+                        {n}
+                      </span>
+                    </li>
+                  ) : (
+                    <li>
+                      <a href={pageHref(n)} aria-label={`Page ${n}`}>
+                        {n}
+                      </a>
+                    </li>
+                  ),
+                )}
+                <li>
+                  {page.url.next ? (
+                    <a href={page.url.next} class="next" aria-label="Next Page">
+                      &gt;
+                    </a>
+                  ) : (
+                    <span class="next" aria-hidden="true">
+                      &gt;
+                    </span>
+                  )}
+                </li>
+                <li>
+                  {isLast ? (
+                    <span class="last" aria-hidden="true">
+                      &gt;&gt;
+                    </span>
+                  ) : (
+                    <a
+                      href={pageHref(page.lastPage)}
+                      class="last"
+                      aria-label="Last Page"
+                    >
+                      &gt;&gt;
+                    </a>
+                  )}
+                </li>
+              </ul>
+            </nav>
+          )
+        }
+      </div>
+    </section>
+  </main>
+</Layout>

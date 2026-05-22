@@ -1,3 +1,5 @@
+// スクロール固定／解除（モーダル・ナビ展開時に body をロック）
+
 export default (): { lock: () => void; unlock: () => void } => {
   let savedY = 0;
 

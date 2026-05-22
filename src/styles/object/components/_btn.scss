@@ -19,14 +19,16 @@
   align-items: center;
   grid-template-columns: 1fr auto;
   gap: f.rem(20);
+  color: var(--black);
+  text-decoration: none;
   transition:
     background-color var(--duration),
     color var(--duration);
   @include m.hover {
     background: var(--black);
     color: white;
-    .c-btn1__ico {
-      color: red;
+    .c-btn1__ico::before {
+      translate: f.rem(4) 0;
     }
   }
 }
@@ -35,7 +37,10 @@
 .c-btn1__ico {
   width: f.rem(8);
   height: f.rem(10);
-  color: blue;
+  // 矢印色はリンクのcolorを継承（c-icoのbackground-color: currentColor経由）
+  &::before {
+    transition: translate var(--duration);
+  }
 }
 
 // @include m.mq-up(md) {

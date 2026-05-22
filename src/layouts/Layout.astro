@@ -1,4 +1,7 @@
 ---
+// 全ページ共通レイアウト：head／meta／OGP／Header／Footer／共通script
+// ClientRouter による SPA 風遷移を有効化
+
 import { ClientRouter } from 'astro:transitions';
 import { siteData } from '@/data/site';
 import '../styles/style.scss';
@@ -91,17 +94,46 @@ const title =
       import nav from '@/scripts/nav.ts';
       import smoothScroll from '@/scripts/smoothScroll.ts';
       import pageTop from '@/scripts/pageTop.ts';
+      import scrollAnimation from '@/scripts/scrollAnimation.ts';
 
-      loadingSet();
-      setTimeout(() => loadingHide(), 5000);
+      const VISITED_KEY = 'site-visited';
 
-      window.addEventListener('load', () => {
-        loadingHide();
+      // SPA遷移時：ペイント前にローディングを消す（フラッシュ防止）
+      document.addEventListener('astro:after-swap', () => {
+        const loadingEl = document.querySelector('[data-loading]');
+        if (loadingEl && sessionStorage.getItem(VISITED_KEY)) {
+          loadingEl.remove();
+        }
       });
 
-      nav();
-      smoothScroll();
-      pageTop();
+      // 初回ロード + SPA遷移後 両方で発火
+      document.addEventListener('astro:page-load', () => {
+        const isTop = document.body.id === 'index';
+        const loadingEl = document.querySelector('[data-loading]');
+
+        if (isTop && loadingEl) {
+          // ローディングが表示されるケース：loadingHide内でscrollAnimationが起動
+          loadingSet();
+          setTimeout(() => loadingHide(), 5000);
+
+          if (document.readyState === 'complete') {
+            loadingHide();
+          } else {
+            window.addEventListener('load', () => loadingHide(), {
+              once: true,
+            });
+          }
+        } else {
+          // ローディングが無いページ（下層 / SPA遷移後のTOP）はここで起動
+          scrollAnimation();
+        }
+
+        sessionStorage.setItem(VISITED_KEY, '1');
+
+        nav();
+        smoothScroll();
+        pageTop();
+      });
     </script>
   </body>
 </html>

@@ -1,3 +1,5 @@
+// モーダル：data-modal-open でトリガー、data-modal-close で閉じる
+
 import scrollLock from './utils/scrollLock';
 
 export default () => {

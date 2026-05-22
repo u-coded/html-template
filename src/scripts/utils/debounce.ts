@@ -1,6 +1,5 @@
-/**
- * デバウンス処理を行いつつ、最初の呼び出し時には即時実行する
- */
+// デバウンス：連続呼び出しを抑制（初回は即時実行）
+
 export const debounce = (func: () => void, delay: number) => {
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
 

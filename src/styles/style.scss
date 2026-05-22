@@ -32,3 +32,5 @@
 @use 'object/project/_about';
 @use 'object/project/_news';
 @use 'object/project/_contact';
+@use 'object/project/_404' as notFound;
+@use 'object/project/_styleguide';

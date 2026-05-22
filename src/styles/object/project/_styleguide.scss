@@ -1,0 +1,103 @@
+@use '../../foundation/mixin' as m;
+@use '../../foundation/functions' as f;
+
+/**
+ * p-styleguide
+ * 開発用スタイルガイドページ
+ */
+.p-styleguide__inner {
+  padding-top: f.rem(50);
+  padding-bottom: f.rem(80);
+}
+.p-styleguide__header {
+  padding-bottom: f.rem(30);
+  border-bottom: 1px solid var(--gray);
+}
+.p-styleguide__title {
+  font-size: f.rem(32);
+  font-weight: 700;
+}
+.p-styleguide__lead {
+  margin-top: f.rem(10);
+  color: var(--black-70);
+  font-size: f.rem(14);
+}
+.p-styleguide__nav {
+  margin-top: f.rem(20);
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: f.rem(8) f.rem(16);
+    list-style: none;
+    padding: 0;
+  }
+  a {
+    color: var(--black);
+    font-size: f.rem(14);
+    text-decoration: underline;
+  }
+}
+.p-styleguide__section {
+  margin-top: f.rem(60);
+  scroll-margin-top: f.rem(20);
+}
+.p-styleguide__section-title {
+  font-size: f.rem(24);
+  font-weight: 700;
+  padding-bottom: f.rem(8);
+  border-bottom: 2px solid var(--black);
+}
+.p-styleguide__block {
+  margin-top: f.rem(30);
+}
+.p-styleguide__caption {
+  font-size: f.rem(13);
+  color: var(--black-70);
+  font-family: monospace;
+  margin-bottom: f.rem(12);
+  code {
+    background: var(--black-30);
+    padding: 0 f.rem(4);
+    border-radius: f.rem(3);
+  }
+}
+.p-styleguide__demo {
+  padding: f.rem(30) f.rem(20);
+  background: #fafafa;
+  border: 1px solid var(--gray);
+  border-radius: f.rem(4);
+}
+.p-styleguide__demo--row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: f.rem(20);
+}
+.p-styleguide__demo--anime {
+  display: flex;
+  flex-wrap: wrap;
+  gap: f.rem(15);
+}
+.p-styleguide__anime-box {
+  display: grid;
+  place-items: center;
+  width: f.rem(120);
+  height: f.rem(80);
+  background: var(--black);
+  color: white;
+  font-size: f.rem(13);
+  border-radius: f.rem(4);
+}
+
+@include m.mq-up(md) {
+  .p-styleguide__inner {
+    padding-top: f.rem(80);
+    padding-bottom: f.rem(120);
+  }
+  .p-styleguide__title {
+    font-size: f.rem(40);
+  }
+  .p-styleguide__demo {
+    padding: f.rem(40);
+  }
+}

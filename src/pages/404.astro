@@ -1,0 +1,26 @@
+---
+// 404ページ：存在しないURLでAstroが自動表示する
+
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout pageTitle="ページが見つかりません" pageSlug="404">
+  <main>
+    <section class="p-404">
+      <div class="p-404__inner u-inner">
+        <p class="p-404__code">404</p>
+        <h2 class="p-404__title">ページが見つかりません</h2>
+        <p class="p-404__txt">
+          お探しのページは見つかりませんでした。<br />
+          URLが正しいかご確認のうえ、トップページよりお探しください。
+        </p>
+        <div class="c-btn1 p-404__btn">
+          <a href="/" class="c-btn1__link">
+            <span class="c-btn1__txt">トップページへ戻る</span>
+            <span class="c-ico -arrow1 c-btn1__ico"></span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

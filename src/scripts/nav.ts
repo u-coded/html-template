@@ -1,3 +1,5 @@
+// グローバルナビ：SP時のハンバーガー開閉とリサイズ対応
+
 import { debounce } from './utils/debounce';
 import scrollLock from './utils/scrollLock';
 

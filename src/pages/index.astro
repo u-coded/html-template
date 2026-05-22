@@ -1,20 +1,69 @@
 ---
+// TOPページ：KV／会社概要／事業内容／最新ニュース／お問い合わせCTA
+
+import { Image, getImage } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
+import dummy1Pc from '@/assets/images/index/img_dummy1_pc.jpg';
+import dummy1Sp from '@/assets/images/index/img_dummy1_sp.jpg';
+import dummy2Pc from '@/assets/images/index/img_dummy2_pc.jpg';
+import dummy2Sp from '@/assets/images/index/img_dummy2_sp.jpg';
 
 const pageTitle = 'トップページ';
 const pageSlug = 'index';
+
+// 事業内容（TOPの事業内容セクション）
+const services = [
+  {
+    title: '精密機械加工',
+    description:
+      '自動車・産業機械向けの高精度な金属部品をミクロン単位で加工。50年以上の現場ノウハウで難加工材にも対応します。',
+  },
+  {
+    title: '金型設計・製造',
+    description:
+      'プレス金型・樹脂金型の設計から製造まで一貫対応。試作から量産まで、お客様のニーズに合わせた最適な金型をご提供します。',
+  },
+  {
+    title: '試作開発支援',
+    description:
+      '大手メーカー様の新製品開発における試作品製作・量産化支援を行います。CADデータからの短納期試作も可能です。',
+  },
+];
+
+// PC用画像は getImage で事前にWebP化、SP用は <Image /> がレンダリング時にWebP化
+const dummy1PcWebp = await getImage({ src: dummy1Pc, format: 'webp' });
+const dummy2PcWebp = await getImage({ src: dummy2Pc, format: 'webp' });
+
+// 最新ニュース3件を取得（Content Collections）
+const latestPosts = (await getCollection('news'))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
+
+const formatDate = (d: Date) =>
+  `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+
+// サービス画像のローテーション
+const serviceImages = [
+  { pc: dummy1PcWebp.src, sp: dummy1Sp },
+  { pc: dummy2PcWebp.src, sp: dummy2Sp },
+  { pc: dummy1PcWebp.src, sp: dummy1Sp },
+];
 ---
 
 <Layout pageTitle={pageTitle} pageSlug={pageSlug}>
   <main>
     <div class="p-index-kv" data-page-top-hide>
       <div class="p-index-kv__inner">
-        <p class="p-index-kv__catch">キャッチコピーが入ります</p>
+        <p class="p-index-kv__catch">
+          ミクロン精度で、ものづくりの未来を支える。
+        </p>
         <p class="p-index-kv__sub">
-          サブテキストが入りますサブテキストが入ります
+          創業1956年。北海道札幌市から、自動車・産業機械の精密部品を世界へ。
         </p>
       </div>
     </div>
+
     <section id="about" class="p-index-about">
       <div class="p-index-about__inner u-inner">
         <hgroup class="c-head1">
@@ -25,17 +74,18 @@ const pageSlug = 'index';
           <div class="p-index-about__img" data-anime="fadeInUp">
             <picture>
               <source
-                srcset="./assets/images/index/img_dummy1_pc.jpg"
+                srcset={dummy1PcWebp.src}
                 media="(min-width: 744px)"
                 width="1920"
                 height="1080"
               />
-              <img
-                src="./assets/images/index/img_dummy1_sp.jpg"
-                alt=""
+              <Image
+                src={dummy1Sp}
+                alt="本社工場外観"
                 loading="lazy"
-                width="750"
-                height="750"
+                format="webp"
+                width={750}
+                height={750}
               />
             </picture>
           </div>
@@ -45,15 +95,15 @@ const pageSlug = 'index';
             data-anime-delay="0.3"
           >
             <p class="p-index-about__txt">
-              テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります
+              株式会社藤島製作所は、1956年の創業以来、精密機械加工と金型製造を通じて日本のものづくりを支えてまいりました。
             </p>
             <p class="p-index-about__txt">
-              テキストが入りますテキストが入りますテキストが入りますテキストが入ります
+              自動車・産業機械分野で培った高い加工技術と品質管理体制で、ミクロン単位の精度を要求される試作品から量産品まで、お客様の多様なニーズにお応えします。
             </p>
           </div>
         </div>
         <div class="c-btn1 p-index-about__btn">
-          <a href="./about/" class="c-btn1__link">
+          <a href="/about/" class="c-btn1__link">
             <span class="c-btn1__txt">詳しく見る</span>
             <span class="c-ico -arrow1 c-btn1__ico"></span>
           </a>
@@ -68,83 +118,36 @@ const pageSlug = 'index';
           <p class="c-head1__en" lang="en">SERVICE</p>
         </hgroup>
         <div class="p-index-service__list" data-anime>
-          <div class="p-index-service__item" data-anime="fadeInUp">
-            <div class="p-index-service__item-img">
-              <picture>
-                <source
-                  srcset="./assets/images/index/img_dummy1_pc.jpg"
-                  media="(min-width: 744px)"
-                  width="1920"
-                  height="1080"
-                />
-                <img
-                  src="./assets/images/index/img_dummy1_sp.jpg"
-                  alt=""
-                  loading="lazy"
-                  width="750"
-                  height="750"
-                />
-              </picture>
-            </div>
-            <h3 class="p-index-service__item-title">サービス名が入ります</h3>
-            <p class="p-index-service__item-txt">
-              テキストが入りますテキストが入りますテキストが入りますテキストが入ります
-            </p>
-          </div>
-          <div
-            class="p-index-service__item"
-            data-anime="fadeInUp"
-            data-anime-delay="0.15"
-          >
-            <div class="p-index-service__item-img">
-              <picture>
-                <source
-                  srcset="./assets/images/index/img_dummy1_pc.jpg"
-                  media="(min-width: 744px)"
-                  width="1920"
-                  height="1080"
-                />
-                <img
-                  src="./assets/images/index/img_dummy1_sp.jpg"
-                  alt=""
-                  loading="lazy"
-                  width="750"
-                  height="750"
-                />
-              </picture>
-            </div>
-            <h3 class="p-index-service__item-title">サービス名が入ります</h3>
-            <p class="p-index-service__item-txt">
-              テキストが入りますテキストが入りますテキストが入りますテキストが入ります
-            </p>
-          </div>
-          <div
-            class="p-index-service__item"
-            data-anime="fadeInUp"
-            data-anime-delay="0.3"
-          >
-            <div class="p-index-service__item-img">
-              <picture>
-                <source
-                  srcset="./assets/images/index/img_dummy1_pc.jpg"
-                  media="(min-width: 744px)"
-                  width="1920"
-                  height="1080"
-                />
-                <img
-                  src="./assets/images/index/img_dummy1_sp.jpg"
-                  alt=""
-                  loading="lazy"
-                  width="750"
-                  height="750"
-                />
-              </picture>
-            </div>
-            <h3 class="p-index-service__item-title">サービス名が入ります</h3>
-            <p class="p-index-service__item-txt">
-              テキストが入りますテキストが入りますテキストが入りますテキストが入ります
-            </p>
-          </div>
+          {
+            services.map((service, i) => (
+              <div
+                class="p-index-service__item"
+                data-anime="fadeInUp"
+                data-anime-delay={i === 0 ? undefined : i * 0.15}
+              >
+                <div class="p-index-service__item-img">
+                  <picture>
+                    <source
+                      srcset={serviceImages[i].pc}
+                      media="(min-width: 744px)"
+                      width="1920"
+                      height="1080"
+                    />
+                    <Image
+                      src={serviceImages[i].sp}
+                      alt={service.title}
+                      loading="lazy"
+                      format="webp"
+                      width={750}
+                      height={750}
+                    />
+                  </picture>
+                </div>
+                <h3 class="p-index-service__item-title">{service.title}</h3>
+                <p class="p-index-service__item-txt">{service.description}</p>
+              </div>
+            ))
+          }
         </div>
       </div>
     </section>
@@ -157,27 +160,42 @@ const pageSlug = 'index';
         </hgroup>
         <div class="c-archive1 p-index-news__article">
           {
-            Array.from({ length: 3 })
-              .map((_, i) => i + 1)
-              .map((j) => (
-                <article class="c-archive1__article">
-                  <a href="./news/article/" class="c-archive1__link u-alpha">
-                    <time class="c-archive1__date" datetime="2099-12-31">
-                      2099.12.31
+            latestPosts.map((post) => (
+              <article class="c-archive1__article">
+                <a
+                  href={`/news/article/${post.id}/`}
+                  class="c-archive1__link u-alpha"
+                >
+                  {post.data.thumbnail && (
+                    <div class="c-archive1__thumb">
+                      <Image
+                        src={post.data.thumbnail}
+                        alt=""
+                        loading="lazy"
+                        format="webp"
+                        width={400}
+                      />
+                    </div>
+                  )}
+                  <div class="c-archive1__body">
+                    <time
+                      class="c-archive1__date"
+                      datetime={post.data.pubDate.toISOString().slice(0, 10)}
+                    >
+                      {formatDate(post.data.pubDate)}
                     </time>
-                    <h3 class="c-archive1__title">
-                      {j}つめの記事タイトルが入ります記事タイトルが入ります
-                    </h3>
-                    <p class="c-archive1__content">
-                      記事の概要テキストが入ります記事の概要テキストが入ります記事の概要テキストが入ります
-                    </p>
-                  </a>
-                </article>
-              ))
+                    <h3 class="c-archive1__title">{post.data.title}</h3>
+                    {post.data.description && (
+                      <p class="c-archive1__content">{post.data.description}</p>
+                    )}
+                  </div>
+                </a>
+              </article>
+            ))
           }
         </div>
         <div class="c-btn1 p-index-news__btn">
-          <a href="./news/" class="c-btn1__link">
+          <a href="/news/" class="c-btn1__link">
             <span class="c-btn1__txt">一覧を見る</span>
             <span class="c-ico -arrow1 c-btn1__ico"></span>
           </a>
@@ -191,9 +209,11 @@ const pageSlug = 'index';
           <h2 class="c-head1__ja">お問い合わせ</h2>
           <p class="c-head1__en" lang="en">CONTACT</p>
         </hgroup>
-        <p class="p-index-contact__txt">お気軽にお問い合わせください。</p>
+        <p class="p-index-contact__txt">
+          お見積もり・技術相談など、お気軽にお問い合わせください。
+        </p>
         <div class="c-btn1 p-index-contact__btn">
-          <a href="./contact/" class="c-btn1__link">
+          <a href="/contact/" class="c-btn1__link">
             <span class="c-btn1__txt">お問い合わせはこちら</span>
             <span class="c-ico -arrow1 c-btn1__ico"></span>
           </a>
