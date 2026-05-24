@@ -14,13 +14,13 @@ export const server = {
       message: z.string().min(10, '10文字以上で入力してください'),
     }),
     handler: async (input) => {
-      // ビルド時にコンストラクタが走らないよう handler 内で初期化
-      const resend = new Resend(import.meta.env.RESEND_API_KEY);
+      // process.env は実行時に評価される（import.meta.env はビルド時に inline されるため本番で undefined になり得る）
+      const resend = new Resend(process.env.RESEND_API_KEY);
 
       // 1通目：管理者宛
       const { error: adminError } = await resend.emails.send({
-        from: import.meta.env.MAIL_FROM,
-        to: import.meta.env.MAIL_TO,
+        from: process.env.MAIL_FROM!,
+        to: process.env.MAIL_TO!,
         subject: `【お問い合わせ】${input.name}様より`,
         text: [
           'Webサイトのお問い合わせフォームから連絡がありました。',
@@ -46,7 +46,7 @@ export const server = {
 
       // 2通目：送信者への自動返信
       const { error: autoReplyError } = await resend.emails.send({
-        from: import.meta.env.MAIL_FROM,
+        from: process.env.MAIL_FROM!,
         to: input.email,
         subject: 'お問い合わせを受け付けました',
         text: [
