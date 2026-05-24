@@ -3,7 +3,6 @@ title: '電話受付時間変更のお知らせ'
 pubDate: 2026-02-15
 category: 'お知らせ'
 description: '働き方改革推進に伴い、電話受付時間を変更いたします。'
-thumbnail: ../../assets/images/news/news_dummy1.jpg
 ---
 
 働き方改革推進および従業員の労働環境改善のため、2026年3月1日より電話受付時間を以下の通り変更いたします。

@@ -14,8 +14,11 @@
   &.is-show {
     opacity: 1;
   }
+  // フッターが見えたら footer の上端に張り付く
   &.is-stop {
     position: absolute;
+    bottom: 100%;
+    margin-bottom: f.rem(30);
   }
 }
 .l-page-top__link {

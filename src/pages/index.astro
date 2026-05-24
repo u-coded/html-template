@@ -4,10 +4,16 @@
 import { Image, getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
-import dummy1Pc from '@/assets/images/index/img_dummy1_pc.jpg';
-import dummy1Sp from '@/assets/images/index/img_dummy1_sp.jpg';
-import dummy2Pc from '@/assets/images/index/img_dummy2_pc.jpg';
-import dummy2Sp from '@/assets/images/index/img_dummy2_sp.jpg';
+import dummy1Pc from '@/assets/index/img_dummy1_pc.jpg';
+import dummy1Sp from '@/assets/index/img_dummy1_sp.jpg';
+import dummy2 from '@/assets/index/img_dummy2_pc.jpg';
+import dummy3 from '@/assets/index/img_dummy3.jpg';
+import dummy4 from '@/assets/index/img_dummy4.jpg';
+import newsThumb1 from '@/assets/news/news_dummy1.jpg';
+import newsThumb2 from '@/assets/news/news_dummy2.jpg';
+
+// 偶数番目→thumb1, 奇数番目→thumb2 を交互に
+const newsThumbs = [newsThumb1, newsThumb2];
 
 const pageTitle = 'トップページ';
 const pageSlug = 'index';
@@ -33,7 +39,6 @@ const services = [
 
 // PC用画像は getImage で事前にWebP化、SP用は <Image /> がレンダリング時にWebP化
 const dummy1PcWebp = await getImage({ src: dummy1Pc, format: 'webp' });
-const dummy2PcWebp = await getImage({ src: dummy2Pc, format: 'webp' });
 
 // 最新ニュース3件を取得（Content Collections）
 const latestPosts = (await getCollection('news'))
@@ -43,12 +48,8 @@ const latestPosts = (await getCollection('news'))
 const formatDate = (d: Date) =>
   `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 
-// サービス画像のローテーション
-const serviceImages = [
-  { pc: dummy1PcWebp.src, sp: dummy1Sp },
-  { pc: dummy2PcWebp.src, sp: dummy2Sp },
-  { pc: dummy1PcWebp.src, sp: dummy1Sp },
-];
+// サービス画像
+const serviceImages = [dummy2, dummy3, dummy4];
 ---
 
 <Layout pageTitle={pageTitle} pageSlug={pageSlug}>
@@ -95,7 +96,7 @@ const serviceImages = [
             data-anime-delay="0.3"
           >
             <p class="p-index-about__txt">
-              株式会社藤島製作所は、1956年の創業以来、精密機械加工と金型製造を通じて日本のものづくりを支えてまいりました。
+              藤島製作所は、1956年の創業以来、精密機械加工と金型製造を通じて日本のものづくりを支えてまいりました。
             </p>
             <p class="p-index-about__txt">
               自動車・産業機械分野で培った高い加工技術と品質管理体制で、ミクロン単位の精度を要求される試作品から量産品まで、お客様の多様なニーズにお応えします。
@@ -126,22 +127,13 @@ const serviceImages = [
                 data-anime-delay={i === 0 ? undefined : i * 0.15}
               >
                 <div class="p-index-service__item-img">
-                  <picture>
-                    <source
-                      srcset={serviceImages[i].pc}
-                      media="(min-width: 744px)"
-                      width="1920"
-                      height="1080"
-                    />
-                    <Image
-                      src={serviceImages[i].sp}
-                      alt={service.title}
-                      loading="lazy"
-                      format="webp"
-                      width={750}
-                      height={750}
-                    />
-                  </picture>
+                  <Image
+                    src={serviceImages[i]}
+                    alt={service.title}
+                    loading="lazy"
+                    format="webp"
+                    width={800}
+                  />
                 </div>
                 <h3 class="p-index-service__item-title">{service.title}</h3>
                 <p class="p-index-service__item-txt">{service.description}</p>
@@ -160,23 +152,21 @@ const serviceImages = [
         </hgroup>
         <div class="c-archive1 p-index-news__article">
           {
-            latestPosts.map((post) => (
+            latestPosts.map((post, i) => (
               <article class="c-archive1__article">
                 <a
                   href={`/news/article/${post.id}/`}
                   class="c-archive1__link u-alpha"
                 >
-                  {post.data.thumbnail && (
-                    <div class="c-archive1__thumb">
-                      <Image
-                        src={post.data.thumbnail}
-                        alt=""
-                        loading="lazy"
-                        format="webp"
-                        width={400}
-                      />
-                    </div>
-                  )}
+                  <div class="c-archive1__thumb">
+                    <Image
+                      src={newsThumbs[i % 2]}
+                      alt=""
+                      loading="lazy"
+                      format="webp"
+                      width={400}
+                    />
+                  </div>
                   <div class="c-archive1__body">
                     <time
                       class="c-archive1__date"

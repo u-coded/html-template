@@ -7,6 +7,10 @@ import { Image } from 'astro:assets';
 import Layout from '@/layouts/Layout.astro';
 import SubKv from '@/components/SubKv.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
+import newsThumb1 from '@/assets/news/news_dummy1.jpg';
+import newsThumb2 from '@/assets/news/news_dummy2.jpg';
+
+const newsThumbs = [newsThumb1, newsThumb2];
 
 export async function getStaticPaths() {
   const posts = (await getCollection('news')).sort(
@@ -19,11 +23,12 @@ export async function getStaticPaths() {
       post,
       prev: posts[i + 1] ?? null,
       next: posts[i - 1] ?? null,
+      thumbIdx: i % 2,
     },
   }));
 }
 
-const { post, prev, next } = Astro.props;
+const { post, prev, next, thumbIdx } = Astro.props;
 const { Content } = await render(post);
 
 const formatDate = (d: Date) =>
@@ -50,18 +55,9 @@ const formatDate = (d: Date) =>
           </time>
           <h3 class="p-news-article__title">{post.data.title}</h3>
         </header>
-        {
-          post.data.thumbnail && (
-            <div class="p-news-article__cover">
-              <Image
-                src={post.data.thumbnail}
-                alt=""
-                format="webp"
-                width={1200}
-              />
-            </div>
-          )
-        }
+        <div class="p-news-article__cover">
+          <Image src={newsThumbs[thumbIdx]} alt="" format="webp" width={1200} />
+        </div>
         <div class="p-news-article__content">
           <Content />
         </div>

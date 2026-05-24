@@ -3,7 +3,6 @@ title: 'ISO 14001 認証を取得しました'
 pubDate: 2026-03-20
 category: '認証'
 description: '環境マネジメントシステムの国際規格 ISO 14001 認証を取得いたしました。'
-thumbnail: ../../assets/images/news/news_dummy2.jpg
 ---
 
 このたび、本社工場および第二工場の全事業所において、環境マネジメントシステムの国際規格 **ISO 14001:2015** の認証を取得いたしました。

@@ -17,6 +17,11 @@ const result = Astro.getActionResult(actions.contact);
 const inputErrors =
   result && isInputError(result.error) ? result.error.fields : {};
 const sent = result && !result.error;
+// バリデーション以外のエラー（Resend API失敗など）
+const serverError =
+  result && result.error && !isInputError(result.error)
+    ? result.error.message
+    : null;
 ---
 
 <Layout pageTitle={pageTitle} pageSlug={pageSlug}>
@@ -40,10 +45,16 @@ const sent = result && !result.error;
               <p class="p-contact-main__lead">
                 お見積もり・技術相談・採用に関するご質問など、下記フォームよりお気軽にお問い合わせください。通常2〜3営業日以内に担当者よりご返信いたします。
               </p>
+              {serverError && (
+                <p class="c-form1__error" style="margin-bottom: 1rem;">
+                  {serverError}
+                </p>
+              )}
               <form
                 method="POST"
                 action={actions.contact}
                 class="p-contact-main__form"
+                data-contact-form
               >
                 <div class="c-form1">
                   <fieldset class="c-form1__fieldset">
@@ -88,7 +99,11 @@ const sent = result && !result.error;
                     </div>
                   </fieldset>
                   <div class="c-form1__btns">
-                    <button class="c-btn2 c-btn2--primary" type="submit">
+                    <button
+                      class="c-btn2 c-btn2--primary"
+                      type="submit"
+                      data-contact-submit
+                    >
                       送信する
                     </button>
                   </div>
@@ -101,3 +116,19 @@ const sent = result && !result.error;
     </section>
   </main>
 </Layout>
+
+<script>
+  // 送信中の二重送信防止：ボタンを無効化して文言を変更
+  document.addEventListener('astro:page-load', () => {
+    const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+    const btn = document.querySelector<HTMLButtonElement>(
+      '[data-contact-submit]',
+    );
+    if (!form || !btn) return;
+
+    form.addEventListener('submit', () => {
+      btn.disabled = true;
+      btn.textContent = '送信中...';
+    });
+  });
+</script>

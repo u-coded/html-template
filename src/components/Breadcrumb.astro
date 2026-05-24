@@ -51,9 +51,9 @@ const jsonLd = {
       <a href="/" class="u-alpha"><span>ホーム</span></a>
     </li>
     {
-      parentPageTitle && (
+      parentPageTitle && parentPageUrl && (
         <li role="listitem">
-          <a href="../" class="u-alpha">
+          <a href={`/${parentPageUrl}/`} class="u-alpha">
             <span>{parentPageTitle}</span>
           </a>
         </li>

@@ -117,20 +117,11 @@
   }
 }
 .c-pager2__back {
+  text-align: center;
   a {
-    display: grid;
-    place-items: center;
-    background: var(--black);
-    color: white;
     transition:
       background-color var(--duration),
       color var(--duration);
-    @include m.hover {
-      background: transparent;
-      color: var(--black);
-      border: 1px solid var(--black);
-      padding: calc(f.rem(10) - 1px);
-    }
   }
 }
 

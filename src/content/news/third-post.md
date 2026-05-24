@@ -3,7 +3,6 @@ title: '年末年始の営業について'
 pubDate: 2026-04-01
 category: 'お知らせ'
 description: '年末年始の営業日についてご案内いたします。'
-thumbnail: ../../assets/images/news/news_dummy1.jpg
 ---
 
 平素は格別のお引き立てを賜り、誠にありがとうございます。

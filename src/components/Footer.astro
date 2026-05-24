@@ -6,13 +6,12 @@ import { siteData } from '@/data/site';
 const year = new Date().getFullYear();
 ---
 
-<div class="l-page-top" data-page-top>
-  <a class="l-page-top__link u-alpha" href="#top"
-    ><span class="u-sr-only">ページトップへ</span></a
-  >
-</div>
-
 <footer id="footer" class="l-footer" data-page-top-stop>
+  <div class="l-page-top" data-page-top>
+    <a class="l-page-top__link u-alpha" href="#top"
+      ><span class="u-sr-only">ページトップへ</span></a
+    >
+  </div>
   <div class="l-footer__inner u-inner">
     <a href="/" class="l-footer__logo-link u-alpha">{siteData.siteName}</a>
     <p class="l-footer__copyright">

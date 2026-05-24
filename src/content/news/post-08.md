@@ -3,7 +3,6 @@ title: '工場見学受け入れを再開いたします'
 pubDate: 2026-02-01
 category: 'お知らせ'
 description: '長らく中止しておりました工場見学の受け入れを2026年4月より再開いたします。'
-thumbnail: ../../assets/images/news/news_dummy2.jpg
 ---
 
 長らく中止しておりました工場見学の受け入れを、2026年4月より再開いたします。

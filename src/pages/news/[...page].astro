@@ -8,6 +8,10 @@ import { Image } from 'astro:assets';
 import Layout from '@/layouts/Layout.astro';
 import SubKv from '@/components/SubKv.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
+import newsThumb1 from '@/assets/news/news_dummy1.jpg';
+import newsThumb2 from '@/assets/news/news_dummy2.jpg';
+
+const newsThumbs = [newsThumb1, newsThumb2];
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = (await getCollection('news')).sort(
@@ -65,23 +69,21 @@ const isLast = page.currentPage === page.lastPage;
         </hgroup>
         <div class="c-archive1 p-news-article__article">
           {
-            page.data.map((post) => (
+            page.data.map((post, i) => (
               <article class="c-archive1__article">
                 <a
                   href={`/news/article/${post.id}/`}
                   class="c-archive1__link u-alpha"
                 >
-                  {post.data.thumbnail && (
-                    <div class="c-archive1__thumb">
-                      <Image
-                        src={post.data.thumbnail}
-                        alt=""
-                        loading="lazy"
-                        format="webp"
-                        width={400}
-                      />
-                    </div>
-                  )}
+                  <div class="c-archive1__thumb">
+                    <Image
+                      src={newsThumbs[(page.start + i) % 2]}
+                      alt=""
+                      loading="lazy"
+                      format="webp"
+                      width={400}
+                    />
+                  </div>
                   <div class="c-archive1__body">
                     <time
                       class="c-archive1__date"

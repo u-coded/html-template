@@ -1,17 +1,14 @@
 ---
 // 会社概要ページ：代表挨拶／会社情報テーブル／沿革
 
-import { Image, getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 import Layout from '@/layouts/Layout.astro';
 import SubKv from '@/components/SubKv.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
-import messagePc from '@/assets/images/index/img_dummy2_pc.jpg';
-import messageSp from '@/assets/images/index/img_dummy2_sp.jpg';
+import messageImg from '@/assets/about/img_dummy1.jpg';
 
 const pageTitle = '会社概要';
 const pageSlug = 'about';
-
-const messagePcWebp = await getImage({ src: messagePc, format: 'webp' });
 
 // 沿革
 const history = [
@@ -47,22 +44,13 @@ const history = [
             <p class="p-about-message__name">代表取締役 藤島 太郎</p>
           </div>
           <div class="p-about-message__img">
-            <picture>
-              <source
-                srcset={messagePcWebp.src}
-                media="(min-width: 744px)"
-                width="1920"
-                height="1080"
-              />
-              <Image
-                src={messageSp}
-                alt="代表者"
-                loading="lazy"
-                format="webp"
-                width={750}
-                height={750}
-              />
-            </picture>
+            <Image
+              src={messageImg}
+              alt="代表者"
+              loading="lazy"
+              format="webp"
+              width={800}
+            />
           </div>
         </div>
       </div>

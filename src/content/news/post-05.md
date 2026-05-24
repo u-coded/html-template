@@ -3,7 +3,6 @@ title: '2026年度 新卒採用エントリー受付開始'
 pubDate: 2026-03-10
 category: '採用'
 description: '2026年度の新卒採用エントリーの受付を開始しました。'
-thumbnail: ../../assets/images/news/news_dummy1.jpg
 ---
 
 2026年度の新卒採用エントリーの受付を開始いたしました。
