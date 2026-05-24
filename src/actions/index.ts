@@ -5,8 +5,6 @@ import { defineAction, ActionError } from 'astro:actions';
 import { z } from 'astro/zod';
 import { Resend } from 'resend';
 
-const resend = new Resend(import.meta.env.RESEND_API_KEY);
-
 export const server = {
   contact: defineAction({
     accept: 'form',
@@ -16,6 +14,9 @@ export const server = {
       message: z.string().min(10, '10文字以上で入力してください'),
     }),
     handler: async (input) => {
+      // ビルド時にコンストラクタが走らないよう handler 内で初期化
+      const resend = new Resend(import.meta.env.RESEND_API_KEY);
+
       // 1通目：管理者宛
       const { error: adminError } = await resend.emails.send({
         from: import.meta.env.MAIL_FROM,
