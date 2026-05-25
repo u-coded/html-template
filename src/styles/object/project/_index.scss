@@ -11,6 +11,15 @@
   background: var(--black-30);
   text-align: center;
 }
+.p-index-kv__notice {
+  display: inline-block;
+  margin-bottom: f.rem(20);
+  padding: f.rem(6) f.rem(14);
+  border: 1px solid currentColor;
+  border-radius: f.rem(4);
+  font-size: f.rem(12);
+  letter-spacing: 0.05em;
+}
 .p-index-kv__catch {
   font-size: f.vw(24, 375, 375, 600);
   font-weight: 700;
@@ -20,6 +29,9 @@
   font-size: f.vw(18, 375, 375, 600);
 }
 @include m.mq-up(md) {
+  .p-index-kv__notice {
+    font-size: f.rem(14);
+  }
   .p-index-kv__catch {
     font-size: f.vw(32, 1366, 1280, 1600);
   }
