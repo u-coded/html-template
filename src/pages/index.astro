@@ -9,11 +9,7 @@ import dummy1Sp from '@/assets/index/img_dummy1_sp.jpg';
 import dummy2 from '@/assets/index/img_dummy2_pc.jpg';
 import dummy3 from '@/assets/index/img_dummy3.jpg';
 import dummy4 from '@/assets/index/img_dummy4.jpg';
-import newsThumb1 from '@/assets/news/news_dummy1.jpg';
-import newsThumb2 from '@/assets/news/news_dummy2.jpg';
-
-// 偶数番目→thumb1, 奇数番目→thumb2 を交互に
-const newsThumbs = [newsThumb1, newsThumb2];
+import noImage from '@/assets/common/img_noimage.jpg';
 
 const pageTitle = 'トップページ';
 const pageSlug = 'index';
@@ -155,20 +151,31 @@ const serviceImages = [dummy2, dummy3, dummy4];
         </hgroup>
         <div class="c-archive1 p-index-news__article">
           {
-            latestPosts.map((post, i) => (
+            latestPosts.map((post) => (
               <article class="c-archive1__article">
                 <a
                   href={`/news/article/${post.id}/`}
                   class="c-archive1__link u-alpha"
                 >
                   <div class="c-archive1__thumb">
-                    <Image
-                      src={newsThumbs[i % 2]}
-                      alt=""
-                      loading="lazy"
-                      format="webp"
-                      width={400}
-                    />
+                    {post.data.thumbnail ? (
+                      <Image
+                        src={post.data.thumbnail.url}
+                        alt=""
+                        width={post.data.thumbnail.width}
+                        height={post.data.thumbnail.height}
+                        loading="lazy"
+                        format="webp"
+                      />
+                    ) : (
+                      <Image
+                        src={noImage}
+                        alt=""
+                        loading="lazy"
+                        format="webp"
+                        width={400}
+                      />
+                    )}
                   </div>
                   <div class="c-archive1__body">
                     <time

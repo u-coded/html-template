@@ -5,11 +5,23 @@
 
 ---
 
+## ⚠️ noindex 設定済み（本番運用時は必ず解除すること）
+
+このテンプレートは **架空コンテンツを含むダミーサイト** として noindex 設定が入っています。  
+**実案件で本番運用する際は、必ず以下の2箇所を解除してください**：
+
+1. **`src/layouts/Layout.astro`** の `<meta name="robots" content="noindex, nofollow" />` を削除
+2. **`public/robots.txt`** の `Disallow: /` を `Allow: /` または該当行を削除
+
+両方解除しないと検索エンジンにインデックスされません。
+
+---
+
 ## 主な機能
 
-- **コンテンツ管理**：Markdown（Content Collections）でお知らせを管理。microCMS への切替も容易
-- **お問い合わせフォーム**：Astro Actions + Zod + Resend でサーバーサイド検証＆メール送信
-- **画像最適化**：`astro:assets` で WebP 自動変換・レスポンシブ対応
+- **コンテンツ管理**：Markdown（Content Collections）と microCMS の両対応。環境変数 `USE_MICROCMS=true` で切替
+- **お問い合わせフォーム**：Astro Actions + Zod + Resend でサーバーサイド検証＆メール送信（自動返信付き）
+- **画像最適化**：`astro:assets` で WebP 自動変換・レスポンシブ対応。microCMS の画像も対応
 - **SPA 風遷移**：Astro 標準の `<ClientRouter />` で View Transitions
 - **SEO**：sitemap 自動生成・OGP・JSON-LD（パンくず）対応
 - **TypeScript**：Strict モード
@@ -58,12 +70,15 @@ npm run preview    # 本番ビルドの動作確認
 
 ```
 .
-├── public/                       # そのまま配信される静的ファイル（favicon, OGP画像等）
+├── public/                       # そのまま配信される静的ファイル（favicon, OGP画像, robots.txt等）
 ├── src/
 │   ├── actions/                  # Astro Actions（フォーム送信処理）
 │   │   └── index.ts
 │   ├── assets/                   # ビルド時に最適化される画像
-│   │   └── images/
+│   │   ├── about/
+│   │   ├── common/               # 全体共通画像（noimage等）
+│   │   ├── index/
+│   │   └── news/
 │   ├── components/               # Astroコンポーネント
 │   │   ├── Header.astro
 │   │   ├── Footer.astro
@@ -113,7 +128,12 @@ export const siteData = {
 
 ## お知らせ（ニュース）の更新
 
-### Markdown を追加する
+データソースは **Markdown（デフォルト）** と **microCMS** の2系統に対応しています。  
+`.env` の `USE_MICROCMS` で切替（`true` → microCMS、それ以外 → Markdown）。
+
+サムネイル画像が無いときは `src/assets/common/img_noimage.jpg` がフォールバック表示されます。
+
+### A. Markdown で運用する場合
 
 `src/content/news/` に `.md` ファイルを追加するだけ。
 ファイル名が URL のスラッグ（例：`new-product.md` → `/news/article/new-product/`）。
@@ -124,92 +144,92 @@ title: '記事タイトル'
 pubDate: 2026-05-22
 category: 'お知らせ'
 description: '一覧ページに表示する概要文'
-thumbnail: ../../assets/images/news/example.jpg
 ---
 
 本文をMarkdownで記述します。
 
-![代替テキスト](../../assets/images/news/example2.jpg)
+![代替テキスト](../../assets/news/example.jpg)
 ```
 
-### フィールド一覧
+#### フィールド一覧
 
-| フィールド    | 必須 | 説明                                           |
-| ------------- | ---- | ---------------------------------------------- |
-| `title`       | ✅   | 記事タイトル                                   |
-| `pubDate`     | ✅   | 公開日（YYYY-MM-DD）                           |
-| `category`    | –    | カテゴリー（任意）                             |
-| `description` | –    | 一覧ページに表示される概要文                   |
-| `thumbnail`   | –    | 一覧・詳細冒頭に表示されるサムネイル画像のパス |
+| フィールド    | 必須 | 説明                         |
+| ------------- | ---- | ---------------------------- |
+| `title`       | ✅   | 記事タイトル                 |
+| `pubDate`     | ✅   | 公開日（YYYY-MM-DD）         |
+| `category`    | –    | カテゴリー（任意）           |
+| `description` | –    | 一覧ページに表示される概要文 |
 
-スキーマは `src/content.config.ts` で定義。フィールドを追加したい場合はここを編集する。
+スキーマは `src/content.config.ts` で定義。
 
-### 本文中の画像
+#### 本文中の画像
 
-`src/assets/images/news/` 配下に置いた画像を Markdown 標準記法で参照すると、ビルド時に自動で WebP 変換・最適化されます。
+`src/assets/news/` 配下に置いた画像を Markdown 標準記法で参照すると、ビルド時に自動で WebP 変換・最適化されます。
 
 ```markdown
-![完成した第二工場](../../assets/images/news/factory.jpg)
+![完成した第二工場](../../assets/news/factory.jpg)
 ```
 
-### ページネーション設定
+#### ページネーション設定
 
-`src/pages/news/[...page].astro` の `paginate(posts, { pageSize: 3 })` の数値を変更。
+`src/pages/news/[...page].astro` の `paginate(posts, { pageSize: 10 })` の数値を変更。
 
-### microCMS に切り替える場合
+### B. microCMS で運用する場合
 
-Markdown 管理を microCMS に切り替えるには、`src/content.config.ts` の `loader` を差し替えるだけで OK（記事詳細ページの実装はそのまま使える）。
+#### 1. microCMSの準備
 
-```bash
-npm install microcms-js-sdk
-```
+1. [microCMS](https://microcms.io) でアカウント作成 → サービス作成
+2. **API一覧** から「リスト形式」のAPIを作成（API名：`お知らせ` / エンドポイント：`news`）
+3. **APIスキーマ** に以下のフィールドを定義
 
-```ts
-// src/content.config.ts
-import { defineCollection } from 'astro:content';
-import { z } from 'astro/zod';
-import { createClient } from 'microcms-js-sdk';
+| フィールドID  | 種類                     | 必須 | 備考                    |
+| ------------- | ------------------------ | ---- | ----------------------- |
+| `title`       | テキストフィールド       | ✅   | 記事タイトル            |
+| `category`    | セレクト（単一 or 複数） | –    | お知らせ／設備／認証 等 |
+| `description` | テキストフィールド       | –    | 一覧用の概要文          |
+| `body`        | リッチエディタ v2        | ✅   | 本文（HTMLで返る）      |
+| `thumbnail`   | 画像                     | –    | サムネイル画像（任意）  |
 
-const client = createClient({
-  serviceDomain: import.meta.env.MICROCMS_SERVICE_DOMAIN,
-  apiKey: import.meta.env.MICROCMS_API_KEY,
-});
+> `publishedAt` は microCMS が自動で管理するため、独自に追加する必要はありません。コード側で `pubDate` として読み替えています。
 
-const news = defineCollection({
-  loader: async () => {
-    const { contents } = await client.get({
-      endpoint: 'news',
-      queries: { limit: 100 },
-    });
-    return contents.map((item) => ({
-      id: item.id,
-      title: item.title,
-      pubDate: item.publishedAt,
-      category: item.category?.name,
-      description: item.description,
-      body: item.body, // HTMLとして返す
-    }));
-  },
-  schema: z.object({
-    title: z.string(),
-    pubDate: z.coerce.date(),
-    category: z.string().optional(),
-    description: z.string().optional(),
-    body: z.string(),
-  }),
-});
+4. **APIキー** を取得（GET権限のみで十分）
 
-export const collections = { news };
-```
-
-> microCMS は本文を HTML で返すため、記事詳細ページの `<Content />` の代わりに `<Fragment set:html={post.data.body} />` を使うように変更する必要があります。
+#### 2. 環境変数
 
 `.env` に追記：
 
-```
-MICROCMS_SERVICE_DOMAIN=your-service
+```bash
+USE_MICROCMS=true
+MICROCMS_SERVICE_DOMAIN=your-service       # ←サービスURLの xxxx.microcms.io の xxxx 部分
 MICROCMS_API_KEY=xxxxxxxxxxxxxxxx
 ```
+
+#### 3. dev server を再起動
+
+```bash
+npm run dev
+```
+
+`/news/` がmicroCMSから取得されたデータで表示されればOK。
+
+#### 4. 戻したい時
+
+`.env` の `USE_MICROCMS` を `false`（または行ごと削除）して再起動 → Markdown版に戻ります。
+
+#### CSVで初期データを一括登録する
+
+ローカルの `news-import.csv` のような形式のCSVを用意し、microCMSの管理画面 → コンテンツ追加横の **インポート** から流し込めます。
+
+- 1行目にカラム名（`id,title,category,description,body`）
+- microCMSの **システムフィールド（`publishedAt` 等）はCSVに含められない**
+- インポートしたコンテンツは **下書き状態** で入るため、一覧で全選択 → 公開 で公開化する
+- 日付を個別に過去日付にしたい場合は、各記事を編集して公開日時を手動指定
+
+#### 仕組み（コード側）
+
+`src/content.config.ts` で `USE_MICROCMS` を見て、microCMS用ローダーと Markdown 用ローダーを切り替えています。Markdownデータは `src/content/news/*.md` にそのまま残されているので、いつでも戻せます。
+
+記事詳細ページ（`src/pages/news/article/[slug].astro`）も両対応で、Markdownでは `<Content />`、microCMS では `<Fragment set:html={body} />` で本文をレンダリングします。
 
 ---
 
@@ -283,12 +303,12 @@ handler: async (input) => {
 
 ### 最適化したい画像（推奨）
 
-`src/assets/images/` に置く。ビルド時に WebP 変換・サイズ最適化される。
+`src/assets/` 配下のサブディレクトリ（`index/` `about/` `news/` `common/` 等）に置く。ビルド時に WebP 変換・サイズ最適化される。
 
 ```astro
 ---
 import { Image } from 'astro:assets';
-import heroImg from '@/assets/images/hero.jpg';
+import heroImg from '@/assets/index/hero.jpg';
 ---
 
 <Image src={heroImg} alt="ヒーロー画像" format="webp" width={1200} />
@@ -296,7 +316,7 @@ import heroImg from '@/assets/images/hero.jpg';
 
 ### そのまま配信したい画像
 
-`public/assets/images/` に置く（favicon・OGP用画像など）。
+`public/assets/` 配下（`common/` `icon/` 等）に置く（favicon・OGP用画像など）。
 最適化されない代わりに、ファイル名・URL がそのまま保持される。
 
 ### 1枚の画像で PC/SP 出し分けたい場合
@@ -306,8 +326,8 @@ import heroImg from '@/assets/images/hero.jpg';
 ```astro
 ---
 import { Image, getImage } from 'astro:assets';
-import pc from '@/assets/images/index/img_dummy1_pc.jpg';
-import sp from '@/assets/images/index/img_dummy1_sp.jpg';
+import pc from '@/assets/index/img_dummy1_pc.jpg';
+import sp from '@/assets/index/img_dummy1_sp.jpg';
 
 const pcWebp = await getImage({ src: pc, format: 'webp' });
 ---
@@ -317,6 +337,10 @@ const pcWebp = await getImage({ src: pc, format: 'webp' });
   <Image src={sp} alt="" format="webp" width={750} height={750} />
 </picture>
 ```
+
+### microCMS の画像を使う場合
+
+`astro.config.mts` で `images.microcms-assets.io` を許可済み。microCMSのレスポンスに含まれる `thumbnail.url` をそのまま `<Image>` の `src` に渡せます。
 
 ---
 
@@ -343,11 +367,14 @@ const pcWebp = await getImage({ src: pc, format: 'webp' });
 
 Vercel の **Settings → Environment Variables** に下記を追加：
 
-| キー             | 値                        |
-| ---------------- | ------------------------- |
-| `RESEND_API_KEY` | `re_...`                  |
-| `MAIL_FROM`      | `no-reply@yourdomain.com` |
-| `MAIL_TO`        | `info@yourdomain.com`     |
+| キー                      | 値                        | 用途               |
+| ------------------------- | ------------------------- | ------------------ |
+| `RESEND_API_KEY`          | `re_...`                  | フォーム送信       |
+| `MAIL_FROM`               | `no-reply@yourdomain.com` | フォーム送信       |
+| `MAIL_TO`                 | `info@yourdomain.com`     | フォーム送信       |
+| `USE_MICROCMS`            | `true`                    | microCMS運用時のみ |
+| `MICROCMS_SERVICE_DOMAIN` | `your-service`            | microCMS運用時のみ |
+| `MICROCMS_API_KEY`        | `xxxxxxxxxxxxxxxx`        | microCMS運用時のみ |
 
 ### カスタムドメインを設定する
 

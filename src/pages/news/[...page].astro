@@ -8,16 +8,13 @@ import { Image } from 'astro:assets';
 import Layout from '@/layouts/Layout.astro';
 import SubKv from '@/components/SubKv.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
-import newsThumb1 from '@/assets/news/news_dummy1.jpg';
-import newsThumb2 from '@/assets/news/news_dummy2.jpg';
-
-const newsThumbs = [newsThumb1, newsThumb2];
+import noImage from '@/assets/common/img_noimage.jpg';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = (await getCollection('news')).sort(
     (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
   );
-  return paginate(posts, { pageSize: 3 });
+  return paginate(posts, { pageSize: 10 });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
@@ -69,20 +66,31 @@ const isLast = page.currentPage === page.lastPage;
         </hgroup>
         <div class="c-archive1 p-news-article__article">
           {
-            page.data.map((post, i) => (
+            page.data.map((post) => (
               <article class="c-archive1__article">
                 <a
                   href={`/news/article/${post.id}/`}
                   class="c-archive1__link u-alpha"
                 >
                   <div class="c-archive1__thumb">
-                    <Image
-                      src={newsThumbs[(page.start + i) % 2]}
-                      alt=""
-                      loading="lazy"
-                      format="webp"
-                      width={400}
-                    />
+                    {post.data.thumbnail ? (
+                      <Image
+                        src={post.data.thumbnail.url}
+                        alt=""
+                        width={post.data.thumbnail.width}
+                        height={post.data.thumbnail.height}
+                        loading="lazy"
+                        format="webp"
+                      />
+                    ) : (
+                      <Image
+                        src={noImage}
+                        alt=""
+                        loading="lazy"
+                        format="webp"
+                        width={400}
+                      />
+                    )}
                   </div>
                   <div class="c-archive1__body">
                     <time

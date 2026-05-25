@@ -13,6 +13,12 @@ export default defineConfig({
   // 東京リージョン（hnd1）で関数を実行：日本からのアクセスのレイテンシ削減
   adapter: vercel({ regions: ['hnd1'] }),
   integrations: [sitemap()],
+  // microCMSからの画像を <Image> で扱う許可
+  image: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'images.microcms-assets.io' },
+    ],
+  },
   vite: {
     resolve: {
       alias: {

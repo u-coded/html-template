@@ -7,10 +7,9 @@ import { Image } from 'astro:assets';
 import Layout from '@/layouts/Layout.astro';
 import SubKv from '@/components/SubKv.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
-import newsThumb1 from '@/assets/news/news_dummy1.jpg';
-import newsThumb2 from '@/assets/news/news_dummy2.jpg';
+import noImage from '@/assets/common/img_noimage.jpg';
 
-const newsThumbs = [newsThumb1, newsThumb2];
+const useMicroCMS = import.meta.env.USE_MICROCMS === 'true';
 
 export async function getStaticPaths() {
   const posts = (await getCollection('news')).sort(
@@ -23,13 +22,17 @@ export async function getStaticPaths() {
       post,
       prev: posts[i + 1] ?? null,
       next: posts[i - 1] ?? null,
-      thumbIdx: i % 2,
     },
   }));
 }
 
-const { post, prev, next, thumbIdx } = Astro.props;
-const { Content } = await render(post);
+const { post, prev, next } = Astro.props;
+
+// 本文：Markdownは Content コンポーネント / microCMSは HTML 文字列
+const MarkdownContent = useMicroCMS ? null : (await render(post)).Content;
+const microCmsBody = useMicroCMS
+  ? ((post.data as { body?: string }).body ?? '')
+  : null;
 
 const formatDate = (d: Date) =>
   `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
@@ -56,10 +59,28 @@ const formatDate = (d: Date) =>
           <h3 class="p-news-article__title">{post.data.title}</h3>
         </header>
         <div class="p-news-article__cover">
-          <Image src={newsThumbs[thumbIdx]} alt="" format="webp" width={1200} />
+          {
+            post.data.thumbnail ? (
+              <Image
+                src={post.data.thumbnail.url}
+                alt=""
+                width={post.data.thumbnail.width}
+                height={post.data.thumbnail.height}
+                format="webp"
+              />
+            ) : (
+              <Image src={noImage} alt="" format="webp" width={1200} />
+            )
+          }
         </div>
         <div class="p-news-article__content">
-          <Content />
+          {
+            useMicroCMS ? (
+              <Fragment set:html={microCmsBody} />
+            ) : (
+              MarkdownContent && <MarkdownContent />
+            )
+          }
         </div>
         <nav class="c-pager2 u-font-bold" aria-label="Post Navigation">
           <div class="c-pager2__prev">
