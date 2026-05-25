@@ -10,7 +10,8 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://fujishima-mfg.example.com',
   output: 'static',
-  adapter: vercel(),
+  // 東京リージョン（hnd1）で関数を実行：日本からのアクセスのレイテンシ削減
+  adapter: vercel({ regions: ['hnd1'] }),
   integrations: [sitemap()],
   vite: {
     resolve: {
